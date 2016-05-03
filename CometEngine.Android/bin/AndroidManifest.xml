@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cometengine.android"
+<manifest package="com.cometengine.android"
     android:versionCode="1"
-    android:versionName="1.0" >
-
+    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="21" />
+    <uses-feature android:name="@string/action_settings" android:required="true" android:glEsVersion="0x00030000"/>
 
     <application
         android:allowBackup="true"
