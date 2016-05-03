@@ -8,7 +8,7 @@ public abstract class CERenderCommand {
 		CE_COMMEND_GL_CUSTIOM,
 		CE_COMMEND_GL_GROUP
 	}
-
+	
 	private COMMENDTYPE CommendType = COMMENDTYPE.CE_COMMEND_NULL;
 
 	private int Weight = 0;
