@@ -1,8 +1,6 @@
 package com.CometEngine;
 
 import com.CometEngine.Renderer.CERenderer;
-import com.CometEngine.Renderer.Interface.CERendererInterface;
-import com.CometEngine.Renderer.Interface.CERendererInterface.RENDERER_TYPE;
 import com.sun.media.jfxmediaimpl.platform.Platform;
 import com.sun.scenario.effect.impl.Renderer.RendererState;
 
@@ -18,19 +16,16 @@ public class CometEngine {
 			return m_Instence;
 	}
 	
-	
-	public void Run(PLATFORM TargetPlatForm)
+	public void TESTER_RENDERER_SHOUD_BE_DISTORY()
+	{
+		renderer.TESTER();	
+	}
+	public void Run(final PLATFORM TargetPlatForm)
 	{
 		if(IsRun == false)
 		{
 			m_PlatForm = TargetPlatForm;
-			
-			
-			if(TargetPlatForm == PLATFORM.CE_WIN32 || TargetPlatForm == PLATFORM.CE_MAC)
-				renderer = new CERenderer(RENDERER_TYPE.CE_GLRENDERER_GL);
-			else if(TargetPlatForm == PLATFORM.CE_ANDROID || TargetPlatForm == PLATFORM.CE_IOS)
-				renderer = new CERenderer(RENDERER_TYPE.CE_GLRENDERER_GLES);
-			
+			initEngine();
 			initResource();
 			StartEventThread();
 		}
@@ -40,7 +35,13 @@ public class CometEngine {
 			IsRun  = true;
 		}
 	}
-	
+	private void initEngine()
+	{
+		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
+			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL);
+		else if(m_PlatForm == PLATFORM.CE_ANDROID || m_PlatForm == PLATFORM.CE_IOS)
+			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GLES);
+	}
 	private void initResource()
 	{
 		
@@ -48,7 +49,6 @@ public class CometEngine {
 	
 	private void StartEventThread()
 	{
-		System.out.println("Init HELLOWORLD");
 		System.out.println("Renderer" + renderer.getType());
 	}
 	

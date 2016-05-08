@@ -4,5 +4,10 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/CometEngine"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Source"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/LWJGL3">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="CometEngine/native"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,29 +2,15 @@ package com.CometEngine.Renderer;
 
 import java.util.LinkedList;
 
+import org.lwjgl.opengl.GL11;
+
 import com.CometEngine.Renderer.Commend.CERenderCommand;
-import com.CometEngine.Renderer.Interface.CERendererInterface;
-import com.CometEngine.Renderer.Interface.CERendererInterface.RENDERER_TYPE;
-import com.CometEngine.Renderer.Interface.CERendererOpenGL;
-import com.CometEngine.Renderer.Interface.CERendererOpenGLES;
 
 public class CERenderer {
-	private CERendererInterface m_Render = null;
-	private LinkedList<CERenderCommand> m_RenderingQue = new LinkedList<>();
-	public CERenderer(CERendererInterface.RENDERER_TYPE target)
+	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
+	public CERenderer(RENDERER_TYPE target)
 	{
-		if( RENDERER_TYPE.CE_GLRENDERER_NULL == target)
-		{
-			m_Render = null;
-		}
-		else if(RENDERER_TYPE.CE_GLRENDERER_GL == target)
-		{
-			m_Render = new CERendererOpenGL();
-		}
-		else if(RENDERER_TYPE.CE_GLRENDERER_GLES == target)
-		{
-			m_Render = new CERendererOpenGLES();
-		}
+		m_RendererType = target;
 	}
 	
 	public void AddRenderCommend(CERenderCommand render)
@@ -33,14 +19,26 @@ public class CERenderer {
 	}
 	public RENDERER_TYPE getType()
 	{
-		return m_Render.getRendererType();
+		return m_RendererType;
 	}
 	public void Sorting()
 	{
 
 	}
-	public void Render()
+	
+	public void CallRender()
 	{
 		
 	}
+
+	public void TESTER()
+	{	
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		GL11.glClearColor(1, 0, 0, 1);
+	}
+	
+	private int Renderer_Height = 100;
+	private int Renderer_Weidth = 100;
+	private RENDERER_TYPE m_RendererType = RENDERER_TYPE.CE_RENDERER_NULL;
+	private LinkedList<CERenderCommand> m_RenderingQue = new LinkedList<CERenderCommand>();
 }
