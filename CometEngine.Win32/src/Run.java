@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import com.CometEngine.CometEngine;
+import com.CometEngine.WindowGL.CEWindowGL;
 
 public class Run {
 
@@ -35,7 +36,7 @@ public class Run {
 		else
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 		
-		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "SHADER TEST", MemoryUtil.NULL, MemoryUtil.NULL);
+		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "CometEngine Tester", MemoryUtil.NULL, MemoryUtil.NULL);
 		if(WINDOW == MemoryUtil.NULL)
 			throw new RuntimeException("Failed Create GLFW WINDWO");
 	
@@ -57,16 +58,14 @@ public class Run {
 		
 		
 		LoadLWJGL();
-		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32);
+		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, new CEWindowGL());
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glClearColor(1, 0, 0, 1);
-			
-			CometEngine.getInstece().TESTER_RENDERER_SHOUD_BE_DISTORY();
-			
+			CometEngine.getInstece().getRenderer().RenderingCommands();
+			GLFW.glfwSwapInterval(1);
 			GLFW.glfwSwapBuffers(WINDOW);
 			GLFW.glfwPollEvents();
+			
 		}
 		
 	}

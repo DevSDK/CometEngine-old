@@ -3,6 +3,7 @@
 	<name>CometEngine.Win32</name>
 	<comment></comment>
 	<projects>
+		<project>CometEngine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -16,9 +17,20 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>CometEngineSrc</name>
+			<type>2</type>
+			<locationURI>COMETENGINE_ROOT/CometEngine/CometEngineSrc</locationURI>
+		</link>
+		<link>
 			<name>Source</name>
 			<type>2</type>
 			<location>C:/Users/송석호/git/cometengine/Source</location>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>COMETENGINE_ROOT</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>

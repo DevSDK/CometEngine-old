@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/CometEngine"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="CometEngineSrc"/>
 	<classpathentry kind="src" path="Source"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/LWJGL3">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="CometEngine/native"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/CometEngine/Lib/lwjgl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

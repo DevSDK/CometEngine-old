@@ -3,6 +3,7 @@
 	<name>CometEngine.Android</name>
 	<comment></comment>
 	<projects>
+		<project>CometEngine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -32,9 +33,15 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Source</name>
+			<name>CometEngineSrc</name>
 			<type>2</type>
-			<location>C:/Users/송석호/git/cometengine/Source</location>
+			<locationURI>COMETENGINE_ROOT/CometEngine/CometEngineSrc</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>COMETENGINE_ROOT</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>
