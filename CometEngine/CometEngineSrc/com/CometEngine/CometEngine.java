@@ -1,6 +1,8 @@
 package com.CometEngine;
 
+import com.CometEngine.Event.Manager.CEEventThread;
 import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.CEGLInterface;
 import com.CometEngine.Renderer.CERenderer;
 
 public class CometEngine {
@@ -35,7 +37,7 @@ public class CometEngine {
 		return renderer;
 	}
 
-	public void Run(final PLATFORM TargetPlatForm, CEGL gl)
+	public void Run(final PLATFORM TargetPlatForm, CEGLInterface gl)
 	{
 		if(IsRun == false)
 		{
@@ -50,16 +52,26 @@ public class CometEngine {
 			System.err.println(" Still runing. ");			
 		}
 	}
+	public void ExitCometEngine()
+	{
+		
+		
+		IsRun = false;
+		
+		
+	}
 	public boolean isRun()
 	{
 		return IsRun;
 	}
-	private void initEngine(CEGL gl)
+	private void initEngine(CEGLInterface gl)
 	{
+		CEGL.initCEGL(gl);
 		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL, gl);
 		else if(m_PlatForm == PLATFORM.CE_ANDROID || m_PlatForm == PLATFORM.CE_IOS)
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GLES, gl);
+		eventthread = new CEEventThread();
 	}
 
 	private void initResource()
@@ -70,6 +82,7 @@ public class CometEngine {
 	private void StartEventThread()
 	{
 		System.out.println("Renderer" + renderer.getType());
+		eventthread.start();
 	}
 	
 	public PLATFORM getTargetPlatForm()
@@ -77,21 +90,13 @@ public class CometEngine {
 		return m_PlatForm;
 	}
 	
-	protected void finalize() throws Throwable {
-        try{
-         IsRun = false;
-        }catch(Throwable t){
-            throw t;
-        }finally{
-            System.out.println("Calling finalize of Super Class");
-            super.finalize();
-        }
-	}
+	
 	
 
 	
 	
 	private CERenderer renderer = null;	
+	private CEEventThread eventthread = null;
 	private static CometEngine m_Instence = null;
 	private  boolean IsRun = false;
 	public enum PLATFORM {	CE_NULL, CE_WIN32, CE_ANDROID, CE_IOS, CE_MAC }

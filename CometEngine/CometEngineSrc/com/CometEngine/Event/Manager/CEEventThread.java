@@ -5,7 +5,8 @@ import com.CometEngine.CometEngine;
 public class CEEventThread extends Thread{
 	public void run()
 	{
-		
+		init();
+		loop();
 	}
 	public void init()
 	{
@@ -17,5 +18,6 @@ public class CEEventThread extends Thread{
 		{
 			CEEventManager.getInstence().PollAllEvent();
 		}
+		System.out.println("CLOSE");
 	}
 }

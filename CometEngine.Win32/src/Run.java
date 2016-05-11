@@ -1,3 +1,5 @@
+
+
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -9,7 +11,7 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
-import com.CometEngine.CometEngine;
+import com.CometEngine.*;
 import com.CometEngine.WindowGL.CEWindowGL;
 
 public class Run {
@@ -67,7 +69,7 @@ public class Run {
 			GLFW.glfwPollEvents();
 			
 		}
-		
+		CometEngine.getInstece().ExitCometEngine();
 	}
 }
 	

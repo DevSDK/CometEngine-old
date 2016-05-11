@@ -76,4 +76,11 @@ public class MainActivity extends Activity {
        
         setContentView(surfaceView);
 	}
+	
+	@Override
+	protected void onDestroy() {
+		CometEngine.getInstece().ExitCometEngine();
+		super.onDestroy();
+	}
+	
 }

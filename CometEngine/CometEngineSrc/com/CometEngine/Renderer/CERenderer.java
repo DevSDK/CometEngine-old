@@ -12,20 +12,16 @@ import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 
 public class CERenderer {
 	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
-	private  CEGL GL = null;
 	
-	public CEGL getGL()
+	
+
+	
+	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
 	{
-			return GL;
-	
-	}
-	
-	public CERenderer(RENDERER_TYPE target, CEGL gl)
-	{
+		CEGL.initCEGL(gl);
 		m_RendererType = target;
-		this.GL = gl;
+
 	}
-	
 
 	public void AddRenderCommend(CERenderCommand render)
 	{
@@ -42,12 +38,13 @@ public class CERenderer {
 	
 	public void VisitRenderTarget()
 	{
+		
+		// TESTER
 		CERenderCommandCustom command = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
-			
 			@Override
 			public void invoke() {	
-				GL.Clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-				GL.ClearColor(1, 0, 0, 1);
+				CEGL.Clear(CEGL.GL_COLOR_BUFFER_BIT | CEGL.GL_DEPTH_BUFFER_BIT);
+				CEGL.ClearColor(0, 1, 1, 1);
 			}
 		});
 		
