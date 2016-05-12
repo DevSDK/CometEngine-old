@@ -1,47 +1,375 @@
 package com.CometEngine.Renderer;
 
-import org.lwjgl.opengl.GL11;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 
-import com.CometEngine.CometEngine;
+
 
 public class CEGL {
-	
-	public static void initCEGL(CEGLInterface gl)
-	{
-		GL = gl;
-	}
-	
-	private static void CHECKERROR()
-	{
-		if(GL==null)
+		
+		public static boolean init(CEGLInterface glinterface)
 		{
-			CometEngine.getInstece().ExitCometEngine();
-			System.err.println("DIDN't ININT CEGL");
+			if(GL == null)
+			{
+				GL = glinterface;
+				return true;
+			}
+				return false;
 		}
-	}
-	public static void Clear(int mask)
-	{
-		CHECKERROR();
-		GL.Clear(mask);
-	}
-	
-	public static void ClearColor(float red, float green, float blue, float alpha)
-	{
-		CHECKERROR();
-		GL.ClearColor(red, green, blue, alpha);
-	}
-	public static void Enable(int target)
-	{
-		CHECKERROR();
-		GL.Enable(target);
-	}
-	public static void Disable(int target)
-	{
-		CHECKERROR();
-		GL.Disable(target);
-	}
-	
-
+		
+		public CEGLInterface getInstence()
+		{
+			return GL;
+		}
+	 	public static void ActiveTexture(int texture)
+	 	{
+	 		GL.ActiveTexture(texture);
+	 	}
+	    public static void AttachShader(int program, int shader) {
+	    	GL.AttachShader(program, shader);
+	    }
+	    public static void BindBuffer(int target, int buffer) {
+	    	GL.BindBuffer(target, buffer);
+		}
+	    public static void BindTexture(int target, int texture){
+	    	GL.BindTexture(target, texture);
+	    }
+	    public static void BlendFunc(int sfactor, int dfactor) {
+	    	GL.BlendFunc(sfactor, dfactor);
+	    }
+	    public static void BufferData(int target, FloatBuffer data, int usage) {
+	    	GL.BufferData(target, data, usage);
+	    }
+	    public static void BufferData(int target, ShortBuffer data, int usage) {
+	    	GL.BufferData(target, data, usage);
+	    }
+	    public static void BufferData(int target, ByteBuffer data, int usage) {
+	    	GL.BufferData(target, data, usage);
+	    }
+	    public static void BufferData(int target, int data_size, int usage) {
+	    	GL.BufferData(target, data_size, usage);
+	    }
+	    public static void BufferSubData(int target, int offset, FloatBuffer data) {
+	    	GL.BufferData(target, data, offset);
+	    }
+	    public static void BufferSubData(int target, int offset, ShortBuffer data) {
+	    	GL.BufferSubData(target, offset, data);
+	    }
+	    public static void BufferSubData(int target, int offset, ByteBuffer data) {
+	    	GL.BufferSubData(target, offset, data);
+	    }
+	    public static void GetBufferSubData(int target, int offset, ByteBuffer data) {
+	    	GL.GetBufferSubData(target, offset, data);
+	    }
+	    public static void Clear(int mask) {
+	    	GL.Clear(mask);
+	    }
+	    public static void ClearColor(float red, float green, float blue, float alpha) {
+	    	GL.ClearColor(red, green, blue, alpha);
+	    }
+	    public static void ColorMask(boolean red, boolean green, boolean blue, boolean alpha) {
+	    	GL.ColorMask(red, green, blue, alpha);
+	    }
+	    public static void CompileShader(int shader) {
+	    	GL.CompileShader(shader);	
+	    }
+	    public static void CompressedTexImage2D(int target, int level, int internalformat, int width, int height, int border, ByteBuffer data) {
+	    	GL.CompressedTexImage2D(target, level, internalformat, width, height, border, data);
+	    }
+	    public static void CompressedTexSubImage2D(int target, int level, int xoffset, int yoffset, int width, int height, int format, ByteBuffer data) {
+	    	GL.CompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, data);
+	    }
+	    public  static int CreateProgram() {
+			return GL.CreateProgram();
+		}
+	    public  static int CreateShader(int shaderType) {
+	    	return GL.CreateShader(shaderType);
+	    }
+	    public static void CullFace(int mode) {
+	    	GL.CullFace(mode);
+		}
+	    public static void DeleteBuffers(IntBuffer buffers) {
+	    	GL.DeleteBuffers(buffers);
+	    }
+	    public static void DeleteProgram(int program) {
+	    	GL.DeleteProgram(program);
+	    }
+	    public static void DeleteShader(int shader) {
+	    	GL.DeleteShader(shader);
+	    }
+	    public static void DeleteTextures(IntBuffer textures) {
+	    	GL.DeleteTextures(textures);
+	    }
+	    public static void DepthFunc(int func) {
+	    	GL.DepthFunc(func);
+		}
+	    public static void DepthMask(boolean flag) {
+	    	GL.DepthMask(flag);
+	    }
+	    public static void DepthRange(double nearVal, double farVal) {
+	    	GL.DepthRange(nearVal, farVal);
+	    }
+	    public static void DetachShader(int program, int shader) {
+	    	GL.DetachShader(program, shader);
+	    }
+	    public static void Disable(int cap) {
+	    	GL.Disable(cap);
+	    }
+	    public static void DisableVertexAttribArray(int index) {
+	    	GL.DisableVertexAttribArray(index);
+	    }
+	    public static void DrawArrays(int mode, int first, int count) {
+	    	GL.DrawArrays(mode, first, count);
+	    }
+	    public static void DrawRangeElements(int mode, int start, int end, int count, int type, long indices) {
+	    	GL.DrawRangeElements(mode, start, end, count, type, indices);
+	    }
+	    public static void Enable(int cap) {
+	    	GL.Enable(cap);
+	    }
+	    public static void EnableVertexAttribArray(int index) {
+	    	GL.EnableVertexAttribArray(index);
+	    }
+	    public static void GenBuffers(IntBuffer buffers) {
+	    	GL.GenBuffers(buffers);
+	    }
+	    public static void GenTextures(IntBuffer textures) {
+	    	GL.GenTextures(textures);
+	    }
+	    public  static int GetAttribLocation(int program, String name) {
+			return GL.GetAttribLocation(program, name);
+		}
+	    public static void GetBoolean(int pname, ByteBuffer params) {
+	    	GL.GetBoolean(pname, params);
+	    }
+	    public  static int GetError() {
+	    	return GL.GetError();
+		}
+	    public static void GetInteger(int pname, IntBuffer params) {
+	    	GL.GetInteger(pname, params);
+	    }
+	    public static void GetProgram(int program, int pname, IntBuffer params) {
+	    	GL.GetProgram(program, pname, params);
+	    }
+	    public static String GetProgramInfoLog(int program, int maxLength) {
+			return GL.GetProgramInfoLog(program, maxLength);
+		}
+	    public static void GetShader(int shader, int pname, IntBuffer params) {
+	    	GL.GetShader(shader, pname, params);
+		}
+	    public static String GetShaderInfoLog(int shader, int maxLength) {
+			return GL.GetShaderInfoLog(shader, maxLength);
+		}
+	    public static String GetString(int name) {
+			return GL.GetString(name);
+		}
+	    public static int GetUniformLocation(int program, String name) {
+			return GL.GetUniformLocation(program, name);
+		}
+		public static void Hint(int traget, int hint) {
+			GL.Hint(traget, hint);
+		}
+	    public static boolean IsEnabled(int cap) {
+			return GL.IsEnabled(cap);
+		}
+	    public static void LineWidth(float width) {
+	    	GL.LineWidth(width);
+		}
+	    public static void LinkProgram(int program) {
+	    	GL.LinkProgram(program);
+	    }
+	    public static void PixelStorei(int pname, int param) {
+	    	GL.PixelStorei(pname, param);
+	    }
+	    public static void PolygonOffset(float factor, float units) {
+	    	GL.PolygonOffset(factor, units);
+	    }
+	    public static void ReadPixels(int x, int y, int width, int height, int format, int type, ByteBuffer data) {
+	    	GL.ReadPixels(x, y, width, height, format, type, data);
+	    }
+	    public static void Scissor(int x, int y, int width, int height) {
+	    	GL.Scissor(x, y, width, height);
+	    }
+	    public static void ShaderSource(int shader, String string)
+	    {
+	    	GL.ShaderSource(shader, string);
+	    }
+	    public static void ShaderSource(int shader, String[] strings, IntBuffer length) {
+	    	GL.ShaderSource(shader, strings, length);
+	   	}
+	    public static void StencilFuncSeparate(int face, int func, int ref, int mask) {
+	    	GL.StencilFuncSeparate(face, func, ref, mask);
+	    }
+	    public static void StencilOpSeparate(int face, int sfail, int dpfail, int dppass) {
+	    	GL.StencilOpSeparate(face, sfail, dpfail, dppass);
+	    }
+	    public static void TexImage2D(int target, int level, int internalFormat, int width, int height, int border, int format, int type, ByteBuffer data) {
+	    	GL.TexImage2D(target, level, internalFormat, width, height, border, format, type, data);
+	    }
+	    public static void TexParameterf(int target, int pname, float param) {
+	    	GL.TexParameterf(target, pname, param);
+	    }
+	    public static void TexParameteri(int target, int pname, int param) {
+	    	GL.TexParameteri(target, pname, param);
+	    }
+	    public static void TexSubImage2D(int target, int level, int xoffset, int yoffset, int width, int height, int format, int type, ByteBuffer data) {
+	    	GL.TexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, data);
+	    }
+	    public static void Uniform1fv(int location, FloatBuffer value) {
+	    	GL.Uniform1fv(location, value);
+	    }
+	    public static void Uniform1iv(int location, IntBuffer value) {
+	    	GL.Uniform1iv(location, value);
+	    }
+	    public static void Uniform1f(int location, float x) {
+	    	GL.Uniform1f(location, x);
+	    }
+	    public static void Uniform1i(int location, int x) {
+	    	GL.Uniform1i(location, x);
+	    }
+	    public static void Uniform2iv(int location, IntBuffer value) {
+	    	GL.Uniform2iv(location, value);
+	    }
+	    public static void Uniform2fv(int location, FloatBuffer value) {
+	    	GL.Uniform2fv(location, value);
+	    }
+	    public static void Uniform2f(int location, float x, float y) {
+	    	GL.Uniform2f(location, x, y);
+	    }
+	    public static void Uniform3iv(int location, IntBuffer value) {
+	    	GL.Uniform2iv(location, value);
+	    }
+	    public static void Uniform3fv(int location, FloatBuffer value) {
+	    	GL.Uniform3fv(location, value);
+	    }
+	    public static void Uniform3f(int location, float x, float y, float z) {
+	    	GL.Uniform3f(location, x, y, z);
+	    }
+	    public static void Uniform4fv(int location, FloatBuffer value) {
+	    	GL.Uniform4fv(location, value);
+	    }
+	    public static void Uniform4iv(int location, IntBuffer value) {
+	    	GL.Uniform4iv(location, value);
+	    }
+	    public static void Uniform4f(int location, float x, float y, float z, float w) {
+	    	GL.Uniform4f(location, x, y, z, w);
+	    }
+	    public static void UniformMatrix3fv(int location, boolean transpose, FloatBuffer value) {
+	    	GL.UniformMatrix3fv(location, transpose, value);
+	    }
+	    public static void UniformMatrix4fv(int location, boolean transpose, FloatBuffer value) {
+	    	GL.UniformMatrix4fv(location, transpose, value);
+	    }
+	    public static void UseProgram(int program) {
+	    	GL.UseProgram(program);
+	    }
+	    public static void VertexAttribPointer(int index, int size, int type, boolean normalized, int stride, long pointer) {
+	    	GL.VertexAttribPointer(index, size, type, normalized, stride, pointer);
+	    }
+	    public static void  glDrawElements (int mode, int count, int type, int offset)
+	    {
+	    	GL.glDrawElements(mode, count, type, offset);
+	    }
+	    public static void Viewport(int x, int y, int width, int height) {
+	    	GL.Viewport(x, y, width, height);
+	    }
+	    public static void BlitFramebufferEXT(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, int mask, int filter) {
+	    	GL.BlitFramebufferEXT(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
+	    }
+	    public static void BufferData(int target, IntBuffer data, int usage) {
+	    	GL.BufferData(target, data, usage);
+	    }
+	    public static void BufferSubData(int target, long offset, IntBuffer data) {
+	    	GL.BufferSubData(target, offset, data);
+	    }
+	    public static void DrawArraysInstancedARB(int mode, int first, int count, int primcount) {
+	    	GL.DrawArrays(mode, first, primcount);
+	    }
+	    public static void DrawBuffers(IntBuffer bufs) {
+	    	GL.DrawBuffers(bufs);
+	    }
+	    public static void DrawElementsInstancedARB(int mode, int indices_count, int type, long indices_buffer_offset, int primcount) {
+	    	GL.DrawElementsInstancedARB(mode, indices_count, type, indices_buffer_offset, primcount);
+	    }
+	    public static void GetMultisample(int pname, int index, FloatBuffer val) {
+	    	GL.GetMultisample(pname, index, val);
+	    }
+	    public static void RenderbufferStorageMultisampleEXT(int target, int samples, int internalformat, int width, int height) {
+	    	GL.RenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
+	    }
+	    public static void TexImage2DMultisample(int target, int samples, int internalformat, int width, int height, boolean fixedsamplelocations) {
+	    	GL.TexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
+	    }
+	    public static void VertexAttribDivisorARB(int index, int divisor) {
+	    	GL.VertexAttribDivisorARB(index, divisor);
+	    }
+	    public static void BindFramebufferEXT(int target, int buffer) {
+	    	GL.BindFramebufferEXT(target, buffer);
+	    }
+	    public static void BindRenderbufferEXT(int target, int buffer) {
+	    	GL.BindRenderbufferEXT(target, buffer);
+	    }
+	    public static int CheckFramebufferStatusEXT(int target) {
+			return GL.CheckFramebufferStatusEXT(target);
+		}
+	    public static void DeleteFramebuffersEXT(IntBuffer framebuffers) {
+	    	GL.DeleteFramebuffersEXT(framebuffers);
+	    }
+	    public static void DeleteRenderbuffersEXT(IntBuffer framebuffers) {
+	    	GL.DeleteRenderbuffersEXT(framebuffers);
+	    }
+	    public static void FramebufferRenderbufferEXT(int target, int attachment, int renderbuffertarget, int renderbuffer) {
+	    	GL.FramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
+	    }
+	    public static void FramebufferTexture2DEXT(int target, int attachment, int textarget, int texture, int level) {
+	    	GL.FramebufferTexture2DEXT(target, attachment, textarget, texture, level);
+	    }
+	    public static void GenFramebuffersEXT(IntBuffer framebuffers) {
+	    	GL.GenFramebuffersEXT(framebuffers);
+	    }
+	    public static void GenRenderbuffersEXT(IntBuffer framebuffers) {
+	    	GL.GenRenderbuffersEXT(framebuffers);
+	    }
+	    public static void GenerateMipmapEXT(int target) {
+	    	GL.GenerateMipmapEXT(target);
+	    }
+	    public static void RenderbufferStorageEXT(int target, int internalformat, int width, int height) {
+	    	GL.RenderbufferStorageEXT(target, internalformat, width, height);
+	    }
+	    public static void ReadPixels(int x, int y, int width, int height, int format, int type, long offset) {
+	    	GL.ReadPixels(x, y, width, height, format, type, offset);
+	    }
+	    public static int ClientWaitSync(Object sync, int flags, long timeout) {
+			return GL.ClientWaitSync(sync, flags, timeout);
+		}
+	    public static void DeleteSync(Object sync) {
+	    	GL.DeleteSync(sync);
+	    }
+	    public static Object FenceSync(int condition, int flags) {
+			return GL.FenceSync(condition, flags);
+		}
+	    public static void BlendEquationSeparate(int colorMode, int alphaMode) {
+	    	GL.BlendEquationSeparate(colorMode, alphaMode);
+	    }
+	    public static void VertexPointer(int size, int type, int stride, FloatBuffer pointer) {
+	    	GL.VertexPointer(size, type, stride, pointer);
+	    }
+	    public static void VertexPointer(int size, int type, int stride, IntBuffer pointer) {
+	    	GL.VertexPointer(size, type, stride, pointer);
+	    }
+	    public static void VertexPointer(int size, int type, int stride, ShortBuffer pointer) {
+	    	GL.VertexPointer(size, type, stride, pointer);
+	    }
+	    public static void VertexPointer(int size, int type, int stride, ByteBuffer pointer) {
+	    	GL.VertexPointer(size, type, stride, pointer);
+	    }
+	    public static void DrawElements (int mode, int count, int type, ByteBuffer indices) 
+	    {
+	    	GL.DrawElements(mode, count, type, indices);
+	    }
 	  private static CEGLInterface GL = null;
 	
 	  public static final int GL_ACTIVE_TEXTURE = 34016;

@@ -4,6 +4,7 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 
 import org.lwjgl.opengl.GL11;
@@ -640,5 +641,50 @@ public class CEWindowGL implements CEGLInterface{
         	System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
         }	
     }
+
+
+
+	@Override
+	public void ShaderSource(int shader, String string) {
+		GL20.glShaderSource(shader, string);
+		
+	}
+
+	
+
+	@Override
+	public void VertexPointer(int size, int type, int stride, FloatBuffer pointer) {
+		GL11.glVertexPointer(size, type, stride, pointer);
+	}
+
+	@Override
+	public void VertexPointer(int size, int type, int stride, IntBuffer pointer) {
+		GL11.glVertexPointer(size, type, stride, pointer);
+	}
+
+	@Override
+	public void VertexPointer(int size, int type, int stride, ShortBuffer pointer) {
+		GL11.glVertexPointer(size, type, stride, pointer);
+	}
+
+	@Override
+	public void VertexPointer(int size, int type, int stride, ByteBuffer pointer) {
+		GL11.glVertexPointer(size, type, stride, pointer);
+		
+	}
+
+
+	@Override
+	public void DrawElements(int mode, int count, int type, ByteBuffer indices) {
+		GL11.glDrawElements(mode, count, type, indices);
+	}
+
+	@Override
+	public void glDrawElements(int mode, int count, int type, int offset) {
+		GL11.glDrawElements(mode, count, type, offset);
+	}
+
+
+
     
 }

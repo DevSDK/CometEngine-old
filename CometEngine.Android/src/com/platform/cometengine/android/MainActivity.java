@@ -10,7 +10,7 @@ import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;
 import android.app.NativeActivity;
-
+import android.opengl.GLES10;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.os.Bundle;
@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
             @Override
             public void onDrawFrame(GL10 gl) {
             	CometEngine.getInstece().getRenderer().RenderingCommands();
+            	
             }
  
 			@Override

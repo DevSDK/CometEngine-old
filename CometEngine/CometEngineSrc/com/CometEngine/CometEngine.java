@@ -66,7 +66,7 @@ public class CometEngine {
 	}
 	private void initEngine(CEGLInterface gl)
 	{
-		CEGL.initCEGL(gl);
+		CEGL.init(gl);
 		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL, gl);
 		else if(m_PlatForm == PLATFORM.CE_ANDROID || m_PlatForm == PLATFORM.CE_IOS)
