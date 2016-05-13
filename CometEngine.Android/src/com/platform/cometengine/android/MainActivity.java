@@ -39,8 +39,6 @@ import org.lwjgl.*;
 public class MainActivity extends Activity {
 
 	@Override
-	
-
 	protected void onCreate(Bundle savedInstanceState) {
 		
 	
@@ -50,11 +48,10 @@ public class MainActivity extends Activity {
 		
         super.onCreate(savedInstanceState);
         
-        CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, new CEAndroidGL());
-		
+     
 		GLSurfaceView surfaceView = new GLSurfaceView(this);
-		
-        surfaceView.setRenderer(new GLSurfaceView.Renderer() {
+		surfaceView.setEGLContextClientVersion(2);
+        surfaceView.setRenderer(new CEGLSurfaceView.Renderer() {
         
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -70,7 +67,8 @@ public class MainActivity extends Activity {
  
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
-
+				   CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, new CEAndroidGL());
+				   
 			}
         });
         

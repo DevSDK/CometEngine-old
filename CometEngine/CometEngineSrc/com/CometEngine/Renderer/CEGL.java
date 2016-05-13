@@ -350,25 +350,22 @@ public class CEGL {
 	    }
 	    public static Object FenceSync(int condition, int flags) {
 			return GL.FenceSync(condition, flags);
-		}
-	    public static void BlendEquationSeparate(int colorMode, int alphaMode) {
-	    	GL.BlendEquationSeparate(colorMode, alphaMode);
-	    }
-	    public static void VertexPointer(int size, int type, int stride, FloatBuffer pointer) {
-	    	GL.VertexPointer(size, type, stride, pointer);
-	    }
-	    public static void VertexPointer(int size, int type, int stride, IntBuffer pointer) {
-	    	GL.VertexPointer(size, type, stride, pointer);
-	    }
-	    public static void VertexPointer(int size, int type, int stride, ShortBuffer pointer) {
-	    	GL.VertexPointer(size, type, stride, pointer);
-	    }
-	    public static void VertexPointer(int size, int type, int stride, ByteBuffer pointer) {
-	    	GL.VertexPointer(size, type, stride, pointer);
 	    }
 	    public static void DrawElements (int mode, int count, int type, ByteBuffer indices) 
 	    {
 	    	GL.DrawElements(mode, count, type, indices);
+	    }
+	    public static void ValidateProgram (int program)
+	    {
+	    	GL.ValidateProgram(program);
+	    }
+	    public static void BindAttribLocation(int program, int index, String name)
+	    {
+	    	GL.BindAttribLocation(program, index, name);
+	    }
+	    public static int  GetShaderi(int shader, int pname)
+	    {
+	    	return GL.GetShaderi(shader, pname);
 	    }
 	  private static CEGLInterface GL = null;
 	

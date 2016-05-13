@@ -647,31 +647,10 @@ public class CEWindowGL implements CEGLInterface{
 	@Override
 	public void ShaderSource(int shader, String string) {
 		GL20.glShaderSource(shader, string);
-		
 	}
 
 	
 
-	@Override
-	public void VertexPointer(int size, int type, int stride, FloatBuffer pointer) {
-		GL11.glVertexPointer(size, type, stride, pointer);
-	}
-
-	@Override
-	public void VertexPointer(int size, int type, int stride, IntBuffer pointer) {
-		GL11.glVertexPointer(size, type, stride, pointer);
-	}
-
-	@Override
-	public void VertexPointer(int size, int type, int stride, ShortBuffer pointer) {
-		GL11.glVertexPointer(size, type, stride, pointer);
-	}
-
-	@Override
-	public void VertexPointer(int size, int type, int stride, ByteBuffer pointer) {
-		GL11.glVertexPointer(size, type, stride, pointer);
-		
-	}
 
 
 	@Override
@@ -682,6 +661,21 @@ public class CEWindowGL implements CEGLInterface{
 	@Override
 	public void glDrawElements(int mode, int count, int type, int offset) {
 		GL11.glDrawElements(mode, count, type, offset);
+	}
+
+	@Override
+	public void ValidateProgram(int program) {
+		GL20.glValidateProgram(program);
+	}
+
+	@Override
+	public void BindAttribLocation(int program, int index, String name) {
+		GL20.glBindAttribLocation(program, index, name);
+	}
+
+	@Override
+	public int GetShaderi(int shader, int pname) {
+		return GL20.glGetShaderi(shader, pname);
 	}
 
 

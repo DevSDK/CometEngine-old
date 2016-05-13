@@ -560,6 +560,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public void BindFramebufferEXT(int param1, int param2) {
 		GLES20.glBindBuffer(param1, param2);
+
 	}
 
 	@Override
@@ -650,28 +651,6 @@ public class CEAndroidGL implements CEGLInterface{
 
 
 	@Override
-	public void VertexPointer(int size, int type, int stride, FloatBuffer pointer) {
-		GLES10.glVertexPointer(size, type, stride, pointer);
-	}
-
-	@Override
-	public void VertexPointer(int size, int type, int stride, IntBuffer pointer) {
-		GLES10.glVertexPointer(size, type, stride, pointer);
-	}
-
-	@Override
-	public void VertexPointer(int size, int type, int stride, ShortBuffer pointer) {
-		GLES10.glVertexPointer(size, type, stride, pointer);
-	}
-
-	@Override
-	public void VertexPointer(int size, int type, int stride, ByteBuffer pointer) {
-		GLES10.glVertexPointer(size, type, stride, pointer);
-
-	}
-
-
-	@Override
 	public void DrawElements(int mode, int count, int type, ByteBuffer indices) {
 		GLES20.glDrawElements(mode, count, type, indices);
 	}
@@ -681,6 +660,24 @@ public class CEAndroidGL implements CEGLInterface{
 		GLES20.glDrawElements(mode, count, type, offset);
 	}
 
+	@Override
+	public void ValidateProgram(int program) {
+		GLES20.glValidateProgram(program);
+	}
+
+	@Override
+	public void BindAttribLocation(int program, int index, String name) {
+		GLES20.glBindAttribLocation(program, index, name);
+	}
+
+	@Override
+	public int GetShaderi(int shader, int pname) {
+		IntBuffer buf = IntBuffer.allocate(Integer.SIZE/8);
+		GLES20.glGetShaderiv(shader, pname, buf);
+		return buf.get();
+	}
+	
+	
 	
 	
 	

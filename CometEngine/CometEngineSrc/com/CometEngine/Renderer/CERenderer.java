@@ -17,16 +17,26 @@ public class CERenderer {
 	private Tester t = null;
 	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
 	{
-		if(CEGL.init(gl) == false) 
+		if(CEGL.init(gl) == true) 
 		{
-			//System.err.println("CEGL INIT ERROR");
-		}
-
+			init ();
+			
+			m_RendererType = target;
+		
 	
-		m_RendererType = target;
+		}
+		else
+		{
+			System.err.println("CEGL INIT ERROR");
+			
+		}
+			
+			
+	}
+	public void init()
+	{
 		t = new Tester();
 	}
-
 	public void AddRenderCommend(CERenderCommand render)
 	{
 		m_RenderingQue.add(render);

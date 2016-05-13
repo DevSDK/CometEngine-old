@@ -14,6 +14,7 @@ public interface CEGLInterface {
     public void AttachShader(int program, int shader);
     public void BindBuffer(int target, int buffer);
     public void BindTexture(int target, int texture) ;
+    public void BindAttribLocation (int program, int index, String name);
     public void BlendFunc(int sfactor, int dfactor) ;
     public void BufferData(int target, FloatBuffer data, int usage);
     public void BufferData(int target, ShortBuffer data, int usage);
@@ -51,6 +52,7 @@ public interface CEGLInterface {
     public  int GetAttribLocation(int program, String name);
     public void GetBoolean(int pname, ByteBuffer params);
     public  int GetError() ;
+    public int  GetShaderi(int shader, int pname);
     public void GetInteger(int pname, IntBuffer params) ;
     public void GetProgram(int program, int pname, IntBuffer params);
     public String GetProgramInfoLog(int program, int maxLength);
@@ -92,10 +94,7 @@ public interface CEGLInterface {
     public void UseProgram(int program);
     public void VertexAttribPointer(int index, int size, int type, boolean normalized, int stride, long pointer) ;
     public void Viewport(int x, int y, int width, int height);
-    public void VertexPointer(int size, int type, int stride, FloatBuffer pointer);
-    public void VertexPointer(int size, int type, int stride, IntBuffer pointer);
-    public void VertexPointer(int size, int type, int stride, ShortBuffer pointer);
-    public void VertexPointer(int size, int type, int stride, ByteBuffer pointer);
+    public void ValidateProgram (int program); 
     public void BlitFramebufferEXT(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, int mask, int filter);
     public void BufferData(int target, IntBuffer data, int usage);
     public void BufferSubData(int target, long offset, IntBuffer data);
