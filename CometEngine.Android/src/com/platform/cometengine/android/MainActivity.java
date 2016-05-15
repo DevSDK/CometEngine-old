@@ -42,11 +42,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 	
+		super.onCreate(savedInstanceState);
 		
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-        super.onCreate(savedInstanceState);
         
      
 		GLSurfaceView surfaceView = new GLSurfaceView(this);
@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	System.out.println(" Width : " + width + " Height " + height);
-            
+            	
             }
  
             @Override

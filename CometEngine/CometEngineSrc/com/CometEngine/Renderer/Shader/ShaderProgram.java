@@ -1,6 +1,7 @@
 package com.CometEngine.Renderer.Shader;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public abstract class ShaderProgram {
 	{
 		
 
+		System.out.println(VertexFileName + "  "   + FragmentFileName);
 		vertexShaderID = loadeShasder(VertexFileName, CEGL.GL_VERTEX_SHADER);
 		FragmentShaderID = loadeShasder(FragmentFileName, CEGL.GL_FRAGMENT_SHADER);
 		programID = CEGL.CreateProgram();
@@ -79,15 +81,27 @@ public abstract class ShaderProgram {
 	
 	private static int loadeShasder(String FileName,int type)
 	{
-		//TODO Must Remove
-	
+
+		String source = "";
+		  try {
+		      BufferedReader in = new BufferedReader(new FileReader(FileName));
+		      String s;
+
+		      while ((s = in.readLine()) != null) {
+		    	  source += s;
+		      }
+		      in.close();
+		       } catch (IOException e) {
+		        System.err.println(e); 
+		       
+		    }
 
 	
 		
 		int shaderID = CEGL.CreateShader(type);
 		
 		
-		CEGL.ShaderSource(shaderID, FileName);
+		CEGL.ShaderSource(shaderID, source);
 		CEGL.CompileShader(shaderID);
 		System.out.println(CEGL.GetShaderInfoLog(CEGL.GetShaderi(shaderID , CEGL.GL_COMPILE_STATUS ),500));
 		

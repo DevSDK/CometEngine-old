@@ -1,5 +1,4 @@
-
-attribute  vec3 pos;
+attribute  vec3 Pos;
 attribute  vec3 Normal;
 attribute  vec2 Tex;
 
@@ -8,11 +7,14 @@ varying vec3 normalse;
 uniform mat4 CameraMatrix;
 uniform mat4 ModelViewMatrix;
 
+varying vec4 colorPos;
+
 void main(void)
 {
-    normalse = Normal;
-    cood = Tex;
-    gl_Position =   gl_ProjectionMatrix * CameraMatrix * ModelViewMatrix * gl_Vertex;
+   normalse = Normal;
+   cood = Tex;
+  vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
+   colorPos = Vertex;
+    gl_Position = Vertex  ;
+};
     
-
-}

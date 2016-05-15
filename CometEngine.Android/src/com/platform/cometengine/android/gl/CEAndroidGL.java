@@ -55,7 +55,7 @@ public class CEAndroidGL implements CEGLInterface{
         if (buffer == null) {
             return;
         }
-        if (buffer.limit() == 0) {
+         if (buffer.limit() == 0) {
         	System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
         }
         if (buffer.remaining() == 0) {
@@ -266,7 +266,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public int GenBuffers() {
 		
-		IntBuffer buf = CEBufferUtils.CreateIntBuffer(1);
+		IntBuffer buf = IntBuffer.allocate(1);
 		GLES20.glGenBuffers(getBufferLimit(buf),buf);
 		
 		return buf.get();
