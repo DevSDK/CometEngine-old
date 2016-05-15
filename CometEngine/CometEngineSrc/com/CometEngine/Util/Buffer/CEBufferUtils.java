@@ -1,55 +1,63 @@
-package com.CometEngine.Buffer.Utils;
+package com.CometEngine.Util.Buffer;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
-
+/*
+  	native buffer 에 대하여 정의
+  	Utils 로 게임 프로그래머도 사용할 수 있도록 정의
+  	Byteorder 중요
+ */
 public class CEBufferUtils {
+
+	
 	public static FloatBuffer ArrayToBuffer(float [] array)
 	{
-		FloatBuffer buffer = FloatBuffer.allocate(array.length);
+		FloatBuffer buffer= CreateFloatBuffer(array.length);
 		buffer.put(array);
 		buffer.flip();
 		return buffer;
 	}
 	public static IntBuffer ArrayToBuffer(int [] array)
 	{
-		IntBuffer buffer = IntBuffer.allocate(array.length);
+		IntBuffer buffer =  CreateIntBuffer(array.length);
 		buffer.put(array);
 		buffer.flip();
 		return buffer;
 	}
 	public static ByteBuffer ArrayToBuffer(byte [] array)
 	{
-		ByteBuffer buffer = ByteBuffer.allocate(array.length);
+		ByteBuffer buffer =  CreateByteBuffer(array.length);
 		buffer.put(array);
 		buffer.flip();
 		return buffer;
 	}
 	public static ShortBuffer ArrayToBuffer(short [] array)
 	{
-		ShortBuffer buffer = ShortBuffer.allocate(array.length);
+		ShortBuffer buffer = CreateShortBuffer(array.length);
 		buffer.put(array);
 		buffer.flip();
 		return buffer;
 	}
+	// << 2 =  * 4
 	public static FloatBuffer CreateFloatBuffer(int Size)
 	{
-		return FloatBuffer.allocate(Float.SIZE/Byte.SIZE * Size );
+		return  CreateByteBuffer(Size << 2).asFloatBuffer();
 	}
 	public static IntBuffer CreateIntBuffer(int Size)
 	{
-		return IntBuffer.allocate(Integer.SIZE/Byte.SIZE * Size );
+	 	return CreateByteBuffer(Size << 2).asIntBuffer();
 	}
 	public static ShortBuffer CreateShortBuffer(int Size)
 	{
-		return ShortBuffer.allocate(Short.SIZE/Byte.SIZE * Size );
+		return CreateByteBuffer(Size << 1).asShortBuffer();
 	}
 	public static ByteBuffer CreateByteBuffer(int Size)
 	{
-		return ByteBuffer.allocate(Byte.SIZE/Byte.SIZE * Size );
+		return ByteBuffer.allocateDirect(Size).order(ByteOrder.nativeOrder());
 	}
 }

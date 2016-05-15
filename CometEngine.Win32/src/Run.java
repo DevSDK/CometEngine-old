@@ -60,7 +60,9 @@ public class Run {
 		
 		
 		LoadLWJGL();
+		
 		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, new CEWindowGL());
+		
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
 			CometEngine.getInstece().getRenderer().RenderingCommands();

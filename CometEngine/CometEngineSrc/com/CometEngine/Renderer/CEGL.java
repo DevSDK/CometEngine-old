@@ -133,8 +133,8 @@ public class CEGL {
 	    public static void EnableVertexAttribArray(int index) {
 	    	GL.EnableVertexAttribArray(index);
 	    }
-	    public static void GenBuffers(IntBuffer buffers) {
-	    	GL.GenBuffers(buffers);
+	    public static int GenBuffers() {
+	    	return GL.GenBuffers();
 	    }
 	    public static void GenTextures(IntBuffer textures) {
 	    	GL.GenTextures(textures);
@@ -269,9 +269,9 @@ public class CEGL {
 	    public static void VertexAttribPointer(int index, int size, int type, boolean normalized, int stride, long pointer) {
 	    	GL.VertexAttribPointer(index, size, type, normalized, stride, pointer);
 	    }
-	    public static void  glDrawElements (int mode, int count, int type, int offset)
+	    public static void DrawElements (int mode, int count, int type, int offset)
 	    {
-	    	GL.glDrawElements(mode, count, type, offset);
+	    	GL.DrawElements(mode, count, type, offset);
 	    }
 	    public static void Viewport(int x, int y, int width, int height) {
 	    	GL.Viewport(x, y, width, height);

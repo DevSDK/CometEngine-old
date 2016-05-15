@@ -1,11 +1,11 @@
 package com.CometEngine.Tester;
 
-import com.CometEngine.Renderer.Shader.Shader;
+import com.CometEngine.Renderer.Shader.ShaderProgram;
 
-public class TesterShader extends Shader{
+public class TesterShader extends ShaderProgram{
 
 	static String vertex = 
-"attribute  vec3 pos;"+
+"attribute  vec3 Pos;"+
 "attribute  vec3 Normal;"+
 "attribute  vec2 Tex;"+
 
@@ -17,17 +17,19 @@ public class TesterShader extends Shader{
 "void main(void)"+
 "{"+
  "  normalse = Normal;"+
- "  cood = Tex;"+
- "   gl_Position =   gl_ProjectionMatrix * CameraMatrix * ModelViewMatrix * gl_Vertex;"+
+ "  cood = Tex;"
+ + "vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);"+
+ "   gl_Position = Vertex  ;"+
 "}";
 	
 	
 	static String frag = 
+			"precision mediump float;"+
 			"uniform sampler2D textureSampler;"+
 			"varying vec2 cood;"+
 			"void main(void)"+
 			"{"    +
-			   " gl_FragColor = texture2D(textureSampler, cood);"+
+			   " gl_FragColor = vec4(1,0,0,1);"+
 			"}";
 			
 	private static final String VertexFileName  =  "A";

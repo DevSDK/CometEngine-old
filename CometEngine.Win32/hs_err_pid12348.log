@@ -1,0 +1,272 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x000000005cfbe429, pid=12348, tid=11428
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_60-b27) (build 1.8.0_60-b27)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.60-b23 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# C  [nvoglv64.DLL+0xe4e429]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002d40800):  JavaThread "main" [_thread_in_native, id=11428, stack(0x00000000011b0000,0x00000000012b0000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x0000000000000000
+
+Registers:
+RAX=0x0000000000000048, RBX=0x000000001fedea80, RCX=0x0000000000000048, RDX=0xffffffffdf9a81b0
+RSP=0x00000000012aedd8, RBP=0x0000000000000001, RSI=0x0000000000000000, RDI=0x0000000020657e50
+R8 =0x0000000000000048, R9 =0x0000000000000006, R10=0x0000000000000000, R11=0x0000000020657e50
+R12=0x0000000000000000, R13=0x000000005c170000, R14=0x0000000000000001, R15=0x000000001fede800
+RIP=0x000000005cfbe429, EFLAGS=0x0000000000010213
+
+Top of Stack: (sp=0x00000000012aedd8)
+0x00000000012aedd8:   0000000000000006 0000000020657e50
+0x00000000012aede8:   000000005cbac23c 000000001c3a2dc0
+0x00000000012aedf8:   00000000012aef60 0000000002f19570
+0x00000000012aee08:   000000005ca555db 0000000000000000
+0x00000000012aee18:   0000000000000000 0000000000000000
+0x00000000012aee28:   000000000002c10b 000000001fede800
+0x00000000012aee38:   000000005cbace18 000000001fede080
+0x00000000012aee48:   0000000000000006 0000000000000000
+0x00000000012aee58:   0000000002f35cc6 0000000002d40800
+0x00000000012aee68:   00000000012aef60 000000001c3a2dc0
+0x00000000012aee78:   0000000000000000 0000000000000b33
+0x00000000012aee88:   0000000002f35e34 000000001c3a2dc0
+0x00000000012aee98:   00000000012aef20 0000000000000188
+0x00000000012aeea8:   0000000002f35b9d 0000000000000000
+0x00000000012aeeb8:   0000000000000006 0000000000000188
+0x00000000012aeec8:   0000000002d40800 00000000012aefd8 
+
+Instructions: (pc=0x000000005cfbe429)
+0x000000005cfbe409:   03 c0 48 3b c8 0f 8c 96 03 00 00 0f ba 25 5c c9
+0x000000005cfbe419:   62 00 01 73 13 57 56 48 8b f9 49 8b f2 49 8b c8
+0x000000005cfbe429:   f3 a4 5e 5f 49 8b c3 c3 0f ba 25 3f c9 62 00 02
+0x000000005cfbe439:   0f 82 56 02 00 00 f6 c1 07 74 36 f6 c1 01 74 0b 
+
+
+Register to memory mapping:
+
+RAX=0x0000000000000048 is an unknown value
+RBX=0x000000001fedea80 is an unknown value
+RCX=0x0000000000000048 is an unknown value
+RDX=0xffffffffdf9a81b0 is an unknown value
+RSP=0x00000000012aedd8 is pointing into the stack for thread: 0x0000000002d40800
+RBP=0x0000000000000001 is an unknown value
+RSI=0x0000000000000000 is an unknown value
+RDI=0x0000000020657e50 is an unknown value
+R8 =0x0000000000000048 is an unknown value
+R9 =0x0000000000000006 is an unknown value
+R10=0x0000000000000000 is an unknown value
+R11=0x0000000020657e50 is an unknown value
+R12=0x0000000000000000 is an unknown value
+R13=0x000000005c170000 is an unknown value
+R14=0x0000000000000001 is an unknown value
+R15=0x000000001fede800 is an unknown value
+
+
+Stack: [0x00000000011b0000,0x00000000012b0000],  sp=0x00000000012aedd8,  free space=1019k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [nvoglv64.DLL+0xe4e429]
+C  0x0000000000000006
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  org.lwjgl.system.JNI.callIIIV(JIII)V+0
+j  org.lwjgl.opengl.GL11.glDrawArrays(III)V+11
+j  com.CometEngine.Tester.Tester.draw()V+28
+j  com.CometEngine.Renderer.CERenderer$1.invoke()V+13
+j  com.CometEngine.Renderer.Commend.CERenderCommandCustom.execute()V+4
+j  com.CometEngine.Commend.Manager.CERenderCommandManager.InvokeAllCommands()V+28
+j  com.CometEngine.Renderer.CERenderer.RenderingCommands()V+7
+j  Run.main([Ljava/lang/String;)V+28
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000000022119000 JavaThread "Thread-0" [_thread_in_Java, id=13356, stack(0x0000000022770000,0x0000000022870000)]
+  0x000000001ea38800 JavaThread "Service Thread" daemon [_thread_blocked, id=4744, stack(0x000000001f310000,0x000000001f410000)]
+  0x000000001e9c0000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=12944, stack(0x000000001f210000,0x000000001f310000)]
+  0x000000001e9a4000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=4464, stack(0x000000001f110000,0x000000001f210000)]
+  0x000000001e99c000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=12952, stack(0x000000001f010000,0x000000001f110000)]
+  0x000000001e995800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=868, stack(0x000000001ef10000,0x000000001f010000)]
+  0x000000001e994000 JavaThread "Attach Listener" daemon [_thread_blocked, id=212, stack(0x000000001ee10000,0x000000001ef10000)]
+  0x000000001e993800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=13020, stack(0x000000001ed10000,0x000000001ee10000)]
+  0x0000000002e39000 JavaThread "Finalizer" daemon [_thread_blocked, id=13148, stack(0x000000001e810000,0x000000001e910000)]
+  0x000000001c93d000 JavaThread "Reference Handler" daemon [_thread_blocked, id=124, stack(0x000000001e710000,0x000000001e810000)]
+=>0x0000000002d40800 JavaThread "main" [_thread_in_native, id=11428, stack(0x00000000011b0000,0x00000000012b0000)]
+
+Other Threads:
+  0x000000001c938800 VMThread [stack: 0x000000001e610000,0x000000001e710000] [id=4028]
+  0x000000001ea9a000 WatcherThread [stack: 0x000000001f410000,0x000000001f510000] [id=10884]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 76288K, used 16014K [0x000000076b400000, 0x0000000770900000, 0x00000007c0000000)
+  eden space 65536K, 24% used [0x000000076b400000,0x000000076c3a3a68,0x000000076f400000)
+  from space 10752K, 0% used [0x000000076fe80000,0x000000076fe80000,0x0000000770900000)
+  to   space 10752K, 0% used [0x000000076f400000,0x000000076f400000,0x000000076fe80000)
+ ParOldGen       total 175104K, used 0K [0x00000006c1c00000, 0x00000006cc700000, 0x000000076b400000)
+  object space 175104K, 0% used [0x00000006c1c00000,0x00000006c1c00000,0x00000006cc700000)
+ Metaspace       used 7557K, capacity 8524K, committed 8576K, reserved 1056768K
+  class space    used 595K, capacity 628K, committed 640K, reserved 1048576K
+
+Card table byte_map: [0x00000000122e0000,0x0000000012ae0000] byte_map_base: 0x000000000ecd2000
+
+Marking Bits: (ParMarkBitMap*) 0x000000005df9a5b0
+ Begin Bits: [0x0000000013830000, 0x00000000177c0000)
+ End Bits:   [0x00000000177c0000, 0x000000001b750000)
+
+Polling page: 0x00000000010a0000
+
+CodeCache: size=245760Kb used=2073Kb max_used=2085Kb free=243686Kb
+ bounds [0x0000000002f20000, 0x0000000003190000, 0x0000000011f20000]
+ total_blobs=1028 nmethods=362 adapters=579
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 0.549 Thread 0x000000001e9c0000 nmethod 342 0x0000000003120310 code [0x0000000003120460, 0x0000000003120570]
+Event: 0.549 Thread 0x000000001e9c0000  343       3       com.CometEngine.CometEngine::getInstece (22 bytes)
+Event: 0.549 Thread 0x000000001e9c0000 nmethod 343 0x000000000311fdd0 code [0x000000000311ff40, 0x0000000003120230]
+Event: 0.549 Thread 0x000000001e9c0000  349       3       java.util.LinkedList::listIterator (15 bytes)
+Event: 0.550 Thread 0x000000001e9c0000 nmethod 349 0x000000000311f590 code [0x000000000311f740, 0x000000000311fbc8]
+Event: 0.550 Thread 0x000000001e9c0000  353       3       java.util.LinkedList$ListItr::hasNext (20 bytes)
+Event: 0.550 Thread 0x000000001e9c0000 nmethod 353 0x000000000311f1d0 code [0x000000000311f320, 0x000000000311f4f0]
+Event: 0.550 Thread 0x000000001e9c0000  354       3       java.util.LinkedList::clear (60 bytes)
+Event: 0.550 Thread 0x000000001e9c0000 nmethod 354 0x000000000311ecd0 code [0x000000000311ee40, 0x000000000311f0d0]
+Event: 0.550 Thread 0x000000001e9c0000  350       3       java.util.LinkedList::checkPositionIndex (22 bytes)
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (6 events):
+Event: 0.032 Thread 0x0000000002d40800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x000000076b413018) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u60\4407\hotspot\sr)ˇÜï¶W†?
+Event: 0.032 Thread 0x0000000002d40800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x000000076b413300) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u60\4407\hotspot\src\share\vm\prims\j‚øVêèM÷?
+Event: 0.348 Thread 0x0000000002d40800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076b935b40) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u60\4407\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.349 Thread 0x0000000002d40800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076b935f38) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u60\4407\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.349 Thread 0x0000000002d40800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076b939cc8) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u60\4407\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.349 Thread 0x0000000002d40800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076b93a0c0) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u60\4407\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+
+Events (10 events):
+Event: 0.549 loading class com/CometEngine/Renderer/Commend/CERenderCommand$COMMENDTYPE
+Event: 0.549 loading class com/CometEngine/Renderer/Commend/CERenderCommand$COMMENDTYPE done
+Event: 0.549 loading class java/util/LinkedList$ListItr
+Event: 0.549 loading class java/util/ListIterator
+Event: 0.549 loading class java/util/ListIterator done
+Event: 0.549 loading class java/util/LinkedList$ListItr done
+Event: 0.549 loading class com/CometEngine/Commend/Manager/CERenderCommandManager
+Event: 0.549 loading class com/CometEngine/Commend/Manager/CERenderCommandManager done
+Event: 0.550 loading class org/lwjgl/opengl/GLChecks
+Event: 0.550 loading class org/lwjgl/opengl/GLChecks done
+
+
+Dynamic libraries:
+0x00007ff6ad5f0000 - 0x00007ff6ad627000 	C:\Program Files\Java\jre1.8.0_60\bin\javaw.exe
+0x00007ffe60dd0000 - 0x00007ffe60f7d000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ffe5f470000 - 0x00007ffe5f5ae000 	C:\Windows\system32\KERNEL32.DLL
+0x00007ffe5dfd0000 - 0x00007ffe5e0e5000 	C:\Windows\system32\KERNELBASE.dll
+0x00007ffe5ca90000 - 0x00007ffe5cb1e000 	C:\Windows\system32\apphelp.dll
+0x00007ffe55eb0000 - 0x00007ffe55f03000 	C:\Windows\AppPatch\AppPatch64\AcGenral.DLL
+0x00007ffe5f1f0000 - 0x00007ffe5f29a000 	C:\Windows\system32\msvcrt.dll
+0x00007ffe5e380000 - 0x00007ffe5e3ae000 	C:\Windows\system32\SspiCli.dll
+0x00007ffe5f410000 - 0x00007ffe5f464000 	C:\Windows\system32\SHLWAPI.dll
+0x00007ffe5e980000 - 0x00007ffe5eaf7000 	C:\Windows\system32\USER32.dll
+0x00007ffe5f700000 - 0x00007ffe5f894000 	C:\Windows\system32\ole32.dll
+0x00007ffe5f8a0000 - 0x00007ffe60dca000 	C:\Windows\system32\SHELL32.dll
+0x00007ffe5d530000 - 0x00007ffe5d551000 	C:\Windows\SYSTEM32\USERENV.dll
+0x00007ffe5f360000 - 0x00007ffe5f40a000 	C:\Windows\system32\ADVAPI32.dll
+0x00007ffe56000000 - 0x00007ffe5601e000 	C:\Windows\SYSTEM32\MPR.dll
+0x00007ffe5e840000 - 0x00007ffe5e980000 	C:\Windows\system32\RPCRT4.dll
+0x00007ffe5e460000 - 0x00007ffe5e4b9000 	C:\Windows\SYSTEM32\sechost.dll
+0x00007ffe5e550000 - 0x00007ffe5e761000 	C:\Windows\SYSTEM32\combase.dll
+0x00007ffe5f5b0000 - 0x00007ffe5f700000 	C:\Windows\system32\GDI32.dll
+0x00007ffe5df00000 - 0x00007ffe5df15000 	C:\Windows\SYSTEM32\profapi.dll
+0x00007ffe5c9d0000 - 0x00007ffe5ca82000 	C:\Windows\SYSTEM32\SHCORE.dll
+0x00007ffe5eff0000 - 0x00007ffe5f026000 	C:\Windows\system32\IMM32.DLL
+0x00007ffe5ecb0000 - 0x00007ffe5ee02000 	C:\Windows\system32\MSCTF.dll
+0x00007ffe5be30000 - 0x00007ffe5c0ab000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.9600.18006_none_623f33d3ecbe86e8\COMCTL32.dll
+0x000000005e020000 - 0x000000005e0f2000 	C:\Program Files\Java\jre1.8.0_60\bin\msvcr100.dll
+0x000000005d790000 - 0x000000005e019000 	C:\Program Files\Java\jre1.8.0_60\bin\server\jvm.dll
+0x00007ffe49290000 - 0x00007ffe49299000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ffe5b6c0000 - 0x00007ffe5b6e2000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ffe5b6f0000 - 0x00007ffe5b6fa000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ffe5e540000 - 0x00007ffe5e547000 	C:\Windows\system32\PSAPI.DLL
+0x00007ffe5e4c0000 - 0x00007ffe5e51a000 	C:\Windows\system32\WS2_32.dll
+0x00007ffe5b680000 - 0x00007ffe5b6aa000 	C:\Windows\SYSTEM32\WINMMBASE.dll
+0x00007ffe5e830000 - 0x00007ffe5e839000 	C:\Windows\system32\NSI.dll
+0x00007ffe5e3b0000 - 0x00007ffe5e3ff000 	C:\Windows\SYSTEM32\cfgmgr32.dll
+0x00007ffe5cd20000 - 0x00007ffe5cd48000 	C:\Windows\SYSTEM32\DEVOBJ.dll
+0x000000005e860000 - 0x000000005e86f000 	C:\Program Files\Java\jre1.8.0_60\bin\verify.dll
+0x000000005d760000 - 0x000000005d789000 	C:\Program Files\Java\jre1.8.0_60\bin\java.dll
+0x000000005e840000 - 0x000000005e856000 	C:\Program Files\Java\jre1.8.0_60\bin\zip.dll
+0x00007ffe55cb0000 - 0x00007ffe55d38000 	C:\Users\Seokho\git\cometengine\CometEngine\native\lwjgl.dll
+0x00007ffe5de40000 - 0x00007ffe5de4b000 	C:\Windows\SYSTEM32\CRYPTBASE.DLL
+0x00007ffe5ddd0000 - 0x00007ffe5de33000 	C:\Windows\SYSTEM32\bcryptPrimitives.dll
+0x00007ffe55c60000 - 0x00007ffe55ca2000 	C:\Users\Seokho\git\cometengine\CometEngine\native\jemalloc.dll
+0x00007ffe4ca60000 - 0x00007ffe4ca98000 	C:\Users\Seokho\git\cometengine\CometEngine\native\glfw.dll
+0x00007ffe5cb80000 - 0x00007ffe5cca9000 	C:\Windows\system32\uxtheme.dll
+0x00007ffe5c260000 - 0x00007ffe5c281000 	C:\Windows\SYSTEM32\dwmapi.dll
+0x00007ffe459c0000 - 0x00007ffe45aeb000 	C:\Windows\SYSTEM32\opengl32.dll
+0x00007ffe45990000 - 0x00007ffe459be000 	C:\Windows\SYSTEM32\GLU32.dll
+0x00007ffe45890000 - 0x00007ffe45988000 	C:\Windows\SYSTEM32\DDRAW.dll
+0x00007ffe45880000 - 0x00007ffe45889000 	C:\Windows\SYSTEM32\DCIMAN32.dll
+0x0000000180000000 - 0x0000000180031000 	C:\Windows\system32\ImageSAFERFilter.dll
+0x000000005edf0000 - 0x000000005eec3000 	C:\Windows\WinSxS\amd64_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.8387_none_08e793bfa83a89b5\MSVCP90.dll
+0x000000005ed40000 - 0x000000005ede3000 	C:\Windows\WinSxS\amd64_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.8387_none_08e793bfa83a89b5\MSVCR90.dll
+0x00007ffe58d30000 - 0x00007ffe58d62000 	C:\Windows\SYSTEM32\ntmarta.dll
+0x00007ffe5b6b0000 - 0x00007ffe5b6b7000 	C:\Windows\SYSTEM32\MSIMG32.dll
+0x000000005c170000 - 0x000000005d6e5000 	C:\Windows\SYSTEM32\nvoglv64.DLL
+0x00007ffe5ee10000 - 0x00007ffe5efea000 	C:\Windows\system32\SETUPAPI.dll
+0x00007ffe5cb20000 - 0x00007ffe5cb32000 	C:\Windows\SYSTEM32\WTSAPI32.dll
+0x00007ffe5e400000 - 0x00007ffe5e451000 	C:\Windows\system32\WINTRUST.dll
+0x00007ffe5e1a0000 - 0x00007ffe5e37f000 	C:\Windows\system32\CRYPT32.dll
+0x00007ffe5dfb0000 - 0x00007ffe5dfc1000 	C:\Windows\system32\MSASN1.dll
+0x00007ffe5d9f0000 - 0x00007ffe5da36000 	C:\Windows\SYSTEM32\powrprof.dll
+0x00007ffe5d170000 - 0x00007ffe5d1ca000 	C:\Windows\SYSTEM32\WINSTA.dll
+0x00007ffe5cd50000 - 0x00007ffe5cd5b000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007ffe56310000 - 0x00007ffe56499000 	C:\Windows\SYSTEM32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Djava.library.path=C:\Users\Seokho\git\cometengine\CometEngine\native -Dfile.encoding=MS949 
+java_command: Run
+java_class_path (initial): C:\Users\Seokho\git\cometengine\CometEngine.Win32\bin\classes;C:\lwjgl\jar\lwjgl.jar;C:\Users\Seokho\git\cometengine\CometEngine\Lib\lwjgl.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.7.0_67
+CLASSPATH=.;C:\Program Files\Java\jdk1.7.0_67\lib\tools.jar;
+PATH=C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk1.7.0_67\bin;C:\android-ndk-r10b;C:\Python27; C:\Python34;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Visual Leak Detector\bin\Win32;C:\Program Files (x86)\Visual Leak Detector\bin\Win64;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Cocos\frameworks\cocos2d-x-3.6\tools\cocos2d-console\bin;C:\Cocos\tools\Python27;C:\Program Files (x86)\Skype\Phone\;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Cocos\frameworks\cocos2d-x-3.6\tools\cocos2d-console\bin;C:\Cocos\tools\Python27
+USERNAME=Seokho
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 8.1 , 64 bit Build 9600 (6.3.9600.17415)
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 58 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, clmul, erms, ht, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 16660020k(11453580k free), swap 33437236k(26189052k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.60-b23) for windows-amd64 JRE (1.8.0_60-b27), built on Aug  4 2015 11:06:27 by "java_re" with MS VC++ 10.0 (VS2010)
+
+time: Sun May 15 13:18:06 2016
+elapsed time: 0 seconds (0d 0h 0m 0s)
+

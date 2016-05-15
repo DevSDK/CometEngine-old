@@ -9,18 +9,16 @@ import java.nio.IntBuffer;
 
 import com.CometEngine.Renderer.CEGL;
 
-public abstract class Shader {
+public abstract class ShaderProgram {
 	private int programID;
 	private int vertexShaderID;
 	private int FragmentShaderID;
 	
 	
-	public Shader(String VertexFileName ,String FragmentFileName)
+	public ShaderProgram(String VertexFileName ,String FragmentFileName)
 	{
 		
-		System.out.println(VertexFileName);
-		System.out.println(FragmentFileName);
-		
+
 		vertexShaderID = loadeShasder(VertexFileName, CEGL.GL_VERTEX_SHADER);
 		FragmentShaderID = loadeShasder(FragmentFileName, CEGL.GL_FRAGMENT_SHADER);
 		programID = CEGL.CreateProgram();
@@ -91,6 +89,7 @@ public abstract class Shader {
 		
 		CEGL.ShaderSource(shaderID, FileName);
 		CEGL.CompileShader(shaderID);
+		System.out.println(CEGL.GetShaderInfoLog(CEGL.GetShaderi(shaderID , CEGL.GL_COMPILE_STATUS ),500));
 		
 		if(CEGL.GetShaderi(shaderID , CEGL.GL_COMPILE_STATUS )==CEGL.GL_FALSE)
 		{

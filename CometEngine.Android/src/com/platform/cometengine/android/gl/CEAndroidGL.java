@@ -11,6 +11,7 @@ import java.nio.ShortBuffer;
 
 
 import com.CometEngine.Renderer.CEGLInterface;
+import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 public class CEAndroidGL implements CEGLInterface{
 	
@@ -263,9 +264,13 @@ public class CEAndroidGL implements CEGLInterface{
 	}
 
 	@Override
-	public void GenBuffers(IntBuffer buffers) {
-		GLES20.glGenBuffers(getBufferLimit(buffers), buffers);
-	}
+	public int GenBuffers() {
+		
+		IntBuffer buf = CEBufferUtils.CreateIntBuffer(1);
+		GLES20.glGenBuffers(getBufferLimit(buf),buf);
+		
+		return buf.get();
+		}
 
 	@Override
 	public void GenTextures(IntBuffer textures) {
@@ -656,7 +661,7 @@ public class CEAndroidGL implements CEGLInterface{
 	}
 
 	@Override
-	public void glDrawElements(int mode, int count, int type, int offset) {
+	public void DrawElements(int mode, int count, int type, int offset) {
 		GLES20.glDrawElements(mode, count, type, offset);
 	}
 

@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import org.lwjgl.opengl.GL11;
 
 import com.CometEngine.CometEngine;
-import com.CometEngine.Buffer.Utils.CEBufferUtils;
 import com.CometEngine.Commend.Manager.CERenderCommandManager;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Tester.Tester;
+import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 public class CERenderer {
 	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
@@ -59,7 +59,7 @@ public class CERenderer {
 			public void invoke() {	
 				
 				CEGL.Clear(CEGL.GL_COLOR_BUFFER_BIT | CEGL.GL_DEPTH_BUFFER_BIT);
-				CEGL.ClearColor(0, 1, 1, 1);	
+			
 		
 				t.draw();
 			}

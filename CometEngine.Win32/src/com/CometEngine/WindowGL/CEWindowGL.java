@@ -233,9 +233,8 @@ public class CEWindowGL implements CEGLInterface{
 	}
 
 	@Override
-	public void GenBuffers(IntBuffer buffers) {
-		CheackBuffer(buffers);
-		GL15.glGenBuffers(buffers);
+	public int GenBuffers() {
+		return GL15.glGenBuffers();
 	}
 
 	@Override
@@ -659,7 +658,7 @@ public class CEWindowGL implements CEGLInterface{
 	}
 
 	@Override
-	public void glDrawElements(int mode, int count, int type, int offset) {
+	public void DrawElements(int mode, int count, int type, int offset) {
 		GL11.glDrawElements(mode, count, type, offset);
 	}
 

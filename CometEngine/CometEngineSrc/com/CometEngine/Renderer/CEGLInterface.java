@@ -47,7 +47,7 @@ public interface CEGLInterface {
     public void DrawRangeElements(int mode, int start, int end, int count, int type, long indices);
     public void Enable(int cap);
     public void EnableVertexAttribArray(int index);
-    public void GenBuffers(IntBuffer buffers) ;
+    public int GenBuffers() ;
     public void GenTextures(IntBuffer textures) ;
     public  int GetAttribLocation(int program, String name);
     public void GetBoolean(int pname, ByteBuffer params);
@@ -122,7 +122,7 @@ public interface CEGLInterface {
     public Object FenceSync(int condition, int flags);
     public void BlendEquationSeparate(int colorMode, int alphaMode);
     public void DrawElements (int mode, int count, int type, ByteBuffer indices) ;
-    public void  glDrawElements (int mode, int count, int type, int offset) ;
+    public void DrawElements (int mode, int count, int type, int offset) ;
 }
 
 
