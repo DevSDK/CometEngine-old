@@ -1,6 +1,8 @@
 package com.CometEngine;
 
 import com.CometEngine.Event.Manager.CEEventThread;
+import com.CometEngine.FileUtil.CEFileUtil;
+import com.CometEngine.FileUtil.CEPlatformFileInterface;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLInterface;
 import com.CometEngine.Renderer.CERenderer;
@@ -37,15 +39,16 @@ public class CometEngine {
 		return renderer;
 	}
 
-	public void Run(final PLATFORM TargetPlatForm, CEGLInterface gl)
+	public void Run(final PLATFORM TargetPlatForm, CEGLInterface gl, CEPlatformFileInterface fileinterface)
 	{
 		if(IsRun == false)
 		{
-			m_PlatForm = TargetPlatForm;
-			initEngine(gl);
-			initResource();
-			StartEventThread();
+			
 			IsRun  = true;
+			m_PlatForm = TargetPlatForm;
+			initEngine(gl,fileinterface);
+			initResource();
+			EventCall();
 		}
 		else
 		{
@@ -64,13 +67,24 @@ public class CometEngine {
 	{
 		return IsRun;
 	}
-	private void initEngine(CEGLInterface gl)
+	private void initEngine(CEGLInterface gl, CEPlatformFileInterface fileInterface)
 	{
+		if(CEFileUtil.FileSystemInit(m_PlatForm, fileInterface) == false)
+			System.err.println("INIT FILESYSTEM ERROR : FileSystemInit return false");
+			
 		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL, gl);
 		else if(m_PlatForm == PLATFORM.CE_ANDROID || m_PlatForm == PLATFORM.CE_IOS)
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GLES, gl);
+	
+		if(renderer != null)
+			renderer.init ();
+		
+		
 		eventthread = new CEEventThread();
+	
+		eventthread.start();
+	
 	}
 
 	private void initResource()
@@ -78,18 +92,20 @@ public class CometEngine {
 		
 	}
 	
-	private void StartEventThread()
+	private void EventCall()
 	{
-		System.out.println("Renderer" + renderer.getType());
-		eventthread.start();
+		
 	}
 	
 	public PLATFORM getTargetPlatForm()
 	{
 		return m_PlatForm;
 	}
-	
-	
+	public void UpDataEngine(float delta)
+	{
+		renderer.RenderingCommands();
+		
+	}
 	
 
 	

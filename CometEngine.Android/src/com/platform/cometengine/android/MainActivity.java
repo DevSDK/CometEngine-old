@@ -10,6 +10,7 @@ import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;
 import android.app.NativeActivity;
+import android.content.Context;
 import android.opengl.GLES10;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
@@ -29,9 +30,7 @@ import org.lwjgl.opengles.*;
 import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngine.PLATFORM;
 import com.platform.cometengine.android.gl.CEAndroidGL;
-
-import org.lwjgl.egl.*;
-import org.lwjgl.*;
+import com.platform.cometengine.io.CEAndroidFileSystem;
 
 
 
@@ -46,17 +45,18 @@ public class MainActivity extends Activity {
 		
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		CEAndroidFileSystem.InitFileSysten(getResources(),this);
 		
-        
      
 		GLSurfaceView surfaceView = new GLSurfaceView(this);
 		surfaceView.setEGLContextClientVersion(2);
         surfaceView.setRenderer(new CEGLSurfaceView.Renderer() {
-        
+       
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	System.out.println(" Width : " + width + " Height " + height);
             	
+            	 
             }
  
             @Override
@@ -67,7 +67,8 @@ public class MainActivity extends Activity {
  
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
-				   CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, new CEAndroidGL());
+				
+				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, new CEAndroidGL(), new CEAndroidFileSystem());
 				   
 			}
         });

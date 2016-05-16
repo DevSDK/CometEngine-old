@@ -17,6 +17,11 @@ public class CEEventThread extends Thread{
 		while(CometEngine.getInstece().isRun())
 		{
 			CEEventManager.getInstence().PollAllEvent();
+			try {
+				sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		System.out.println("CLOSE");
 	}

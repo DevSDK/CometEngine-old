@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import com.CometEngine.*;
 import com.CometEngine.WindowGL.CEWindowGL;
+import com.CometEngine.WindowPlatform.CEWindowFileSystem;
 
 public class Run {
 
@@ -61,14 +62,16 @@ public class Run {
 		
 		LoadLWJGL();
 		
-		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, new CEWindowGL());
+		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, new CEWindowGL(), new CEWindowFileSystem());
 		
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
+			
 			CometEngine.getInstece().getRenderer().RenderingCommands();
-			GLFW.glfwSwapInterval(1);
 			GLFW.glfwSwapBuffers(WINDOW);
+			GLFW.glfwSwapInterval(1);
 			GLFW.glfwPollEvents();
+			
 			
 		}
 		CometEngine.getInstece().ExitCometEngine();

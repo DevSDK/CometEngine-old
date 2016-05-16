@@ -1,20 +1,23 @@
 package com.CometEngine.Tester;
 
+import java.io.File;
+
+import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Renderer.Shader.ShaderProgram;
 
 
 public class TesterShader extends ShaderProgram{
 
 	
-	private static final String VertexFileName   = "com/CometEngine/Tester/VertexShader.txt";
+	private static final String VertexFileName   = "com/CometEngine/Tester/TestVertex.txt";
 
-	private static final String FragmentFileName = "com/CometEngine/Tester/FragmentShader.txt";
+	private static final String FragmentFileName =  "com/CometEngine/Tester/TesterFragment.txt";
 	public TesterShader() {
 		super(VertexFileName, FragmentFileName);
 		
 	}
-
-
+	
+			
 	@Override
 	protected void LinkUnifroms() {
 		// TODO Auto-generated method stub

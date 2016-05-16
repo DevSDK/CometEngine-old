@@ -17,14 +17,14 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>COMETENGINE_ROOT</name>
+			<type>2</type>
+			<locationURI>COMETENGINE_ROOT/Classes</locationURI>
+		</link>
+		<link>
 			<name>CometEngineSrc</name>
 			<type>2</type>
 			<locationURI>COMETENGINE_ROOT1/CometEngine/CometEngineSrc</locationURI>
-		</link>
-		<link>
-			<name>Source</name>
-			<type>2</type>
-			<location>C:/Users/송석호/git/cometengine/Source</location>
 		</link>
 	</linkedResources>
 	<variableList>

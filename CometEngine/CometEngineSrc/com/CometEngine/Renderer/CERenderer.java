@@ -17,21 +17,14 @@ public class CERenderer {
 	private Tester t = null;
 	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
 	{
-		
 		if(CEGL.init(gl) == true) 
 		{
-			init ();
 			m_RendererType = target;
-		
-	
 		}
 		else
 		{
 			System.err.println("CEGL INIT ERROR");
-			
 		}
-			
-			
 	}
 	public void init()
 	{
@@ -57,19 +50,25 @@ public class CERenderer {
 		CERenderCommandCustom command = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
 			@Override
 			public void invoke() {	
-				
-				CEGL.Clear(CEGL.GL_COLOR_BUFFER_BIT | CEGL.GL_DEPTH_BUFFER_BIT);
 			
-		
 				t.draw();
 			}
 		});
-		
+		CERenderCommandCustom ClearCommand = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
+			
+			@Override
+			public void invoke() {
+				CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
+				CEGL.ClearColor(0, 1, 1, 1);
+			}
+		});
+		CERenderCommandManager.getInstence().AddCommand(ClearCommand);
 		CERenderCommandManager.getInstence().AddCommand(command);
 	}
 	public void RenderingCommands()
 	{
 		VisitRenderTarget();
+
 		CERenderCommandManager.getInstence().InvokeAllCommands();
 	}
 

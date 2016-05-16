@@ -30,7 +30,7 @@ public abstract class CERenderCommand {
 	}
 	public CERenderCommand(COMMENDTYPE commendType)
 	{
-		
+		this.CommendType=commendType ;
 	}
 	
 	

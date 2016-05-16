@@ -28,6 +28,14 @@ public class CERenderCommandManager {
 			CommandQue.add(command);
 	}
 	}
+	public void _debug_LoggingInformation()
+	{
+		System.out.println(" Rendering QUE Lenght : " + CommandQue.size()  );
+		for(CERenderCommand command : CommandQue )
+		{
+			System.out.println(command.getType());
+		}
+	}
 	
 	public void InvokeOneCommands()
 	{
