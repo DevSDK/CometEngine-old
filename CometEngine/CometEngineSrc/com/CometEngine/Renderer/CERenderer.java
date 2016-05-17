@@ -2,7 +2,6 @@ package com.CometEngine.Renderer;
 
 import java.util.LinkedList;
 
-import org.lwjgl.opengl.GL11;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.Commend.Manager.CERenderCommandManager;

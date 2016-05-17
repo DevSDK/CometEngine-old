@@ -24,7 +24,7 @@
 		<link>
 			<name>CometEngineSrc</name>
 			<type>2</type>
-			<locationURI>COMETENGINE_ROOT1/CometEngine/CometEngineSrc</locationURI>
+			<locationURI>COMETENGINE_ROOT/CometEngine/CometEngineSrc</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>
