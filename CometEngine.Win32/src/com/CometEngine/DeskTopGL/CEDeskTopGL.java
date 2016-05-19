@@ -1,4 +1,4 @@
-package com.CometEngine.WindowGL;
+package com.CometEngine.DeskTopGL;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -29,13 +29,14 @@ import com.CometEngine.Renderer.CEGLInterface;
 
 import sun.nio.cs.ext.GB18030;
 
-public class CEWindowGL implements CEGLInterface{
+public class CEDeskTopGL implements CEGLInterface{
 
 
 	
 	@Override
 	public void Clear(int mask) {
 		GL11.glClear(mask);	
+		
 	}
 
 	@Override

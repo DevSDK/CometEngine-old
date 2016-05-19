@@ -28,6 +28,7 @@ import org.lwjgl.glfw.GLFWNativeX11;
 import org.lwjgl.opengles.*;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CometEngineInitObject;
 import com.CometEngine.CometEngine.PLATFORM;
 import com.platform.cometengine.android.gl.CEAndroidGL;
 import com.platform.cometengine.io.CEAndroidFileSystem;
@@ -40,7 +41,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-	
+		
 		super.onCreate(savedInstanceState);
 		
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -67,8 +68,10 @@ public class MainActivity extends Activity {
  
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
-				
-				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, new CEAndroidGL(), new CEAndroidFileSystem());
+				CometEngineInitObject init = new CometEngineInitObject();
+				init.fileInterface =  new CEAndroidFileSystem();
+				init.GL =  new CEAndroidGL();
+				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID,init);
 				   
 			}
         });

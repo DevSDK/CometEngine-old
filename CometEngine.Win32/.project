@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>CometEngine.Pc</name>
+	<name>CometEngine.DeskTop</name>
 	<comment></comment>
 	<projects>
 		<project>CometEngine</project>
@@ -19,12 +19,12 @@
 		<link>
 			<name>COMETENGINE_ROOT</name>
 			<type>2</type>
-			<locationURI>COMETENGINE_ROOT/Classes</locationURI>
+			<locationURI>COMETENGINE_ROOT1/Classes</locationURI>
 		</link>
 		<link>
 			<name>CometEngineSrc</name>
 			<type>2</type>
-			<locationURI>COMETENGINE_ROOT/CometEngine/CometEngineSrc</locationURI>
+			<locationURI>COMETENGINE_ROOT1/CometEngine/CometEngineSrc</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>

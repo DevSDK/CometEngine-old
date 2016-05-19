@@ -1,19 +1,33 @@
 package com.CometEngine.FileUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.ByteBuffer;
+
 import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngine.PLATFORM;
+import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
+import com.CometEngine.FileUtil.Interface.CEAyncFileIOInterface;
+import com.CometEngine.FileUtil.Interface.CEFilePathInterface;
+import com.CometEngine.FileUtil.Interface.CESyncFileIOInterface;
 
 public class CEFileUtil {
 	private static CEFileUtil instence = null; 
 	private static CometEngine.PLATFORM platform = PLATFORM.CE_NULL;
-	private static CEPlatformFileInterface FileInterFace = null;
-	public static boolean FileSystemInit(PLATFORM Platform, CEPlatformFileInterface fileinterface)
+	private static CEFilePathInterface FileInterFace = null;
+	private static CESyncFileIOInterface SyncIoInterface = null;
+	private static CEAyncFileIOInterface AsyncIoInterface= null;
+	
+	public static boolean FileSystemInit(PLATFORM Platform, CEFilePathInterface fileinterface, CESyncFileIOInterface syncfileinterface, CEAyncFileIOInterface asyncfileinterface)
 	{
 		if(instence != null)
 			return false;
 		instence = new CEFileUtil();
 		platform = Platform;
 		FileInterFace = fileinterface;
+		SyncIoInterface = syncfileinterface;
+		AsyncIoInterface = asyncfileinterface;
 		return true;
 	}
 	public static CEFileUtil getInstence()
@@ -25,13 +39,16 @@ public class CEFileUtil {
 		}
 		return instence;
 	}
-	public CEPlatformFileInterface getFileInstence()
+	public ByteBuffer ReadResurceDirectoryToSync(String path)
 	{
-		return FileInterFace;
+		
+			 return SyncIoInterface.read(FileInterFace.getResourcePath()+ path);
+			
+	
 	}
-	public CometEngine.PLATFORM getPlatForm()
+	public static void ReadResoruceToAsync(String path, CEFileReadHandle handle)
 	{
-		return platform;
+		AsyncIoInterface.read(new File(path), handle);
 	}
 
 }

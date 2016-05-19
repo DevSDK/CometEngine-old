@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.CometEngine.FileUtil.CEPlatformFileInterface;
+import com.CometEngine.FileUtil.Interface.CEFilePathInterface;
 import com.platform.cometengine.android.MainActivity;
 
 import android.app.Activity;
@@ -18,11 +18,12 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 
-public class CEAndroidFileSystem implements CEPlatformFileInterface{
+public class CEAndroidFileSystem implements CEFilePathInterface{
  private static Resources resource = null;
  private static Context context = null;
  public static void InitFileSysten(Resources _resource,Context _context )
  {
+	 
 	resource = _resource;
 	context = _context;
  }
@@ -39,20 +40,8 @@ public class CEAndroidFileSystem implements CEPlatformFileInterface{
 	}
 
 	@Override
-	public InputStream getResourceFile(String string) {
-		try {
-	
-			System.out.println(getCashPath());
-			 BufferedWriter out = new BufferedWriter(new FileWriter("out.txt"));
-			out.write("TEST");
-		      out.close();
-		      
-		   
-			return resource.getAssets().open(string);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public String getResourcePath() {
+		return "asset/";
 	}
 
 	

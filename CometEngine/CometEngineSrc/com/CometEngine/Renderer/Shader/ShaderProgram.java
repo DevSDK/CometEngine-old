@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.charset.Charset;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.FileUtil.CEFileUtil;
@@ -29,7 +31,9 @@ public abstract class ShaderProgram {
 		vertexShaderID = loadeShasder(VertexFileName, CEGL.GL_VERTEX_SHADER);
 		FragmentShaderID = loadeShasder(FragmentFileName, CEGL.GL_FRAGMENT_SHADER);
 		programID = CEGL.CreateProgram();
-		System.out.println("ProgramID " + programID );
+		
+		//TODO: Remove The Debug
+		System.out.println(" Log : Debug ShaderProgram ProgramID " + programID );
 		CEGL.AttachShader(programID, vertexShaderID);
 		CEGL.AttachShader(programID, FragmentShaderID);
 		bindAttributes();
@@ -93,29 +97,16 @@ public abstract class ShaderProgram {
 		{
 			source =  "precision mediump float;";
 		} 	
-			InputStream is =CEFileUtil.getInstence().getFileInstence().getResourceFile(FileName);
-		  try {
-		      BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-		      String s;
-
-		      while ((s = in.readLine()) != null) {
-		    	  source += s;
-		      }
-		      in.close();
-		       } catch (IOException e) {
-		        System.err.println(e); 
-		       
-		    }
-		  
-	
-		
-		int shaderID = CEGL.CreateShader(type);
+			ByteBuffer buffer =CEFileUtil.getInstence().ReadResurceDirectoryToSync(FileName);
+			String fof = new String(buffer.array(), Charset.forName("UTF-8"));
+			source += fof;
+			
+			int shaderID = CEGL.CreateShader(type);
 		
 		
 		CEGL.ShaderSource(shaderID, source);
 		CEGL.CompileShader(shaderID);
-		System.out.println(CEGL.GetShaderInfoLog(CEGL.GetShaderi(shaderID , CEGL.GL_COMPILE_STATUS ),500));
-		
+
 		if(CEGL.GetShaderi(shaderID , CEGL.GL_COMPILE_STATUS )==CEGL.GL_FALSE)
 		{
 			System.out.println(CEGL.GetShaderInfoLog(shaderID,500));

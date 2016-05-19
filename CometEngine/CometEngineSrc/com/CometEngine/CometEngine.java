@@ -2,7 +2,7 @@ package com.CometEngine;
 
 import com.CometEngine.Event.Manager.CEEventThread;
 import com.CometEngine.FileUtil.CEFileUtil;
-import com.CometEngine.FileUtil.CEPlatformFileInterface;
+import com.CometEngine.FileUtil.Interface.CEFilePathInterface;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLInterface;
 import com.CometEngine.Renderer.CERenderer;
@@ -39,14 +39,20 @@ public class CometEngine {
 		return renderer;
 	}
 
-	public void Run(final PLATFORM TargetPlatForm, CEGLInterface gl, CEPlatformFileInterface fileinterface)
+	public void Run(final PLATFORM TargetPlatForm, CometEngineInitObject initdata )
 	{
+		if(initdata == null ||initdata.GL == null || initdata.fileInterface == null || initdata.ASyncFileInterface ==null ||initdata.SyncFileInterface==null)
+		{
+			System.out.println("Init Object data have null");
+			return;
+		}
+		
 		if(IsRun == false)
 		{
 			
 			IsRun  = true;
 			m_PlatForm = TargetPlatForm;
-			initEngine(gl,fileinterface);
+			initEngine(initdata);
 			initResource();
 			EventCall();
 		}
@@ -67,15 +73,15 @@ public class CometEngine {
 	{
 		return IsRun;
 	}
-	private void initEngine(CEGLInterface gl, CEPlatformFileInterface fileInterface)
+	private void initEngine(CometEngineInitObject object)
 	{
-		if(CEFileUtil.FileSystemInit(m_PlatForm, fileInterface) == false)
+		if(CEFileUtil.FileSystemInit(m_PlatForm, object.fileInterface, object.SyncFileInterface, object.ASyncFileInterface) == false)
 			System.err.println("INIT FILESYSTEM ERROR : FileSystemInit return false");
 			
 		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
-			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL, gl);
+			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL, object.GL);
 		else if(m_PlatForm == PLATFORM.CE_ANDROID || m_PlatForm == PLATFORM.CE_IOS)
-			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GLES, gl);
+			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GLES, object.GL);
 	
 		if(renderer != null)
 			renderer.init ();

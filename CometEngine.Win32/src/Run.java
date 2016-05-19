@@ -12,8 +12,10 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import com.CometEngine.*;
-import com.CometEngine.WindowGL.CEWindowGL;
-import com.CometEngine.WindowPlatform.CEWindowFileSystem;
+import com.CometEngine.DeskTop.CEDeskTopAsyncFileIO;
+import com.CometEngine.DeskTop.CEDeskTopPlatForm;
+import com.CometEngine.DeskTop.CEDeskTopSyncFileIO;
+import com.CometEngine.DeskTopGL.CEDeskTopGL;
 
 public class Run {
 
@@ -62,7 +64,15 @@ public class Run {
 		
 		LoadLWJGL();
 		
-		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, new CEWindowGL(), new CEWindowFileSystem());
+		
+		CometEngineInitObject init = new CometEngineInitObject();
+		init.GL = new CEDeskTopGL();
+		init.fileInterface = new CEDeskTopPlatForm();
+		init.SyncFileInterface = new CEDeskTopSyncFileIO();
+		init.ASyncFileInterface = new CEDeskTopAsyncFileIO();
+	
+		
+		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, init);
 		
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
