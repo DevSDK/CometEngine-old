@@ -46,7 +46,7 @@ public class CEFileUtil {
 			
 	
 	}
-	public static void ReadResoruceToAsync(String path, CEFileReadHandle handle)
+	public void ReadResoruceToAsync(String path, CEFileReadHandle handle)
 	{
 		AsyncIoInterface.read(new File(path), handle);
 	}

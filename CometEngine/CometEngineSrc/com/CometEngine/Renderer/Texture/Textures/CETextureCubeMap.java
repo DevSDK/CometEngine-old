@@ -1,5 +1,5 @@
 package com.CometEngine.Renderer.Texture.Textures;
 
-public class CETextureCubeMap {
+public class CETextureCubeMap extends CETexture{
 
 }
