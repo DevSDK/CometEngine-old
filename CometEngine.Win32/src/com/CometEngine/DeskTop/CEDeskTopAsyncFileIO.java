@@ -33,7 +33,7 @@ public class CEDeskTopAsyncFileIO extends CEAyncFileIOInterface{
 	
 
 	@Override
-	public void read(File file, CEFileReadHandle handle) {
+	public void read(File file, final CEFileReadHandle handle) {
 
 		
 		try {

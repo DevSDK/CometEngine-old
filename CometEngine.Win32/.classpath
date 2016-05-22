@@ -10,5 +10,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="/CometEngine/Lib/lwjgl.jar"/>
+	<classpathentry kind="lib" path="/CometEngine/Lib/slick.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

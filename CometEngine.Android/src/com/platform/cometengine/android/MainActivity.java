@@ -26,6 +26,8 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWNativeGLX;
 import org.lwjgl.glfw.GLFWNativeX11;
 import org.lwjgl.opengles.*;
+import org.newdawn.slick.opengl.PNGDecoder;
+import org.newdawn.slick.opengl.PNGImageData;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngineInitObject;
@@ -56,8 +58,8 @@ public class MainActivity extends Activity {
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	System.out.println(" Width : " + width + " Height " + height);
-            	
-            	 
+            	PNGImageData r = new PNGImageData();
+            	System.out.println(r);
             }
  
             @Override

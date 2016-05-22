@@ -8,6 +8,7 @@ import com.CometEngine.Commend.Manager.CERenderCommandManager;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
+import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Tester.Tester;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 
@@ -66,8 +67,9 @@ public class CERenderer {
 	}
 	public void RenderingCommands()
 	{
+		
+		CETextureManager.getInstence().LoadUP_GL_UnloadedTexture();
 		VisitRenderTarget();
-
 		CERenderCommandManager.getInstence().InvokeAllCommands();
 	}
 

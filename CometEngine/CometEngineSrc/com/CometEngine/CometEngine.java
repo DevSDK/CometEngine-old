@@ -114,6 +114,11 @@ public class CometEngine {
 	}
 	
 
+	public void EXIT(int status)
+	{
+		IsRun = false;
+		System.exit(status);
+	}
 	
 	
 	private CERenderer renderer = null;	

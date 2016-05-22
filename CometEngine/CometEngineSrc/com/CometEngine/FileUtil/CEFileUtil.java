@@ -39,6 +39,10 @@ public class CEFileUtil {
 		}
 		return instence;
 	}
+	public String getFullResourcePath(String path)
+	{
+		return FileInterFace.getResourcePath() + path;
+	}
 	public ByteBuffer ReadResurceDirectoryToSync(String path)
 	{
 		
@@ -48,7 +52,7 @@ public class CEFileUtil {
 	}
 	public void ReadResoruceToAsync(String path, CEFileReadHandle handle)
 	{
-		AsyncIoInterface.read(new File(path), handle);
+		AsyncIoInterface.read(new File(FileInterFace.getResourcePath() + path), handle);
 	}
 
 }

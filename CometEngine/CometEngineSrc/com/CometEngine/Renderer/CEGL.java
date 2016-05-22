@@ -136,8 +136,11 @@ public class CEGL {
 	    public static int GenBuffers() {
 	    	return GL.GenBuffers();
 	    }
-	    public static void GenTextures(IntBuffer textures) {
-	    	GL.GenTextures(textures);
+	    public static int GenTextures() {
+	    	IntBuffer buffer = IntBuffer.allocate(1);
+	    	GL.GenTextures(buffer);
+	
+	    	return buffer.get();
 	    }
 	    public  static int GetAttribLocation(int program, String name) {
 			return GL.GetAttribLocation(program, name);
