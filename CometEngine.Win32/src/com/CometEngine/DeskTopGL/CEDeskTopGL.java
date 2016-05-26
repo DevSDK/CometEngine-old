@@ -189,8 +189,7 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public void DeleteTextures(IntBuffer textures) {
-		CheackBuffer(textures);
-		GL11.glDeleteTextures(textures);
+			GL11.glDeleteTextures(textures);
 	}
 
 	@Override
@@ -239,9 +238,8 @@ public class CEDeskTopGL implements CEGLInterface{
 	}
 
 	@Override
-	public void GenTextures(IntBuffer textures) {
-		CheackBuffer(textures);
-		GL11.glGenTextures(textures);
+	public int GenTextures() {
+		return GL11.glGenTextures();
 	}
 
 	@Override

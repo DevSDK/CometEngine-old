@@ -273,8 +273,11 @@ public class CEAndroidGL implements CEGLInterface{
 		}
 
 	@Override
-	public void GenTextures(IntBuffer textures) {
-		GLES20.glGenTextures(getBufferLimit(textures), textures);
+	public int GenTextures() {
+		
+		IntBuffer buffer =  IntBuffer.allocate(1);
+		GLES20.glGenTextures(getBufferLimit(buffer), buffer);
+		return buffer.get();
 	}
 
 	@Override

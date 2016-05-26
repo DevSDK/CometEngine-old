@@ -48,7 +48,7 @@ public interface CEGLInterface {
     public void Enable(int cap);
     public void EnableVertexAttribArray(int index);
     public int GenBuffers() ;
-    public void GenTextures(IntBuffer textures) ;
+    public int GenTextures() ;
     public  int GetAttribLocation(int program, String name);
     public void GetBoolean(int pname, ByteBuffer params);
     public  int GetError() ;

@@ -37,7 +37,7 @@ public abstract class CESyncFileIOInterface implements CEFileIOInterface {
 		}
 	}
 	public abstract void cleanUP();
-	public abstract ByteBuffer read(String file);
+	public abstract ByteBuffer read(File file);
 	public abstract void write(File file, byte [] buf );
 	
 }

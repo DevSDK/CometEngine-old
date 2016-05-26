@@ -40,11 +40,11 @@ public class CEDeskTopSyncFileIO extends CESyncFileIOInterface
 
 
 	@Override
-	public ByteBuffer read(String file) {
+	public ByteBuffer read(File file) {
 	
 		
 			try {
-				byte [] buf= Files.readAllBytes((new File(file)).toPath());
+				byte [] buf= Files.readAllBytes((file).toPath());
 				
 				ByteBuffer buffer = ByteBuffer.wrap(buf);
 				return buffer;

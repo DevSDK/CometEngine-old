@@ -46,7 +46,7 @@ public class CEFileUtil {
 	public ByteBuffer ReadResurceDirectoryToSync(String path)
 	{
 		
-			 return SyncIoInterface.read(FileInterFace.getResourcePath()+ path);
+			 return SyncIoInterface.read(new File(FileInterFace.getResourcePath()+ path));
 			
 	
 	}

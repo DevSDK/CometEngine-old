@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
+import com.CometEngine.Util.Buffer.CEBufferUtils;
+
 
 
 public class CEGL {
@@ -100,8 +102,14 @@ public class CEGL {
 	    public static void DeleteShader(int shader) {
 	    	GL.DeleteShader(shader);
 	    }
-	    public static void DeleteTextures(IntBuffer textures) {
-	    	GL.DeleteTextures(textures);
+	    static IntBuffer buffer =null;
+	    public static void DeleteTextures(int texture) {
+	    	
+	    	buffer = ByteBuffer.allocateDirect(4).asIntBuffer();
+	    	buffer.put(texture);
+	    	
+	    	System.out.println("DELETE TO " + buffer.get(0));
+	    	GL.DeleteTextures(buffer);
 	    }
 	    public static void DepthFunc(int func) {
 	    	GL.DepthFunc(func);
@@ -137,11 +145,8 @@ public class CEGL {
 	    	return GL.GenBuffers();
 	    }
 	    public static int GenTextures() {
-	    	IntBuffer buffer = IntBuffer.allocate(1);
-	    	GL.GenTextures(buffer);
-	
-	    	return buffer.get();
-	    }
+	    	return GL.GenTextures();
+		    }
 	    public  static int GetAttribLocation(int program, String name) {
 			return GL.GetAttribLocation(program, name);
 		}

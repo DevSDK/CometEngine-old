@@ -14,5 +14,11 @@ public class CETextureCubeMap extends CETexture{
 		return false;
 	}
 
+	@Override
+	public String getKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

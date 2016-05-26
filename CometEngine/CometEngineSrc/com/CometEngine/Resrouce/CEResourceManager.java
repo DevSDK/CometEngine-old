@@ -10,13 +10,12 @@ public class CEResourceManager {
 	private static final Object sync = new Object();
 	public static CEResourceManager getInstence()
 	{
-		synchronized (sync) {
 			if(instence == null)
 			{
 				return instence = new CEResourceManager();
 			}
 			return instence;			
-		}
+		
 	}
 	public void ShowLog()
 	{
@@ -24,32 +23,41 @@ public class CEResourceManager {
 	}
 	public <T extends CERawResrouce> T getResoruce(String filepath)
 	{
-		return (T) resources.get(filepath);
+		synchronized (sync) {
+			return (T) resources.get(filepath);			
+		}
 	}
-
+	
 	
 	
 	public boolean isData(String filepath)
 	{
-	 	return resources.containsKey(filepath);
+		synchronized (sync) {
+			return resources.containsKey(filepath);			
+		}
 	}
 	public boolean isLoadedData(String filepath)
 	{
-		boolean flag = false;
-		
-		if( isData(filepath))
-		{
-			flag = resources.get(filepath).isSetting();
+		synchronized (sync) {
+			boolean flag = false;
+			
+			if( isData(filepath))
+			{
+				flag = resources.get(filepath).isSetting();
+			}
+			
+			return flag;			
 		}
-		
-		return flag;
 	}
 	public int getSize()
 	{
-		return resources.size();
+		synchronized (sync) {
+			return resources.size();			
+		}
 	}
 	public void putResoruceData(CERawResrouce resoruce)
 	{
+		synchronized (sync) {
 		if(resources.containsKey(resoruce.getFilePath()))
 		{
 			//if(제거 리스트에 있으면 리스트에서 그것만 지우고 함수 종료
@@ -57,7 +65,8 @@ public class CEResourceManager {
 		else
 		{			
 			resources.put(resoruce.getFilePath(), resoruce);
-		}
+		}		
+	}	
 	}
 
 }

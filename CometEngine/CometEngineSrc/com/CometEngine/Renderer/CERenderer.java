@@ -1,8 +1,6 @@
 package com.CometEngine.Renderer;
 
 import java.util.LinkedList;
-
-
 import com.CometEngine.CometEngine;
 import com.CometEngine.Commend.Manager.CERenderCommandManager;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
@@ -17,6 +15,7 @@ public class CERenderer {
 	private Tester t = null;
 	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
 	{
+		
 		if(CEGL.init(gl) == true) 
 		{
 			m_RendererType = target;
@@ -50,7 +49,6 @@ public class CERenderer {
 		CERenderCommandCustom command = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
 			@Override
 			public void invoke() {	
-			
 				t.draw();
 			}
 		});
@@ -60,6 +58,8 @@ public class CERenderer {
 			public void invoke() {
 				CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
 				CEGL.ClearColor(0, 1, 1, 1);
+				CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
+				CEGL.Enable(CEGL.GL_BLEND); 
 			}
 		});
 		CERenderCommandManager.getInstence().AddCommand(ClearCommand);
@@ -68,7 +68,7 @@ public class CERenderer {
 	public void RenderingCommands()
 	{
 		
-		CETextureManager.getInstence().LoadUP_GL_UnloadedTexture();
+		CETextureManager.getInstence().LoadUP_GL_AllLoadUP();
 		VisitRenderTarget();
 		CERenderCommandManager.getInstence().InvokeAllCommands();
 	}

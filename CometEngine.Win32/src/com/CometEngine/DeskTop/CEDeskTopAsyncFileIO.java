@@ -31,15 +31,16 @@ public class CEDeskTopAsyncFileIO extends CEAyncFileIOInterface{
 		
 	}
 	
-
+	
 	@Override
 	public void read(File file, final CEFileReadHandle handle) {
 
 		
 		try {
 			AsynchronousFileChannel filechannel = AsynchronousFileChannel.open(file.toPath(), StandardOpenOption.READ);
-			ByteBuffer buffer = ByteBuffer.allocate((int)filechannel.size());
 			
+			ByteBuffer buffer = ByteBuffer.allocate((int)filechannel.size());
+			System.out.println("FILE CHNNEL SIZE :" + filechannel.size());
 			AttachMent attacment = new AttachMent(file.toPath(), buffer, filechannel);
 			CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent> handler = new CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent>() {
 			
@@ -52,11 +53,13 @@ public class CEDeskTopAsyncFileIO extends CEAyncFileIOInterface{
 		               System.out.println(
 		            		   arg1.path.getFileName() + " : " + arg1.buffer + " : " + Thread.currentThread().getName());
 					handle.complite(arg1.buffer);
+				
 					try {
 						arg1.channel.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					
 				}
 			};
 			

@@ -21,11 +21,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWNativeGLX;
-import org.lwjgl.glfw.GLFWNativeX11;
-import org.lwjgl.opengles.*;
 import org.newdawn.slick.opengl.PNGDecoder;
 import org.newdawn.slick.opengl.PNGImageData;
 
@@ -33,7 +28,9 @@ import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngineInitObject;
 import com.CometEngine.CometEngine.PLATFORM;
 import com.platform.cometengine.android.gl.CEAndroidGL;
-import com.platform.cometengine.io.CEAndroidFileSystem;
+import com.platform.cometengine.io.CEAndroidAsyncFileIO;
+import com.platform.cometengine.io.CEAndroidFilePath;
+import com.platform.cometengine.io.CEAndroidSyncFileIO;
 
 
 
@@ -46,11 +43,10 @@ public class MainActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		CEAndroidFileSystem.InitFileSysten(getResources(),this);
+		CEAndroidFilePath.InitFileSysten(getResources(),this);
 		
-     
 		GLSurfaceView surfaceView = new GLSurfaceView(this);
 		surfaceView.setEGLContextClientVersion(2);
         surfaceView.setRenderer(new CEGLSurfaceView.Renderer() {
@@ -71,10 +67,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
 				CometEngineInitObject init = new CometEngineInitObject();
-				init.fileInterface =  new CEAndroidFileSystem();
+				init.fileInterface =  new CEAndroidFilePath();
 				init.GL =  new CEAndroidGL();
-				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID,init);
-				   
+				init.ASyncFileInterface = new CEAndroidAsyncFileIO();
+				init.SyncFileInterface = new CEAndroidSyncFileIO();
+				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, init);
 			}
         });
         

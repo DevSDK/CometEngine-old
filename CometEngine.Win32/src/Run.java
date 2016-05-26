@@ -76,12 +76,10 @@ public class Run {
 		
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
-			
 			CometEngine.getInstece().getRenderer().RenderingCommands();
 			GLFW.glfwSwapBuffers(WINDOW);
 			GLFW.glfwSwapInterval(1);
 			GLFW.glfwPollEvents();
-			
 			
 		}
 		CometEngine.getInstece().ExitCometEngine();
