@@ -30,7 +30,6 @@ public class CEAndroidFilePath implements CEFilePathInterface{
  
  	@Override
 	public String getCashPath() {
-	
 		return context.getCacheDir().toString();
 	}
 
@@ -41,7 +40,7 @@ public class CEAndroidFilePath implements CEFilePathInterface{
 
 	@Override
 	public String getResourcePath() {
-		return "file:///android_asset/raw";
+		return "assets://";
 	}
 
 	
