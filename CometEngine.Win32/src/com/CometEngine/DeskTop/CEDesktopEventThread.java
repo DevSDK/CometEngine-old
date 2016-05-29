@@ -1,14 +1,15 @@
-package com.CometEngine.Event.Manager;
+package com.CometEngine.DeskTop;
 
 import java.nio.ByteBuffer;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.Event.Manager.CEEventManager;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Resrouce.CEResourceManager;
 import com.CometEngine.Tester.Tester;
 import com.CometEngine.Tester._RenderingTester;
 //TODO: Must Remove Test Code
-public class CEEventThread extends Thread{
+public class CEDesktopEventThread extends Thread{
 	_RenderingTester tester ;
 
 	String []paths = { "1"};
@@ -21,6 +22,7 @@ public class CEEventThread extends Thread{
 	
 	public void init()
 	{
+
 		testers[0] = new _RenderingTester("1" + ".png");			
 	}
 	public void loop()
@@ -38,7 +40,9 @@ public class CEEventThread extends Thread{
 			CEEventManager.getInstence().PollAllEvent();
 		}
 		
+		
 		System.out.println("CLOSE");
+		CometEngine.getInstece().EXIT(0);
 	}
 }
 	

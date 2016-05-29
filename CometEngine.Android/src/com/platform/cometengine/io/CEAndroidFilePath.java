@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.CometEngine.FileUtil.Interface.CEFilePathInterface;
 import com.platform.cometengine.android.MainActivity;
 
 import android.app.Activity;
@@ -18,7 +17,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 
-public class CEAndroidFilePath implements CEFilePathInterface{
+public class CEAndroidFilePath {
  private static Resources resource = null;
  private static Context context = null;
  public static void InitFileSysten(Resources _resource,Context _context )
@@ -28,19 +27,16 @@ public class CEAndroidFilePath implements CEFilePathInterface{
 	context = _context;
  }
  
- 	@Override
 	public String getCashPath() {
 		return context.getCacheDir().toString();
 	}
 
-	@Override
 	public String getIOFilePath() {
 		return context.getFilesDir().toString();
 	}
 
-	@Override
-	public String getResourcePath() {
-		return "assets://";
+	public  static Context getContext(){
+		return context;
 	}
 
 	

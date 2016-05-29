@@ -11,12 +11,12 @@ public class _RenderingTester {
 		return texture;
 	}
 	public _RenderingTester(String filepath) {
-	init(filepath);
-	this.filepath = filepath;
-	}
-	public void init(String filepath)
-	{
+		this.filepath = filepath;
+		init();
 		
+	}
+	public void init()
+	{
 		texture = CETexture2D.CreateTexture2D(filepath);
 	}
 	public void logging()

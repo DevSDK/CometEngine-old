@@ -18,11 +18,15 @@ public class CEEventManager {
 	{
 		VisitiorCall();
 		
+		if(EVENT_COMMAND_QUEUE.isEmpty() == false)
+		{
+			
 		for(CEEVent event : EVENT_COMMAND_QUEUE)
 		{
 			event.invoke();
 		}
 		EVENT_COMMAND_QUEUE.clear();
+		}
 	}
 	public void VisitiorCall()
 	{

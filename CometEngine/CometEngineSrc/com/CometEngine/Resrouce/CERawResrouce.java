@@ -8,7 +8,6 @@ public class CERawResrouce {
 	private boolean isLoaded = false;
 	//Resource POLL »ý°¢Áß...
 	private ByteBuffer Data = null;
-	private static Object sync = new Object();
 	
 	public String getFilePath()
 	{
@@ -28,9 +27,7 @@ public class CERawResrouce {
 	}
 	public void setData(ByteBuffer buffer)
 	{
-		synchronized(sync){
 			Data = buffer;			
-		}
 	}
 	public ByteBuffer getData()
 	{

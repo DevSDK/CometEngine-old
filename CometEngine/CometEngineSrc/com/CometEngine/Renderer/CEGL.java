@@ -102,14 +102,15 @@ public class CEGL {
 	    public static void DeleteShader(int shader) {
 	    	GL.DeleteShader(shader);
 	    }
-	    static IntBuffer buffer =null;
+	    private static  IntBuffer deletebuffer = IntBuffer.allocate(1);
 	    public static void DeleteTextures(int texture) {
 	    	
-	    	buffer = ByteBuffer.allocateDirect(4).asIntBuffer();
-	    	buffer.put(texture);
+	    	deletebuffer.put(texture);
 	    	
-	    	System.out.println("DELETE TO " + buffer.get(0));
-	    	GL.DeleteTextures(buffer);
+	    	deletebuffer.flip();
+	    	GL.DeleteTextures(deletebuffer);
+	    	deletebuffer.clear();
+	    	
 	    }
 	    public static void DepthFunc(int func) {
 	    	GL.DepthFunc(func);

@@ -14,13 +14,10 @@ import java.nio.file.Files;
 
 import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
 import com.CometEngine.FileUtil.Handle.CEFileWriteHandle;
-import com.CometEngine.FileUtil.Interface.CESyncFileIOInterface;
 
-
-public class CEDeskTopSyncFileIO extends CESyncFileIOInterface
+public class CEDeskTopSyncFileIO 
 {
 
-	@Override
 	public void cleanUP() {
 		
 	}
@@ -29,7 +26,6 @@ public class CEDeskTopSyncFileIO extends CESyncFileIOInterface
 
 	
 
-	@Override
 	public void write(File file, byte[] buf) {
 		// TODO Auto-generated method stub
 		
@@ -39,7 +35,6 @@ public class CEDeskTopSyncFileIO extends CESyncFileIOInterface
 
 
 
-	@Override
 	public ByteBuffer read(File file) {
 	
 		

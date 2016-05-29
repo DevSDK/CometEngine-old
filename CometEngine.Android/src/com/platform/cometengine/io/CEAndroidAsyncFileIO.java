@@ -9,17 +9,14 @@ import java.nio.ByteBuffer;
 
 import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
 import com.CometEngine.FileUtil.Handle.CEFileWriteHandle;
-import com.CometEngine.FileUtil.Interface.CEAyncFileIOInterface;
 
-public class CEAndroidAsyncFileIO extends CEAyncFileIOInterface {
+public class CEAndroidAsyncFileIO{
 
-	@Override
 	public void cleanUP() {
 		
 	}
 
-	@Override
-	public void read(File file, CEFileReadHandle handle) {
+	public void read(String file, CEFileReadHandle handle) {
 		
 		
 		//TODO: TESTER _ THIS IS SYNC METOHD MUST REPLACE THIS CODE
@@ -28,11 +25,13 @@ public class CEAndroidAsyncFileIO extends CEAyncFileIOInterface {
 		byte[] bytes = new byte[size];
 	
 		try {
-		
-			BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+			FileInputStream filestream = null;
+			BufferedInputStream buf = new BufferedInputStream(filestream = new FileInputStream(file));
 		    buf.read(bytes, 0, bytes.length);
+
+		    filestream.close();
 		    buf.close();
-	
+		   
 		} catch (FileNotFoundException e) {
 		    e.printStackTrace();
 		} catch (IOException e) {
@@ -41,11 +40,11 @@ public class CEAndroidAsyncFileIO extends CEAyncFileIOInterface {
 		
 		ByteBuffer buffer = ByteBuffer.wrap(bytes);
 		handle.complite(buffer);
+		buffer.flip();
 	}
 	
 
-	@Override
-	public void write(File file, byte[] buf, CEFileWriteHandle handle) {
+	public void write(String file, byte[] buf, CEFileWriteHandle handle) {
 		
 	}
 

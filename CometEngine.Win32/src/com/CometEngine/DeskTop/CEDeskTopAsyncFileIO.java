@@ -14,10 +14,9 @@ import javax.annotation.processing.Completion;
 import com.CometEngine.DeskTop.CEDeskTopAsyncFileIO.AttachMent;
 import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
 import com.CometEngine.FileUtil.Handle.CEFileWriteHandle;
-import com.CometEngine.FileUtil.Interface.CEAyncFileIOInterface;
 import com.sun.xml.internal.ws.api.message.Attachment;
 
-public class CEDeskTopAsyncFileIO extends CEAyncFileIOInterface{
+public class CEDeskTopAsyncFileIO {
 	public class AttachMent
 	{
 		Path path;
@@ -32,7 +31,6 @@ public class CEDeskTopAsyncFileIO extends CEAyncFileIOInterface{
 	}
 	
 	
-	@Override
 	public void read(File file, final CEFileReadHandle handle) {
 
 		
@@ -71,13 +69,11 @@ public class CEDeskTopAsyncFileIO extends CEAyncFileIOInterface{
 		
 	}
 
-	@Override
 	public void write(File file, byte[] buf, CEFileWriteHandle handle) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void cleanUP() {
 		// TODO Auto-generated method stub
 		

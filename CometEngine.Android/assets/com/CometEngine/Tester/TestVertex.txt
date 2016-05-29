@@ -12,8 +12,9 @@ varying vec4 colorPos;
 void main(void)
 {
    normalse = Normal;
-   cood = Tex;
+   cood = Pos.xy;
   vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
-    gl_Position = Vertex  ;
+   colorPos = Vertex;
+    gl_Position = Vertex ;
 }
     

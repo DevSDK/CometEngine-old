@@ -1,8 +1,6 @@
 package com.CometEngine;
 
-import com.CometEngine.Event.Manager.CEEventThread;
 import com.CometEngine.FileUtil.CEFileUtil;
-import com.CometEngine.FileUtil.Interface.CEFilePathInterface;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLInterface;
 import com.CometEngine.Renderer.CERenderer;
@@ -41,7 +39,7 @@ public class CometEngine {
 
 	public void Run(final PLATFORM TargetPlatForm, CometEngineInitObject initdata )
 	{
-		if(initdata == null ||initdata.GL == null || initdata.fileInterface == null || initdata.ASyncFileInterface ==null ||initdata.SyncFileInterface==null)
+		if(initdata == null ||initdata.GL == null || initdata.platformFileUtil == null)
 		{
 			System.out.println("Init Object data have null");
 			return;
@@ -67,16 +65,18 @@ public class CometEngine {
 		
 		IsRun = false;
 		
-		
 	}
-	public boolean isRun()
+	public synchronized boolean isRun()
 	{
 		return IsRun;
 	}
 	private void initEngine(CometEngineInitObject object)
 	{
-		if(CEFileUtil.FileSystemInit(m_PlatForm, object.fileInterface, object.SyncFileInterface, object.ASyncFileInterface) == false)
+		if(CEFileUtil.FileSystemInit(m_PlatForm, object.platformFileUtil) == false)
+		{
 			System.err.println("INIT FILESYSTEM ERROR : FileSystemInit return false");
+			CometEngine.getInstece().EXIT(-1);
+		}
 			
 		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GL, object.GL);
@@ -85,11 +85,9 @@ public class CometEngine {
 	
 		if(renderer != null)
 			renderer.init ();
-		
-		
-		eventthread = new CEEventThread();
 	
-		eventthread.start();
+		
+	
 	
 	}
 
@@ -116,13 +114,15 @@ public class CometEngine {
 
 	public void EXIT(int status)
 	{
+		
+		
 		IsRun = false;
-		System.exit(status);
+		
+		
 	}
 	
 	
 	private CERenderer renderer = null;	
-	private CEEventThread eventthread = null;
 	private static CometEngine m_Instence = null;
 	private  boolean IsRun = false;
 	public enum PLATFORM {	CE_NULL, CE_WIN32, CE_ANDROID, CE_IOS, CE_MAC }

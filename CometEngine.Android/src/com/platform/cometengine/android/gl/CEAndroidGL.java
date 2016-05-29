@@ -265,19 +265,23 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public int GenBuffers() {
-		
-		IntBuffer buf = IntBuffer.allocate(1);
-		GLES20.glGenBuffers(getBufferLimit(buf),buf);
-		
-		return buf.get();
-		}
 
+		IntBuffer genbuf = IntBuffer.allocate(1);
+		GLES20.glGenBuffers(getBufferLimit(genbuf),genbuf);
+	
+		int out = genbuf.get(); 
+		int t = out;
+			return t;
+		
+		}
+	
+	
+	
 	@Override
 	public int GenTextures() {
-		
-		IntBuffer buffer =  IntBuffer.allocate(1);
+		IntBuffer buffer =  IntBuffer.allocate(1); 
 		GLES20.glGenTextures(getBufferLimit(buffer), buffer);
-		return buffer.get();
+		return buffer.get(0);
 	}
 
 	@Override
@@ -682,6 +686,7 @@ public class CEAndroidGL implements CEGLInterface{
 	public int GetShaderi(int shader, int pname) {
 		IntBuffer buf = IntBuffer.allocate(Integer.SIZE/8);
 		GLES20.glGetShaderiv(shader, pname, buf);
+	
 		return buf.get();
 	}
 	

@@ -38,23 +38,13 @@ public class Tester {
           DataBuffer.put(vertices);//put all the data in the buffer, position at the end of the data
           DataBuffer.flip();//set the limit at the position=end of the data(ie no effect right now),and sets the position at 0 again 
           
-          ibuf = CEGL.GenBuffers();
-          IntBuffer indexbuffer = CEBufferUtils.ArrayToBuffer(indexs);
-          CEGL.BindBuffer(CEGL.GL_ELEMENT_ARRAY_BUFFER, ibuf);
-          CEGL.BufferData(CEGL.GL_ELEMENT_ARRAY_BUFFER, indexbuffer, CEGL.GL_STATIC_DRAW);
+  
           
           buf = CEGL.GenBuffers( );
           CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, buf);
           CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, DataBuffer, CEGL.GL_STATIC_DRAW);
           CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, 0);
           
-          FloatBuffer normalbuffer = CEBufferUtils.ArrayToBuffer(normals);
-          normalID = CEGL.GenBuffers();
-          CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, normalID);
-          CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, normalbuffer, CEGL.GL_STATIC_DRAW);
-          CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, 0);
-    
-          CEGL.BindBuffer(CEGL.GL_ELEMENT_ARRAY_BUFFER, 0);
         
          
          
@@ -81,10 +71,11 @@ public class Tester {
 		
 
 		
-		
-	shader.Start();
+		shader.Start();
+		CEGL.ActiveTexture(CEGL.GL_TEXTURE0);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, tex.getTextureID());
-	
+		
+		System.out.println("Now RENDERING TEXTURE IS : "+ tex.getTextureID());
 		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, buf);
 		CEGL.EnableVertexAttribArray(0);
 		

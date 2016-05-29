@@ -13,11 +13,14 @@ import android.app.NativeActivity;
 import android.content.Context;
 import android.opengl.GLES10;
 import android.opengl.GLSurfaceView;
+import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -27,9 +30,14 @@ import org.newdawn.slick.opengl.PNGImageData;
 import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngineInitObject;
 import com.CometEngine.CometEngine.PLATFORM;
+import com.CometEngine.Event.Manager.CEEventManager;
+import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
+import com.CometEngine.Tester._RenderingTester;
 import com.platform.cometengine.android.gl.CEAndroidGL;
 import com.platform.cometengine.io.CEAndroidAsyncFileIO;
 import com.platform.cometengine.io.CEAndroidFilePath;
+import com.platform.cometengine.io.CEAndroidFileUtil;
 import com.platform.cometengine.io.CEAndroidSyncFileIO;
 
 
@@ -37,9 +45,12 @@ import com.platform.cometengine.io.CEAndroidSyncFileIO;
 
 public class MainActivity extends Activity {
 
+	private	MyAsyncTask task = null;
+	
+	private Renderer glview =null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+	
 		
 		super.onCreate(savedInstanceState);
 		
@@ -49,13 +60,12 @@ public class MainActivity extends Activity {
 		
 		GLSurfaceView surfaceView = new GLSurfaceView(this);
 		surfaceView.setEGLContextClientVersion(2);
-        surfaceView.setRenderer(new CEGLSurfaceView.Renderer() {
-       
+		
+        surfaceView.setRenderer(glview = new CEGLSurfaceView.Renderer() {
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	System.out.println(" Width : " + width + " Height " + height);
-            	PNGImageData r = new PNGImageData();
-            	System.out.println(r);
+            	
             }
  
             @Override
@@ -67,22 +77,114 @@ public class MainActivity extends Activity {
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
 				CometEngineInitObject init = new CometEngineInitObject();
-				init.fileInterface =  new CEAndroidFilePath();
 				init.GL =  new CEAndroidGL();
-				init.ASyncFileInterface = new CEAndroidAsyncFileIO();
-				init.SyncFileInterface = new CEAndroidSyncFileIO();
+				init.platformFileUtil = new CEAndroidFileUtil();
 				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, init);
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				task = new MyAsyncTask();	
+				task.execute
+			 ();
+				
 			}
         });
         
        
         setContentView(surfaceView);
+
+        
 	}
 	
 	@Override
 	protected void onDestroy() {
-		CometEngine.getInstece().ExitCometEngine();
 		super.onDestroy();
+		CometEngine.getInstece().EXIT(0);
+		moveTaskToBack(true); 
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		android.os.Process.killProcess(android.os.Process.myPid());
+
 	}
+	
+	
+	
+	   public class MyAsyncTask extends AsyncTask<Void,Void,Void> {
+
+		   
+			_RenderingTester tester = null ;
+			boolean flag = true;
+			String []paths = { "1"};
+			public void run()
+			{
+			
+				init();
+				loop();
+			}
+			
+			public void init()
+			{
+
+				tester = new _RenderingTester("1" + ".png");			
+			}
+			
+			int n = 0 ;
+			public void loop()
+			{
+				while(CometEngine.getInstece().isRun() && flag)
+				{		
+					
+					System.out.println("STILL ALIVE : " + n ++);
+					
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						break;
+					}
+					CEEventManager.getInstence().PollAllEvent();
+				}
+		
+			}
+				
+		   
+			 
+				
+			   @Override
+		        protected void onPreExecute() {
+		            super.onPreExecute();
+		            
+		        }
+		         
+		   
+		         
+		        @Override
+		        protected void onPostExecute(Void r) {
+		            super.onPostExecute(null);
+		         
+		        }
+		         
+		        @Override
+		        protected void onCancelled() {
+		            super.onCancelled();
+		            flag = false;
+		        }
+
+				@Override
+				protected Void doInBackground(Void... params) {
+				
+					run();
+					return null;
+				}
+		         
+		   
+	   
+	    }
 	
 }

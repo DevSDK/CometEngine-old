@@ -18,38 +18,31 @@ public class CETextureManager {
 	private static Object sync = new Object();
 	
 	
-	public void putUnloadedTexture(CETexture texture)
+	public synchronized void putUnloadedTexture(CETexture texture)
 	{
-		synchronized (sync) {
-			
 			if(texture.getTextureID() == 0)
 				glUnLoadedTexture.add(texture);
-			
-		}
+		
 	}
 
-	public void DeleteTexture(CETexture texture)
+	public synchronized void DeleteTexture(CETexture texture)
 	{
-		synchronized(sync) {	
-		
+			
 			if(glRemoverTexture.contains(texture) == false)
 			{
 				glRemoverTexture.add(texture);
-			}
-			
+				
 		}
 	}
 	
 	
 
 	
-	public void LoadUP_GL_AllLoadUP()
-	{
-
-		synchronized (sync) {		
+	public synchronized void LoadUP_GL_AllLoadUP()
+	{		
 			LoadUPTextures();
 			RemoveUPTextures();
-	  }
+	  
 	}
 	private void LoadUPTextures()
 	{
@@ -66,8 +59,8 @@ public class CETextureManager {
 						tex.glLoadTexture();
 					}	
 				}
-		}
-	}
+		 }
+	 }
 	private void RemoveUPTextures()
 	{
 		if(glRemoverTexture.isEmpty() == false)
@@ -84,9 +77,13 @@ public class CETextureManager {
 					{	
 						TextureTable.remove(tex.getHashKey());
 						CEGL.DeleteTextures(tex.getTextureID());
-						
+						tex.setTextureID(0);
 						iter.remove();
 						
+					}
+					else if(tex.getTextureID() == 0)
+					{
+						iter.remove();
 					}
 				}	
 			}
@@ -105,7 +102,7 @@ public class CETextureManager {
 	}
 	
 	
-	public synchronized void showLog()
+	public void showLog()
 	{
 		System.out.println("Texture Manager : Counter " + TextureTable.size() );
 		for(CETexture tex : TextureTable.values())
@@ -116,13 +113,12 @@ public class CETextureManager {
 
 	public void addTexture(String filepath, CETexture texture)
 	{	
-		synchronized (sync) {
-			
+
 			TextureTable.put(filepath, texture);	
-		}
+		
 		
 	}
-	public synchronized boolean isHaveTexture(String path)
+	public boolean isHaveTexture(String path)
 	{		
 		return TextureTable.containsKey(path) ;
 	}
@@ -132,12 +128,10 @@ public class CETextureManager {
 	}
 	public CETexture2D getTexture2D(String filepath)
 	{
-		synchronized (sync) {
 			if(TextureTable.containsKey(filepath))
 				return (CETexture2D)TextureTable.get(filepath);
-			
-			    return CETexture2D.CreateTexture2D(filepath);
-		}
+		return null;	
+		
 			
 	}
 	

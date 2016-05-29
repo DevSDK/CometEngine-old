@@ -13,8 +13,10 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import com.CometEngine.*;
 import com.CometEngine.DeskTop.CEDeskTopAsyncFileIO;
+import com.CometEngine.DeskTop.CEDeskTopFileUtil;
 import com.CometEngine.DeskTop.CEDeskTopPlatForm;
 import com.CometEngine.DeskTop.CEDeskTopSyncFileIO;
+import com.CometEngine.DeskTop.CEDesktopEventThread;
 import com.CometEngine.DeskTopGL.CEDeskTopGL;
 
 public class Run {
@@ -67,13 +69,12 @@ public class Run {
 		
 		CometEngineInitObject init = new CometEngineInitObject();
 		init.GL = new CEDeskTopGL();
-		init.fileInterface = new CEDeskTopPlatForm();
-		init.SyncFileInterface = new CEDeskTopSyncFileIO();
-		init.ASyncFileInterface = new CEDeskTopAsyncFileIO();
+		init.platformFileUtil = new CEDeskTopFileUtil();
 	
 		
 		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, init);
-		
+		CEDesktopEventThread thread = new CEDesktopEventThread();
+		thread.start();
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
 			CometEngine.getInstece().getRenderer().RenderingCommands();

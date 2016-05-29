@@ -33,14 +33,8 @@ public class CEImageResrouceLoader {
 	{
 		if(filepath.endsWith("png"))
 		{	
-			if((new File(CEFileUtil.getInstence().getFullResourcePath(filepath)).isFile())==false)	
-			try {
-				throw new NoSuchFieldException();
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-				CometEngine.getInstece().EXIT(-1);
-			}
-			CEFileUtil.getInstence().ReadResoruceToAsync(filepath, new CEFileReadHandle() {
+			CEFileReadHandle handel = null;
+			CEFileUtil.getInstence().ReadResoruceToAsync(filepath, handel = new CEFileReadHandle() {
 			
 			@Override
 			public void failure(Throwable e) {
@@ -52,24 +46,14 @@ public class CEImageResrouceLoader {
 			@Override
 			public void complite(ByteBuffer data) {
 				
-				try {
-					PNGDecoder decoder = new PNGDecoder(new ByteArrayInputStream(data.array()));
+				
 					
-					ByteBuffer buffer;
-		
-					buffer = ByteBuffer.allocateDirect(4 * decoder.getHeight() * decoder.getWidth());						
-					
-					image.setWidth(decoder.getWidth());
-					image.setHeight(decoder.getHeight());
-					decoder.decode(buffer, decoder.getWidth() * 4 , PNGDecoder.RGBA);
-					decoder = null;
-					buffer.flip();
-					image.setData(buffer);
-					
+				data.flip();
+					image.setData(data);
+				
 					image.setIsLoaded(true);
-				} catch (IOException e) {
-		
-				}
+					
+			
 				
  			}
 		});

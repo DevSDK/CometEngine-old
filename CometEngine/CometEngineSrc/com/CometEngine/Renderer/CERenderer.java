@@ -67,10 +67,10 @@ public class CERenderer {
 	}
 	public void RenderingCommands()
 	{
-		
 		CETextureManager.getInstence().LoadUP_GL_AllLoadUP();
 		VisitRenderTarget();
 		CERenderCommandManager.getInstence().InvokeAllCommands();
+
 	}
 
 

@@ -21,24 +21,20 @@ public class CEResourceManager {
 	{
 		System.out.println("Resource Manager : counter " + resources.size());
 	}
-	public <T extends CERawResrouce> T getResoruce(String filepath)
+	public  <T extends CERawResrouce> T getResoruce(String filepath)
 	{
-		synchronized (sync) {
 			return (T) resources.get(filepath);			
-		}
+		
 	}
 	
 	
 	
 	public boolean isData(String filepath)
 	{
-		synchronized (sync) {
 			return resources.containsKey(filepath);			
-		}
 	}
 	public boolean isLoadedData(String filepath)
 	{
-		synchronized (sync) {
 			boolean flag = false;
 			
 			if( isData(filepath))
@@ -47,17 +43,15 @@ public class CEResourceManager {
 			}
 			
 			return flag;			
-		}
 	}
+	
 	public int getSize()
 	{
-		synchronized (sync) {
 			return resources.size();			
-		}
+		
 	}
 	public void putResoruceData(CERawResrouce resoruce)
 	{
-		synchronized (sync) {
 		if(resources.containsKey(resoruce.getFilePath()))
 		{
 			//if(제거 리스트에 있으면 리스트에서 그것만 지우고 함수 종료
@@ -66,7 +60,7 @@ public class CEResourceManager {
 		{			
 			resources.put(resoruce.getFilePath(), resoruce);
 		}		
-	}	
+	
 	}
 
 }
