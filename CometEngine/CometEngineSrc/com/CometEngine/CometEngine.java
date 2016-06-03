@@ -11,10 +11,7 @@ public class CometEngine {
 	
 	public static CometEngine getInstece()
 	{
-		if(m_Instence == null)
-			return m_Instence = new CometEngine();
-		else
-			return m_Instence;
+		return m_Instence;
 	}
 	public void RunErrorCheck() //If Not Running Engine Access The Member Exception
 	{
@@ -37,7 +34,7 @@ public class CometEngine {
 		return renderer;
 	}
 
-	public void Run(final PLATFORM TargetPlatForm, CometEngineInitObject initdata )
+	public void Run(final PLATFORM TargetPlatForm, CometEngineInitObject initdata)
 	{
 		if(initdata == null ||initdata.GL == null || initdata.platformFileUtil == null)
 		{
@@ -123,7 +120,7 @@ public class CometEngine {
 	
 	
 	private CERenderer renderer = null;	
-	private static CometEngine m_Instence = null;
+	private static final CometEngine m_Instence = new CometEngine();
 	private  boolean IsRun = false;
 	public enum PLATFORM {	CE_NULL, CE_WIN32, CE_ANDROID, CE_IOS, CE_MAC }
 	private PLATFORM m_PlatForm = PLATFORM.CE_NULL;

@@ -16,30 +16,23 @@ import java.nio.charset.Charset;
 import com.CometEngine.CometEngine;
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.CEGLResource;
+import com.CometEngine.Renderer.CEGLResourceManager;
 import com.CometEngine.Renderer.CERenderer.RENDERER_TYPE;
 
-public abstract class ShaderProgram {
+public abstract class ShaderProgram extends CEGLResource {
 	private int programID;
 	private int vertexShaderID;
 	private int FragmentShaderID;
 	
+	private String VertexFileName;
+	private String FragmentFileName;
 	
 	public ShaderProgram(String VertexFileName ,String FragmentFileName)
 	{
-		
-		
-		vertexShaderID = loadeShasder(VertexFileName, CEGL.GL_VERTEX_SHADER);
-		FragmentShaderID = loadeShasder(FragmentFileName, CEGL.GL_FRAGMENT_SHADER);
-		programID = CEGL.CreateProgram();
-		
-		//TODO: Remove The Debug
-		System.out.println(" Log : Debug ShaderProgram ProgramID " + programID );
-		CEGL.AttachShader(programID, vertexShaderID);
-		CEGL.AttachShader(programID, FragmentShaderID);
-		bindAttributes();
-		CEGL.LinkProgram(programID);
-		CEGL.ValidateProgram(programID);
-		LinkUnifroms();
+		this.VertexFileName = VertexFileName;
+		this.FragmentFileName = FragmentFileName;
+		CEGLResourceManager.getInstence().putGLResrouce(this);
 	}
 	
 	
@@ -47,6 +40,7 @@ public abstract class ShaderProgram {
 	
 	protected void LoadInteger(int location,int value)
 	{
+		
 		CEGL.Uniform1i(location, value);
 	}
 	
@@ -66,8 +60,7 @@ public abstract class ShaderProgram {
 	
 	public void Stop()
 	{
-		CEGL.UseProgram(0);	
-		
+			CEGL.UseProgram(0);	
 	}
 
 	public void cleanUP()
@@ -120,6 +113,35 @@ public abstract class ShaderProgram {
 		return shaderID;
 		
 		
+	}
+
+	@Override
+	protected void onGLLoad()
+	{
+
+		vertexShaderID = loadeShasder(VertexFileName, CEGL.GL_VERTEX_SHADER);
+		FragmentShaderID = loadeShasder(FragmentFileName, CEGL.GL_FRAGMENT_SHADER);
+		programID = CEGL.CreateProgram();
+		
+		//TODO: Remove The Debug
+		System.out.println(" Log : Debug ShaderProgram ProgramID " + programID );
+		CEGL.AttachShader(programID, vertexShaderID);
+		CEGL.AttachShader(programID, FragmentShaderID);
+		bindAttributes();
+		CEGL.LinkProgram(programID);
+		CEGL.ValidateProgram(programID);
+		LinkUnifroms();
+
+	}
+	@Override
+	protected void onGLDelete()
+	{
+		
+	}
+	@Override
+	public boolean isloaded()
+	{
+		return true;
 	}
 	
 	

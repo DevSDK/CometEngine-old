@@ -1,4 +1,4 @@
-package com.CometEngine.Commend.Manager;
+package com.CometEngine.Renderer.Commend.Manager;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -11,23 +11,22 @@ import com.CometEngine.Renderer.Commend.CERenderCommandNull;
 
 
 
-import com.CometEngine.Commend.*;
-
 public class CERenderCommandManager {
-	private static CERenderCommandManager m_s_Instence =  null;
+	private static final CERenderCommandManager m_s_Instence =  new CERenderCommandManager();
 	private static LinkedList<CERenderCommand> CommandQue = new LinkedList<CERenderCommand>();
 	private Object Sync = new Object();
 	
- 	private CERenderCommandManager(){
-			
-	}
-	
+ 	
 	public void AddCommand(CERenderCommand command)
 	{
 		synchronized (Sync) {
 			CommandQue.add(command);
+	}}
+	public  synchronized  void AddCommands(LinkedList<CERenderCommand> commands)
+	{	
+		CommandQue.addAll(commands);
 	}
-	}
+
 	public void _debug_LoggingInformation()
 	{
 		System.out.println(" Rendering QUE Lenght : " + CommandQue.size()  );
@@ -59,9 +58,6 @@ public class CERenderCommandManager {
 	
 	public static CERenderCommandManager getInstence()
 	{
-		if(m_s_Instence == null)
-			return m_s_Instence = new CERenderCommandManager();
-		else
 			return m_s_Instence;	
 	}
 }

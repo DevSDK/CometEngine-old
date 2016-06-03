@@ -25,9 +25,7 @@ public class Run {
 	private static int		WINDOW_WIDTH  = 1000;
 	private static int		WINDOW_HEIGHT  = 1000;
 	private static long	WINDOW;
-
 	
-
 	public static void LoadLWJGL()
 	{
 		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
@@ -53,37 +51,32 @@ public class Run {
 		GLFW.glfwMakeContextCurrent(WINDOW);
 		GLFW.glfwSwapInterval(1);
 		GLFW.glfwShowWindow(WINDOW);
-		GL.createCapabilities();
-		
+		GL.createCapabilities();	
 	}
-	
-
-	
 	
 	public static void main(String [] argc)
 	{
-		
-		
 		LoadLWJGL();
-		
 		
 		CometEngineInitObject init = new CometEngineInitObject();
 		init.GL = new CEDeskTopGL();
 		init.platformFileUtil = new CEDeskTopFileUtil();
-	
 		
 		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, init);
+		CometEngine.getInstece().getRenderer().setViewSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		
 		CEDesktopEventThread thread = new CEDesktopEventThread();
 		thread.start();
+		
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
 			CometEngine.getInstece().getRenderer().RenderingCommands();
-			GLFW.glfwSwapBuffers(WINDOW);
-			GLFW.glfwSwapInterval(1);
-			GLFW.glfwPollEvents();
 			
+			GLFW.glfwSwapBuffers(WINDOW);
+		GLFW.glfwSwapInterval(1);
+			GLFW.glfwPollEvents();
 		}
-		CometEngine.getInstece().ExitCometEngine();
+			CometEngine.getInstece().ExitCometEngine();
 	}
 }
 	

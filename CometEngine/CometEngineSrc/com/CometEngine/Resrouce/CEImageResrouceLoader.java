@@ -20,16 +20,14 @@ import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 public class CEImageResrouceLoader {
 	//TODO: Add the 
-	private static final LinkedList<CERawImageResrouce> loaded = new LinkedList<CERawImageResrouce>();
-	private static CEImageResrouceLoader instence = null;
+	private static final LinkedList<CEImageResrouce> loaded = new LinkedList<CEImageResrouce>();
+	private static final CEImageResrouceLoader instence = new CEImageResrouceLoader();
 	
 	public static CEImageResrouceLoader getInstence()
 	{
-		if(instence == null)
-			instence = new CEImageResrouceLoader();
 		return instence;
 	}
-	public void LoadImage(final String filepath, final CERawImageResrouce image)
+	public void LoadImage(final String filepath, final CEImageResrouce image)
 	{
 		if(filepath.endsWith("png"))
 		{	
@@ -45,15 +43,10 @@ public class CEImageResrouceLoader {
 			
 			@Override
 			public void complite(ByteBuffer data) {
-				
-				
-					
-				data.flip();
+		
+					data.flip();
 					image.setData(data);
-				
 					image.setIsLoaded(true);
-					
-			
 				
  			}
 		});

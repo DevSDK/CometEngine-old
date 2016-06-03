@@ -3,13 +3,13 @@ package com.CometEngine.Renderer.Texture.Textures;
 public class CETextureCubeMap extends CETexture{
 
 	@Override
-	public void glLoadTexture() {
+	public void onGLLoad() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean isloadup() {
+	public boolean isloaded() {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -18,6 +18,12 @@ public class CETextureCubeMap extends CETexture{
 	public String getKey() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onGLDelete() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

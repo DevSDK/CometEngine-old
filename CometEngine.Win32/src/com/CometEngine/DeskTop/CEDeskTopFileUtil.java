@@ -23,6 +23,7 @@ public class CEDeskTopFileUtil extends CEFileUtil {
 		AsyncIoInterface = new CEDeskTopAsyncFileIO();
 		SyncIoInterface = new CEDeskTopSyncFileIO();
 		FileInterFace = new CEDeskTopPlatForm();
+		
 	}
 	
 	public String getFullResourcePath(String path)

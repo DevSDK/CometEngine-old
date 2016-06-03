@@ -2,9 +2,10 @@ package com.CometEngine.Renderer.Texture.Textures;
 
 import java.nio.IntBuffer;
 
-public abstract class CETexture {
+import com.CometEngine.Renderer.CEGLResource;
+
+public abstract class CETexture extends CEGLResource {
 	protected int TextureID = 0;
-	protected boolean isloaded = false;
 	protected String HashKey = "";
 	public void setTextureID(int texture)
 	{
@@ -22,7 +23,5 @@ public abstract class CETexture {
 	{
 		return TextureID;
 	}
-	public abstract void glLoadTexture();
-	public abstract boolean isloadup();
 	public abstract String getKey();
 }

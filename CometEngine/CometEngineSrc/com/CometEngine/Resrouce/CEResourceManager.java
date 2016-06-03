@@ -4,16 +4,12 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 
 public class CEResourceManager {
-	private static CEResourceManager instence = null;
-	private static Hashtable<String, CERawResrouce> resources = new Hashtable<String,  CERawResrouce>();
+	private static final CEResourceManager instence = new CEResourceManager();
+	private static Hashtable<String, CEResrouce> resources = new Hashtable<String,  CEResrouce>();
 
 	private static final Object sync = new Object();
 	public static CEResourceManager getInstence()
 	{
-			if(instence == null)
-			{
-				return instence = new CEResourceManager();
-			}
 			return instence;			
 		
 	}
@@ -21,7 +17,7 @@ public class CEResourceManager {
 	{
 		System.out.println("Resource Manager : counter " + resources.size());
 	}
-	public  <T extends CERawResrouce> T getResoruce(String filepath)
+	public  <T extends CEResrouce> T getResoruce(String filepath)
 	{
 			return (T) resources.get(filepath);			
 		
@@ -50,7 +46,7 @@ public class CEResourceManager {
 			return resources.size();			
 		
 	}
-	public void putResoruceData(CERawResrouce resoruce)
+	public void putResoruceData(CEResrouce resoruce)
 	{
 		if(resources.containsKey(resoruce.getFilePath()))
 		{

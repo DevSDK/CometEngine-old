@@ -17,11 +17,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>COMETENGINE_ROOT</name>
-			<type>2</type>
-			<locationURI>COMETENGINE_ROOT1/Classes</locationURI>
-		</link>
-		<link>
 			<name>CometEngineSrc</name>
 			<type>2</type>
 			<locationURI>COMETENGINE_ROOT1/CometEngine/CometEngineSrc</locationURI>

@@ -10,10 +10,11 @@ import org.newdawn.slick.opengl.PNGDecoder;
 import com.CometEngine.FileUtil.CEFileFormat;
 import com.CometEngine.FileUtil.CEFileFormat.FILE_FORMAT;
 import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.CEGLResourceManager;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Resrouce.CEImageResrouceLoader;
-import com.CometEngine.Resrouce.CERawImageResrouce;
-import com.CometEngine.Resrouce.CERawResrouce;
+import com.CometEngine.Resrouce.CEImageResrouce;
+import com.CometEngine.Resrouce.CEResrouce;
 import com.CometEngine.Resrouce.CEResourceManager;
 
 
@@ -28,9 +29,9 @@ public class CETexture2D extends CETexture {
 	private int MIN_FILTER = CEGL.GL_NEAREST;
 	private int MAG_FILTER = CEGL.GL_NEAREST;
 	
-	CERawImageResrouce image = null;
+	CEImageResrouce image = null;
 	
-	public CERawImageResrouce getData()
+	public CEImageResrouce getData()
 	{
 		return image;
 	}
@@ -57,7 +58,8 @@ public class CETexture2D extends CETexture {
 		}
 		
 		CETexture2D texture = new CETexture2D(FilePath);
-		CERawImageResrouce image = null;
+		CEImageResrouce image = null;
+		
 		CETextureManager.getInstence().addTexture(FilePath, texture);
 		
 		if(CEResourceManager.getInstence().isData(FilePath))
@@ -65,31 +67,31 @@ public class CETexture2D extends CETexture {
 			System.out.println("IS LOADED");
 			image = CEResourceManager.getInstence().getResoruce(FilePath);
 			texture.setImageReousrce(image);
-			CETextureManager.getInstence().putUnloadedTexture(texture);
+			CEGLResourceManager.getInstence().putGLResrouce(texture);
 		}
 		else
 		{
 			System.out.println("IS UNLOADED");
-			image = new CERawImageResrouce(FilePath);
+			image = new CEImageResrouce(FilePath);
 			CEResourceManager.getInstence().putResoruceData(image);			
-			CEImageResrouceLoader.getInstence().LoadImage(FilePath, image);
 			texture.setImageReousrce(image);
-			CETextureManager.getInstence().putUnloadedTexture(texture);
+			CEImageResrouceLoader.getInstence().LoadImage(FilePath, image);
+			CEGLResourceManager.getInstence().putGLResrouce(texture);
+
 		}
 
 		texture.setHashKey(FilePath);
-		
 		return texture;
 		
 	}
 
-	public void setImageReousrce(CERawImageResrouce resource)
+	public void setImageReousrce(CEImageResrouce resource)
 	{
 		image = resource;
 	}
 	@Override
-	public void glLoadTexture() {
-		if(image.isSetting() == false)
+	public void onGLLoad() {
+		if( image.isSetting() == false)
 			return;
 		TextureID = CEGL.GenTextures();
 		
@@ -100,11 +102,7 @@ public class CETexture2D extends CETexture {
 		
 		CEGL.TexParameteri(CEGL.GL_TEXTURE_2D, CEGL.GL_TEXTURE_MIN_FILTER, MIN_FILTER);
 		CEGL.TexParameteri(CEGL.GL_TEXTURE_2D, CEGL.GL_TEXTURE_MAG_FILTER, MAG_FILTER);
-		
-		int c = 0 ;
 	
-		
-		
 		byte[] array = image.getData().array().clone();
 		ByteArrayInputStream stream;
 		PNGDecoder decoder;
@@ -128,16 +126,18 @@ public class CETexture2D extends CETexture {
 		System.out.println(image.getFilePath() + " : " + " Width: "+image.getWidth()+ " Hight: " + image.getHeight()) ;
 		System.out.println("TEXTURE ID "  + TextureID);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, 0);
-		
 	}
 	@Override
-	public boolean isloadup() {
+	public boolean isloaded() {
 		return image.isSetting();
 	}
 	@Override
 	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
+		return HashKey;
+	}
+	@Override
+	public void onGLDelete() {
+		
 	}
 	
 }

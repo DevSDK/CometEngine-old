@@ -1,10 +1,10 @@
 package com.CometEngine.Resrouce;
 
-public class CERawImageResrouce extends CERawResrouce{
+public class CEImageResrouce extends CEResrouce{
 
 	private int Width = 0;
 	private int Height = 0;
-	public CERawImageResrouce(String filepath) {
+	public CEImageResrouce(String filepath) {
 		super(filepath);
 		
 	}

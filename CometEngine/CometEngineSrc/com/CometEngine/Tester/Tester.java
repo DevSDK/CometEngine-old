@@ -34,26 +34,16 @@ public class Tester {
 	// Sending data to OpenGL requires the usage of (flipped) byte buffers
 	public Tester()
 	{
-	      FloatBuffer DataBuffer= CEBufferUtils.ArrayToBuffer(vertices);//position at 0.
-          DataBuffer.put(vertices);//put all the data in the buffer, position at the end of the data
-          DataBuffer.flip();//set the limit at the position=end of the data(ie no effect right now),and sets the position at 0 again 
-          
-  
+	      FloatBuffer DataBuffer= CEBufferUtils.ArrayToBuffer(vertices);
+          DataBuffer.put(vertices);
+          DataBuffer.flip();
           
           buf = CEGL.GenBuffers( );
           CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, buf);
           CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, DataBuffer, CEGL.GL_STATIC_DRAW);
           CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, 0);
           
-        
-         
-         
-          
-          
-          shader = new TesterShader();
-		
-		
-		
+          shader = new TesterShader();	
 	}
 	public void draw()
 	{
@@ -64,7 +54,7 @@ public class Tester {
 		
 		CETexture2D tex = CETextureManager.getInstence().getTexture2D("1.png") ;
 		//System.out.println("is not Blcoking !! ! ! ! ! ! ! ! ! ! ! ");
-		if( tex ==null)
+		if( tex == null)
 		{
 			return;
 		}
@@ -75,7 +65,7 @@ public class Tester {
 		CEGL.ActiveTexture(CEGL.GL_TEXTURE0);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, tex.getTextureID());
 		
-		System.out.println("Now RENDERING TEXTURE IS : "+ tex.getTextureID());
+		//System.out.println("Now RENDERING TEXTURE IS : "+ tex.getTextureID());
 		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, buf);
 		CEGL.EnableVertexAttribArray(0);
 		

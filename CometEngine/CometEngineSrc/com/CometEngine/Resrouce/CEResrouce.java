@@ -2,7 +2,7 @@ package com.CometEngine.Resrouce;
 
 import java.nio.ByteBuffer;
 
-public class CERawResrouce {
+public class CEResrouce {
 
 	private String FilePath = "" ;
 	private boolean isLoaded = false;
@@ -21,7 +21,7 @@ public class CERawResrouce {
 	{
 		isLoaded = flag;
 	}
-	public CERawResrouce(String filepath)
+	public CEResrouce(String filepath)
 	{
 		this.FilePath = filepath;
 	}

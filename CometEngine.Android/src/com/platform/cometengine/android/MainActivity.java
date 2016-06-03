@@ -29,6 +29,8 @@ import org.newdawn.slick.opengl.PNGImageData;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngineInitObject;
+import com.CometEngine.CELib.Scene.CEScene;
+import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.CometEngine.PLATFORM;
 import com.CometEngine.Event.Manager.CEEventManager;
 import com.CometEngine.Renderer.CEGL;
@@ -45,7 +47,7 @@ import com.platform.cometengine.io.CEAndroidSyncFileIO;
 
 public class MainActivity extends Activity {
 
-	private	MyAsyncTask task = null;
+	private	EVENT_TASK task = null;
 	
 	private Renderer glview =null;
 	@Override
@@ -65,13 +67,12 @@ public class MainActivity extends Activity {
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	System.out.println(" Width : " + width + " Height " + height);
-            	
+            	CometEngine.getInstece().getRenderer().setViewSize(width, height);
             }
- 
+            
             @Override
             public void onDrawFrame(GL10 gl) {
             	CometEngine.getInstece().getRenderer().RenderingCommands();
-            	
             }
  
 			@Override
@@ -81,14 +82,12 @@ public class MainActivity extends Activity {
 				init.platformFileUtil = new CEAndroidFileUtil();
 				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, init);
 				try {
-					Thread.sleep(50);
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				task = new MyAsyncTask();	
-				task.execute
-			 ();
+				task = new EVENT_TASK();	
+				task.execute();
 				
 			}
         });
@@ -105,9 +104,8 @@ public class MainActivity extends Activity {
 		CometEngine.getInstece().EXIT(0);
 		moveTaskToBack(true); 
 		try {
-			Thread.sleep(10);
+			Thread.sleep(50);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		android.os.Process.killProcess(android.os.Process.myPid());
@@ -116,7 +114,7 @@ public class MainActivity extends Activity {
 	
 	
 	
-	   public class MyAsyncTask extends AsyncTask<Void,Void,Void> {
+	   public class EVENT_TASK extends AsyncTask<Void,Void,Void> {
 
 		   
 			_RenderingTester tester = null ;
@@ -131,7 +129,7 @@ public class MainActivity extends Activity {
 			
 			public void init()
 			{
-
+				CESceneManager.getInstence().setScene(new CEScene());
 				tester = new _RenderingTester("1" + ".png");			
 			}
 			
@@ -141,8 +139,7 @@ public class MainActivity extends Activity {
 				while(CometEngine.getInstece().isRun() && flag)
 				{		
 					
-					System.out.println("STILL ALIVE : " + n ++);
-					
+				//	System.out.println("STILL ALIVE : " + n ++);
 					try {
 						Thread.sleep(1);
 					} catch (InterruptedException e) {
