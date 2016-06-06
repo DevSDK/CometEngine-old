@@ -18,6 +18,7 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.jglm.support.Compare;
 
 /**
@@ -292,9 +293,8 @@ public final class Mat4 extends AbstractMat {
 	
 	@Override
 	public FloatBuffer getBuffer() {
-		final FloatBuffer buffer = allocateFloatBuffer();
-		final int startPos = buffer.position();
-		
+		final FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(16);
+	
 		// Col1
 		buffer.put(m00)
 			.put(m01)
@@ -319,7 +319,7 @@ public final class Mat4 extends AbstractMat {
 			.put(m32)
 			.put(m33);
 		
-		buffer.position(startPos);
+		buffer.flip();
 		
 		return buffer;
 	}

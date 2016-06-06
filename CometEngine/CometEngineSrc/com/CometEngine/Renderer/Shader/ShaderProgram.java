@@ -86,9 +86,12 @@ public abstract class ShaderProgram extends CEGLResource {
 
 		String source = "";
 	
-		if(type == CEGL.GL_FRAGMENT_SHADER && CometEngine.getInstece().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES)
+		if( CometEngine.getInstece().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES)
 		{
-			source =  "precision mediump float;";
+			source = "#version 300 es\n";
+			
+			if(type == CEGL.GL_FRAGMENT_SHADER )
+				source +=  "precision mediump float;";
 		} 	
 			ByteBuffer buffer =CEFileUtil.getInstence().ReadResurceDirectoryToSync(FileName);
 			String fof = new String(buffer.array(), Charset.forName("UTF-8"));

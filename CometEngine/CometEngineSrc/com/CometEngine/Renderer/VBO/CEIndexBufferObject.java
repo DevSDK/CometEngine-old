@@ -1,7 +1,9 @@
 package com.CometEngine.Renderer.VBO;
 
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLResourceManager;

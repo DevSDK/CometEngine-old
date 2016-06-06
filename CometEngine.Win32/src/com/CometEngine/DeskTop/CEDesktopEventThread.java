@@ -29,6 +29,7 @@ public class CEDesktopEventThread extends Thread{
 	}
 	public void loop()
 	{
+		long time = 0 ;
 		while(CometEngine.getInstece().isRun())
 		{		
 			

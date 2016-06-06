@@ -25,7 +25,6 @@ public class CEAndroidGL implements CEGLInterface{
     private static int getBufferLimit(ShortBuffer buffer) {
   
     	CheckBuffer(buffer);
-   
         return buffer.limit() * 2;
     }
 
@@ -70,6 +69,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public void ClearColor(float red, float green, float blue, float alpha) {
 		GLES30.glClearColor(red, green, blue, alpha);
+		
 	}
 
 	@Override
@@ -688,6 +688,12 @@ public class CEAndroidGL implements CEGLInterface{
 		GLES30.glGetShaderiv(shader, pname, buf);
 	
 		return buf.get();
+	}
+
+	@Override
+	public void BindVertexArray(int array) {
+		GLES30.glBindVertexArray(array);
+		
 	}
 	
 	

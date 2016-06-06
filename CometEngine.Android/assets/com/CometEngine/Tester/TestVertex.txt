@@ -1,13 +1,13 @@
-attribute  vec3 Pos;
-attribute  vec3 Normal;
-attribute  vec2 Tex;
+in  vec3 Pos;
+in  vec3 Normal;
+in  vec2 Tex;
 
-varying vec2 cood;
-varying vec3 normalse;
+out vec2 cood;
+out vec3 normalse;
 uniform mat4 CameraMatrix;
 uniform mat4 ModelViewMatrix;
 
-varying vec4 colorPos;
+out vec4 colorPos;
 
 void main(void)
 {

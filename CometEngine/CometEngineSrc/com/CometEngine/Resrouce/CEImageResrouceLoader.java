@@ -16,6 +16,7 @@ import org.newdawn.slick.opengl.PNGImageData;
 import com.CometEngine.CometEngine;
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
+import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 public class CEImageResrouceLoader {
@@ -45,7 +46,26 @@ public class CEImageResrouceLoader {
 			public void complite(ByteBuffer data) {
 		
 					data.flip();
-					image.setData(data);
+					byte[] array =  data.array().clone();
+					ByteArrayInputStream stream;
+					PNGDecoder decoder;
+					ByteBuffer imbuf= null;
+					try {
+						decoder = new PNGDecoder(stream = new ByteArrayInputStream(array));
+					
+						imbuf = ByteBuffer.allocateDirect(4 * decoder.getHeight() * decoder.getWidth());						
+						decoder.decode(imbuf, decoder.getWidth() * 4 , PNGDecoder.RGBA);
+						imbuf.flip();
+						image.setWidth(decoder.getWidth());
+						image.setHeight(decoder.getHeight());
+					
+						stream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					
+					image.setData(imbuf);
 					image.setIsLoaded(true);
 				
  			}

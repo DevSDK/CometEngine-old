@@ -103,26 +103,8 @@ public class CETexture2D extends CETexture {
 		CEGL.TexParameteri(CEGL.GL_TEXTURE_2D, CEGL.GL_TEXTURE_MIN_FILTER, MIN_FILTER);
 		CEGL.TexParameteri(CEGL.GL_TEXTURE_2D, CEGL.GL_TEXTURE_MAG_FILTER, MAG_FILTER);
 	
-		byte[] array = image.getData().array().clone();
-		ByteArrayInputStream stream;
-		PNGDecoder decoder;
-		ByteBuffer imbuf= null;
-		try {
-			decoder = new PNGDecoder(stream = new ByteArrayInputStream(array));
-		
-			imbuf = ByteBuffer.allocateDirect(4 * decoder.getHeight() * decoder.getWidth());						
-			decoder.decode(imbuf, decoder.getWidth() * 4 , PNGDecoder.RGBA);
-			imbuf.flip();
-			image.setWidth(decoder.getWidth());
-			image.setHeight(decoder.getHeight());
-		
-			stream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		 
-		CEGL.TexImage2D(CEGL.GL_TEXTURE_2D, 0, CEGL.GL_RGBA, image.getWidth(), image.getHeight(), 0, CEGL.GL_RGBA, CEGL.GL_UNSIGNED_BYTE, imbuf);
+	
+		CEGL.TexImage2D(CEGL.GL_TEXTURE_2D, 0, CEGL.GL_RGBA, image.getWidth(), image.getHeight(), 0, CEGL.GL_RGBA, CEGL.GL_UNSIGNED_BYTE, image.getData());
 		System.out.println(image.getFilePath() + " : " + " Width: "+image.getWidth()+ " Hight: " + image.getHeight()) ;
 		System.out.println("TEXTURE ID "  + TextureID);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, 0);

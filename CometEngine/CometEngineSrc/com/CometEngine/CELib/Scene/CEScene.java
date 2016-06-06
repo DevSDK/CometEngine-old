@@ -2,6 +2,7 @@ package com.CometEngine.CELib.Scene;
 
 import java.util.LinkedList;
 
+import com.CometEngine.CELib.Node.CECamera;
 import com.CometEngine.CELib.Node.CERenderableNode;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
@@ -9,12 +10,13 @@ import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Commend.Manager.CERenderCommandManager;
 
 public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
-
+	
+	CECamera DefaultCamera = new CECamera();
 
 	CETestSprite sprite;
 	public CEScene() {
 		super(NODE_TYPE.CE_SCENE);
-		 sprite = new CETestSprite("1.png");
+		 sprite = new CETestSprite("5.png");
 		}
 
 	@Override
@@ -23,8 +25,10 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		
 	 final CERenderCommand  commandsprite = sprite.genRenderCommand();
 		
-		CERenderCommandCustom custom = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
-			
+	 
+	 	CESceneManager.getInstence().nowRenderCamera =  DefaultCamera; 
+		
+	 	CERenderCommandCustom custom = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
 			@Override
 			public void invoke() {
 				Drawing();
@@ -36,7 +40,7 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 				}
 			}
 		});
-		
+		 //
 		return custom;
 	}
 

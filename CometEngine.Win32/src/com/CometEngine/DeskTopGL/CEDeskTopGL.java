@@ -13,10 +13,12 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL21;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL33;
 import org.lwjgl.opengl.GL40;
+import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GL31;
 import org.lwjgl.opengl.ARBDrawInstanced;
 import org.lwjgl.opengl.ARBInstancedArrays;
@@ -674,6 +676,11 @@ public class CEDeskTopGL implements CEGLInterface{
 	@Override
 	public int GetShaderi(int shader, int pname) {
 		return GL20.glGetShaderi(shader, pname);
+	}
+
+	@Override
+	public void BindVertexArray(int array) {
+		GL30.glBindVertexArray(array);
 	}
 
 

@@ -123,6 +123,9 @@ public interface CEGLInterface {
     public void BlendEquationSeparate(int colorMode, int alphaMode);
     public void DrawElements (int mode, int count, int type, ByteBuffer indices) ;
     public void DrawElements (int mode, int count, int type, int offset) ;
+    public void BindVertexArray(int target);
+    
+    
 }
 
 

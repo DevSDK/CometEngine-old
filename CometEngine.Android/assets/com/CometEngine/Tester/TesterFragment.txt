@@ -1,6 +1,7 @@
 uniform sampler2D textureSampler;
-varying vec2 cood;
+in vec2 cood;
+out vec4 fragcolor;
 void main(void)
 {    
-    gl_FragColor =texture2D(textureSampler, cood);
+    fragcolor =texture(textureSampler, cood);
 }

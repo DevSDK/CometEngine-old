@@ -1,6 +1,7 @@
 package com.platform.cometengine.android;
 
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 import javax.microedition.khronos.egl.EGL;
 import javax.microedition.khronos.egl.EGLContext;
@@ -12,6 +13,7 @@ import android.app.Activity;
 import android.app.NativeActivity;
 import android.content.Context;
 import android.opengl.GLES10;
+import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
@@ -50,6 +52,10 @@ public class MainActivity extends Activity {
 	private	EVENT_TASK task = null;
 	
 	private Renderer glview =null;
+	
+	
+	GLSurfaceView surfaceView = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	
@@ -60,12 +66,13 @@ public class MainActivity extends Activity {
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		CEAndroidFilePath.InitFileSysten(getResources(),this);
 		
-		GLSurfaceView surfaceView = new GLSurfaceView(this);
-		surfaceView.setEGLContextClientVersion(2);
+		 surfaceView = new GLSurfaceView(this);
+		 surfaceView.setEGLContextClientVersion(3);
 		
         surfaceView.setRenderer(glview = new CEGLSurfaceView.Renderer() {
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
+            	
             	System.out.println(" Width : " + width + " Height " + height);
             	CometEngine.getInstece().getRenderer().setViewSize(width, height);
             }
@@ -77,12 +84,15 @@ public class MainActivity extends Activity {
  
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
+		
+				
+				
 				CometEngineInitObject init = new CometEngineInitObject();
 				init.GL =  new CEAndroidGL();
 				init.platformFileUtil = new CEAndroidFileUtil();
 				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, init);
 				try {
-					Thread.sleep(100);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -98,13 +108,16 @@ public class MainActivity extends Activity {
         
 	}
 	
+	
+
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		CometEngine.getInstece().EXIT(0);
 		moveTaskToBack(true); 
 		try {
-			Thread.sleep(50);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -139,7 +152,7 @@ public class MainActivity extends Activity {
 				while(CometEngine.getInstece().isRun() && flag)
 				{		
 					
-				//	System.out.println("STILL ALIVE : " + n ++);
+					System.out.println("STILL ALIVE : " + n ++);
 					try {
 						Thread.sleep(1);
 					} catch (InterruptedException e) {
