@@ -30,7 +30,7 @@ public class Tester {
     int buf;
 	int ibuf = 0;
     int normalID = 0;
-	TesterShader shader ;
+	Default2DShader shader ;
 	// Sending data to OpenGL requires the usage of (flipped) byte buffers
 	public Tester()
 	{
@@ -43,7 +43,7 @@ public class Tester {
           CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, DataBuffer, CEGL.GL_STATIC_DRAW);
           CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, 0);
           
-          shader = new TesterShader();	
+          shader = new Default2DShader();	
 	}
 	public void draw()
 	{

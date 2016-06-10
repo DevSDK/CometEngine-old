@@ -18,6 +18,6 @@ void main(void)
    cood = Tex;
   vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
    colorPos = Vertex;
-    gl_Position =  glProjection * Vertex ;
+    gl_Position =  glProjection * ModelViewMatrix * Vertex ;
 }
     

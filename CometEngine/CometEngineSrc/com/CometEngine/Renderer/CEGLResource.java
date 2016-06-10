@@ -16,7 +16,7 @@ public abstract class CEGLResource {
 			DeleteCompliteCallBack.invoke(this);
 
 	}
-	protected boolean isGLLoaded()
+	public boolean isGLLoaded()
 	{
 		return isloaded;
 	}

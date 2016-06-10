@@ -1,17 +1,13 @@
 package com.platform.cometengine.android.gl;
 
-import android.app.Application;
 import android.opengl.*;
-
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
-
-
 import com.CometEngine.Renderer.CEGLInterface;
-import com.CometEngine.Util.Buffer.CEBufferUtils;
+
 
 public class CEAndroidGL implements CEGLInterface{
 	
@@ -694,6 +690,21 @@ public class CEAndroidGL implements CEGLInterface{
 	public void BindVertexArray(int array) {
 		GLES30.glBindVertexArray(array);
 		
+	}
+
+	@Override
+	public int GenVertexArrays() {
+		IntBuffer buffer = IntBuffer.allocate(1);
+		GLES30.glGenVertexArrays(getBufferLimit(buffer), buffer);
+		return buffer.get();
+	}
+
+	@Override
+	public void DeleteVertexArrays(int target) {
+		IntBuffer buffer = IntBuffer.allocate(1);
+		buffer.put(target);
+		buffer.flip();
+		GLES30.glDeleteVertexArrays(getBufferLimit(buffer), buffer);
 	}
 	
 	

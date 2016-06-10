@@ -36,8 +36,6 @@ import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.CometEngine.PLATFORM;
 import com.CometEngine.Event.Manager.CEEventManager;
 import com.CometEngine.Renderer.CEGL;
-import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
-import com.CometEngine.Tester._RenderingTester;
 import com.platform.cometengine.android.gl.CEAndroidGL;
 import com.platform.cometengine.io.CEAndroidAsyncFileIO;
 import com.platform.cometengine.io.CEAndroidFilePath;
@@ -69,11 +67,12 @@ public class MainActivity extends Activity {
 		 surfaceView = new GLSurfaceView(this);
 		 surfaceView.setEGLContextClientVersion(3);
 		
-        surfaceView.setRenderer(glview = new CEGLSurfaceView.Renderer() {
+        surfaceView.setRenderer(glview = new GLSurfaceView.Renderer() {
             @Override
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	
             	System.out.println(" Width : " + width + " Height " + height);
+            	GLES30.glViewport(0, 0, width, height);
             	CometEngine.getInstece().getRenderer().setViewSize(width, height);
             }
             
@@ -130,7 +129,6 @@ public class MainActivity extends Activity {
 	   public class EVENT_TASK extends AsyncTask<Void,Void,Void> {
 
 		   
-			_RenderingTester tester = null ;
 			boolean flag = true;
 			String []paths = { "1"};
 			public void run()
@@ -143,7 +141,7 @@ public class MainActivity extends Activity {
 			public void init()
 			{
 				CESceneManager.getInstence().setScene(new CEScene());
-				tester = new _RenderingTester("1" + ".png");			
+				
 			}
 			
 			int n = 0 ;

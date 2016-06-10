@@ -124,6 +124,8 @@ public interface CEGLInterface {
     public void DrawElements (int mode, int count, int type, ByteBuffer indices) ;
     public void DrawElements (int mode, int count, int type, int offset) ;
     public void BindVertexArray(int target);
+    public int GenVertexArrays();
+    public void DeleteVertexArrays(int target);
     
     
 }

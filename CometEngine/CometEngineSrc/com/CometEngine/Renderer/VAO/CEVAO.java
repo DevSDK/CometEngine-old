@@ -22,7 +22,7 @@ public class CEVAO extends CEGLResource{
 			this.coordsize = coordsize;
 		}
 		
-		protected	FloatBuffer vertexs =null;
+		protected FloatBuffer vertexs =null;
 		protected int index = -1;
 		protected int coordsize = -1;
 		
@@ -33,7 +33,7 @@ public class CEVAO extends CEGLResource{
 	private int ID = 0;
 	
 	private IntBuffer IboData = null;
-	private CEVboObject [] VboData; 
+	private CEVboObject [] VboData = null; 
 	
 	
 	public static CEVAO Create(int[] ibo, CEVboObject [] VboData)
@@ -50,8 +50,8 @@ public class CEVAO extends CEGLResource{
 	
 	@Override
 	protected void onGLLoad() {
-		ID = CEGL.GenBuffers();
-		
+		ID = CEGL.GenVertexArrays();
+		 
 		CEGL.BindVertexArray(ID);
 		
 		StoreIndexBuffer(IboData);
@@ -77,6 +77,7 @@ public class CEVAO extends CEGLResource{
 	private void StoreVertexBuffer(int index,int coods ,FloatBuffer Vertexs)
 	{
 		int vbo = CEGL.GenBuffers();
+	
 		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vbo);
 		CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Vertexs, CEGL.GL_STATIC_DRAW);
 		CEGL.VertexAttribPointer(index, coods, CEGL.GL_FLOAT, false, 0, 0);

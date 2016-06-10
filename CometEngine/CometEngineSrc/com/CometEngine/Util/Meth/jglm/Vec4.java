@@ -16,6 +16,7 @@ package com.CometEngine.Util.Meth.jglm;
 
 import java.nio.FloatBuffer;
 
+import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.jglm.support.Compare;
 import com.CometEngine.Util.Meth.jglm.support.FastMath;
 
@@ -116,13 +117,11 @@ public final class Vec4 extends AbstractVec {
 	
 	@Override
 	public FloatBuffer getBuffer() {
-		final FloatBuffer buffer = allocateFloatBuffer();
-		final int startPos = buffer.position();
-		
+		final FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(4);
+
 		buffer.put(x).put(y).put(z).put(x);
 		
-		buffer.position(startPos);
-		
+		buffer.flip();
 		return buffer;
 	}
 

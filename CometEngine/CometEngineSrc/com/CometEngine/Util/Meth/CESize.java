@@ -27,4 +27,8 @@ public class CESize {
 	{
 		
 	}
+	public CESize Clone()
+	{
+		return new CESize(Width, Height);
+	}
 }

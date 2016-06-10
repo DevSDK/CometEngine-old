@@ -46,7 +46,6 @@ public class Run {
 			throw new RuntimeException("Failed Create GLFW WINDWO");
 	
 		GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-		
 		GLFW.glfwSetWindowPos(WINDOW, vidmode.width() / 2,vidmode.height()/2);
 		GLFW.glfwMakeContextCurrent(WINDOW);
 		GLFW.glfwSwapInterval(1);
@@ -73,8 +72,14 @@ public class Run {
 			CometEngine.getInstece().getRenderer().RenderingCommands();
 			
 			GLFW.glfwSwapBuffers(WINDOW);
-		GLFW.glfwSwapInterval(1);
+			GLFW.glfwSwapInterval(1);
+
+			
+			CometEngine.getInstece().setPauseEvent(true); 
 			GLFW.glfwPollEvents();
+			CometEngine.getInstece().setPauseEvent(false);;
+			
+			
 		}
 			CometEngine.getInstece().ExitCometEngine();
 	}

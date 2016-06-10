@@ -7,7 +7,15 @@ import com.CometEngine.Renderer.CERenderer;
 
 public class CometEngine {
 	
-
+	private boolean isPauseEvent = false;
+	
+	public boolean isPauseEvent()
+	{return isPauseEvent;}
+	public void setPauseEvent(boolean p)
+	{
+		this.isPauseEvent = p;
+	}
+	
 	
 	public static CometEngine getInstece()
 	{

@@ -17,7 +17,7 @@ import com.CometEngine.Util.Meth.jglm.Vec3;
 
 public class CERenderer {
 	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
-	
+
 	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
 	{
 		
@@ -64,8 +64,8 @@ public class CERenderer {
 			public void invoke() {
 				CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
 				CEGL.ClearColor(0, 1, 1, 1);
-				CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
 				CEGL.Enable(CEGL.GL_BLEND); 
+				CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
 			}
 		});
 		CERenderCommandManager.getInstence().AddCommand(ClearCommand);

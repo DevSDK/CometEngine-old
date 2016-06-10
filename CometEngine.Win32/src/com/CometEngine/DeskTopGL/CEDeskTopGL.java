@@ -683,6 +683,16 @@ public class CEDeskTopGL implements CEGLInterface{
 		GL30.glBindVertexArray(array);
 	}
 
+	@Override
+	public int GenVertexArrays() {
+		return GL30.glGenVertexArrays();
+	}
+
+	@Override
+	public void DeleteVertexArrays(int target) {
+		GL30.glDeleteVertexArrays(target);
+	}
+
 
 
     

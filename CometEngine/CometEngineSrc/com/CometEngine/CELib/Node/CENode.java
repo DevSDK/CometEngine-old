@@ -1,14 +1,55 @@
 package com.CometEngine.CELib.Node;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
+
+import com.CometEngine.Util.Meth.CEScale3D;
+import com.CometEngine.Util.Meth.jglm.support.Compare;
 
 
 public abstract class CENode {
-	protected LinkedList<CENode> Childes = new LinkedList<CENode>();
-	public enum NODE_TYPE {CE_NODE,CE_SOUND ,CE_SCENE, CE_SPRITE  };
-	protected NODE_TYPE mNodeType = NODE_TYPE.CE_NODE;
-	public CENode (NODE_TYPE type)
+	protected LinkedList<CENode> ChildList = new LinkedList<CENode>();
+	protected boolean isChildUpdated = false;
+	protected CENode mParent = null;
+	
+	
+	private int weight = 0;
+	private static final Comparator<CENode> CompareMethod = new Comparator<CENode>() {
+		@Override
+		public int compare(CENode arg0, CENode arg1) {
+			 if(arg0.weight > arg1.weight)
+				 return 1;
+			 else if(arg0.weight == arg1.weight)
+				 return 0;
+			 else
+				 return -1;
+		}
+	};
+	
+	public void add(CENode node)
 	{
-		this.mNodeType = type;
+		isChildUpdated = true;
+		ChildList.add(node);
+		Collections.sort(ChildList,CompareMethod);
+		
 	}
+	public void add(CENode node, int weight){
+		node.weight = weight;
+		node.mParent = this;
+		this.add(node);
+	}
+	public void removeChild(CENode node)
+	{
+		if(ChildList.contains(node))
+		{
+			node.mParent = null;
+			ChildList.remove(node);
+			
+			isChildUpdated = true;
+		}
+	
+	}
+	
 	
 }

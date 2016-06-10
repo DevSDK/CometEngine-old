@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
+import org.lwjgl.opengl.GL30;
+
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 
@@ -380,6 +382,14 @@ public class CEGL {
 	    {
 	    	GL.BindVertexArray(array);
 	    }
+	    
+		public static int GenVertexArrays() {
+			return GL.GenVertexArrays();
+		}
+
+		public static void DeleteVertexArrays(int target) {
+			GL.DeleteVertexArrays(target);
+		}
 	    
 	  private static CEGLInterface GL = null;
 	

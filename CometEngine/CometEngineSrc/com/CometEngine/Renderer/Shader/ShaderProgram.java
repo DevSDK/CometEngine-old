@@ -52,6 +52,11 @@ public abstract class ShaderProgram extends CEGLResource {
 	{
 		return CEGL.GetUniformLocation(programID, path);
 	}
+	public void LoadVector4f(int location, FloatBuffer vec)
+	{
+		CEGL.Uniform4fv(location, vec);
+	}
+	
 	
 	public void Start()
 	{
