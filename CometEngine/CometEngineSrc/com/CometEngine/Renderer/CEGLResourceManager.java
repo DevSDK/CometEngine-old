@@ -1,7 +1,9 @@
 package com.CometEngine.Renderer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class CEGLResourceManager {
@@ -50,5 +52,5 @@ public class CEGLResourceManager {
 			}
 		}
 	}
-	private static final LinkedList<CEGLResource> mLoadingList = new LinkedList<CEGLResource>();
+	private static final  List<CEGLResource> mLoadingList = new ArrayList<CEGLResource>();
  }

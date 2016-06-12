@@ -54,7 +54,7 @@ public interface Mat {
 	
 	boolean isZero();
 	
-	FloatBuffer getBuffer();
+	void getBuffer(FloatBuffer buffer);
 	
 	boolean equalsWithEpsilon(Mat obj);
 	

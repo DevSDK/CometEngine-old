@@ -72,8 +72,8 @@ public class MainActivity extends Activity {
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	
             	System.out.println(" Width : " + width + " Height " + height);
-            	GLES30.glViewport(0, 0, width, height);
             	CometEngine.getInstece().getRenderer().setViewSize(width, height);
+            	GLES30.glViewport(0, 0, width, height);
             }
             
             @Override
@@ -90,11 +90,7 @@ public class MainActivity extends Activity {
 				init.GL =  new CEAndroidGL();
 				init.platformFileUtil = new CEAndroidFileUtil();
 				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, init);
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+	
 				task = new EVENT_TASK();	
 				task.execute();
 				
@@ -149,14 +145,13 @@ public class MainActivity extends Activity {
 			{
 				while(CometEngine.getInstece().isRun() && flag)
 				{		
-					
-					System.out.println("STILL ALIVE : " + n ++);
 					try {
-						Thread.sleep(1);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						break;
 					}
 					CEEventManager.getInstence().PollAllEvent();
+					CESceneManager.getInstence().getScene().tick();
 				}
 		
 			}

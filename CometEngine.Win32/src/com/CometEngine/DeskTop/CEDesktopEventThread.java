@@ -36,27 +36,16 @@ public class CEDesktopEventThread extends Thread{
 		{		
 		
 			
-			CESceneManager.getInstence().getScene().ticktest();
+			CESceneManager.getInstence().getScene().tick();
 			CEEventManager.getInstence().PollAllEvent();
 			
 			try {
-				Thread.sleep(1);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			ByteBuffer buffer = CEBufferUtils.CreateByteBuffer(100);
-			byte [ ] buf  = new byte[] {};
-			buffer.wrap(buf);
-			buffer.flip();
-			time ++;
-			if(time > 10000)
-			{
-				System.out.println("GC");
-				System.gc();
-				time = 0;
-			}
+	
 		}
 		
 		

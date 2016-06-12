@@ -260,8 +260,7 @@ public final class Mat3 extends AbstractMat {
 	}
 
 	@Override
-	public FloatBuffer getBuffer() {
-		final FloatBuffer buffer = allocateFloatBuffer();
+	public void getBuffer(FloatBuffer buffer) {
 		final int startPos = buffer.position();
 		
 		// Col 1
@@ -281,7 +280,6 @@ public final class Mat3 extends AbstractMat {
 		
 		buffer.position(startPos);
 		
-		return buffer;
 	}
 
 	@Override

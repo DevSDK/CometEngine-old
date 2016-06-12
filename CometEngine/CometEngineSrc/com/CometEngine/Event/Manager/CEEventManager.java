@@ -6,7 +6,7 @@ import com.CometEngine.Event.CEEVent;
 
 public class CEEventManager {
 	private static final  CEEventManager m_Instence  = new CEEventManager();
-	private static LinkedList<CEEVent> EVENT_COMMAND_QUEUE = new LinkedList<CEEVent>();
+	private static final LinkedList<CEEVent> EVENT_COMMAND_QUEUE = new LinkedList<CEEVent>();
 	public static CEEventManager getInstence()
 	{
 			return m_Instence;

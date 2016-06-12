@@ -39,10 +39,10 @@ public final class Mat4 extends AbstractMat {
 	 * | C G K O |   | m02 m12 m22 m32 |
 	 * | D H L P |   | m03 m13 m23 m33 |
 	 */
-	final float m00, m10, m20, m30;
-	final float m01, m11, m21, m31;
-	final float m02, m12, m22, m32;
-	final float m03, m13, m23, m33;
+	private float m00, m10, m20, m30;
+	private float m01, m11, m21, m31;
+	private  float m02, m12, m22, m32;
+	private float m03, m13, m23, m33;
 	
 	/**
 	 * Creates a matrix with all elements equal to ZERO.
@@ -292,8 +292,7 @@ public final class Mat4 extends AbstractMat {
 	}
 	
 	@Override
-	public FloatBuffer getBuffer() {
-		final FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(16);
+	public void getBuffer(FloatBuffer buffer) {
 	
 		// Col1
 		buffer.put(m00)
@@ -318,10 +317,7 @@ public final class Mat4 extends AbstractMat {
 			.put(m31)
 			.put(m32)
 			.put(m33);
-		
 		buffer.flip();
-		
-		return buffer;
 	}
 	
 	@Override
@@ -427,11 +423,17 @@ public final class Mat4 extends AbstractMat {
             );
         }
 	
+      
+        
 	public Mat4 translate(final Vec3 translation) {
 		Vec4 v0 = new Vec4(m00 * translation.x, m01 * translation.x, m02 * translation.x, m03 * translation.x);
 		Vec4 v1 = new Vec4(m10 * translation.y, m11 * translation.y, m12 * translation.y, m13 * translation.y);
 		Vec4 v2 = new Vec4(m20 * translation.z, m21 * translation.z, m22 * translation.z, m23 * translation.z);
 		Vec4 v3 = new Vec4(m30, m31, m32, m33);
+		
+		
+		
+		
 		
 		Vec4 result = v0.add(v1).add(v2).add(v3);
 		
@@ -586,4 +588,9 @@ public final class Mat4 extends AbstractMat {
 			.append("\n}")
 			.toString();
 	}
+	
+	/**  
+	 *  
+	 * */
+	
 }

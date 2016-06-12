@@ -1,9 +1,12 @@
 package com.CometEngine.Tester;
 
 import java.io.File;
+import java.nio.FloatBuffer;
 
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Renderer.Shader.ShaderProgram;
+import com.CometEngine.Util.Buffer.CEBufferUtils;
+import com.CometEngine.Util.Meth.CEMatrix4f;
 import com.CometEngine.Util.Meth.jglm.Mat4;
 import com.CometEngine.Util.Meth.jglm.Vec4;
 
@@ -19,7 +22,7 @@ public class Default2DShader extends ShaderProgram{
 		super(VertexFileName, FragmentFileName);
 		
 	}
-	
+	FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(16);
 	int location = 0;
 	int location2 =0;
 	int gColor = 0;
@@ -31,19 +34,21 @@ public class Default2DShader extends ShaderProgram{
 	
 	}
 
-	public void setColor4f(Vec4 vector)
+	public void setColor4f(FloatBuffer vector)
 	{
-		super.LoadVector4f(gColor, vector.getBuffer());
+		super.LoadVector4f(gColor, vector);
 	}
 
 	public void setProjectionMatrix(Mat4 matrix)
 	{
-		super.LoadeMatrix4f(location, matrix.getBuffer());
+		matrix.getBuffer(buffer);
+		super.LoadeMatrix4f(location, buffer);
 	}
 	
-	public void setModelViewMatrix(Mat4 matrix)
+	public void setModelViewMatrix(CEMatrix4f matrix)
 	{
-		super.LoadeMatrix4f(location2, matrix.getBuffer());
+		matrix.getBuffer(buffer);
+		super.LoadeMatrix4f(location2, buffer);
 	}
 	
 	

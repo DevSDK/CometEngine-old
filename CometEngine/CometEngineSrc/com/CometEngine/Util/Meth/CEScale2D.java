@@ -9,8 +9,5 @@ public class CEScale2D {
 		this.x = x;
 		this.y = y;
 	}
-	public CEScale2D Clone()
-	{
-		return new CEScale2D(x, y);
-	}
+
 }

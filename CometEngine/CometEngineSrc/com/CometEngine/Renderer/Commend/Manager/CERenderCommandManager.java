@@ -1,7 +1,9 @@
 package com.CometEngine.Renderer.Commend.Manager;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
@@ -13,7 +15,7 @@ import com.CometEngine.Renderer.Commend.CERenderCommandNull;
 
 public class CERenderCommandManager {
 	private static final CERenderCommandManager m_s_Instence =  new CERenderCommandManager();
-	private static LinkedList<CERenderCommand> CommandQue = new LinkedList<CERenderCommand>();
+	private static final List<CERenderCommand> CommandQue = new ArrayList<CERenderCommand>();
 	private Object Sync = new Object();
 	
  	
@@ -22,7 +24,7 @@ public class CERenderCommandManager {
 		synchronized (Sync) {
 			CommandQue.add(command);
 	}}
-	public  synchronized  void AddCommands(LinkedList<CERenderCommand> commands)
+	public synchronized  void AddCommands(ArrayList<CERenderCommand> commands)
 	{	
 		CommandQue.addAll(commands);
 	}
@@ -36,21 +38,13 @@ public class CERenderCommandManager {
 		}
 	}
 	
-	public void InvokeOneCommands()
-	{
-		synchronized (Sync) {
-			if(CommandQue.isEmpty())
-				return;
-			CommandQue.getFirst().execute();
-			CommandQue.removeFirst();			
-		}
-	}
+
 	public void InvokeAllCommands()
 	{
 		synchronized(Sync){
-			for(CERenderCommand command : CommandQue)
+			for(int i = 0 ;  i < CommandQue.size(); i++)
 			{
-				command.execute();
+				CommandQue.get(i).execute();
 			}
 			CommandQue.clear();			
 		}		

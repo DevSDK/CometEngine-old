@@ -1,6 +1,8 @@
 package com.CometEngine.CELib.Scene;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Camera.CECamera;
@@ -27,36 +29,46 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 	public CEScene() {
 
 		sprite = new CESprite2D("0.png");
+		this.add(sprite);
+		
 		sprite2 = new CESprite2D("1.png");
 		sprite3 = new CESprite2D("2.png");
-		this.add(sprite);
+	
 		this.add(sprite2,2);
 		this.add(sprite3);
+
 	}
 	
 	int timer = 0;
 	
 	
-	public void ticktest ()
+	public void tick ()
 	{
 		timer ++;
 		CEPosition2D pos = sprite.getPosition();
 		
-		sprite.setAngle(sprite.getAngle() + 0.01f);
-		sprite.setPosition(pos.x + 0.03f,pos.y + 0.03f);
-
-
+		sprite.setAngle(sprite.getAngle() + 0.1f);
+		sprite.getPosition().x += 0.01f;
+		sprite.getPosition().y += 0.01f;
+		
+		
+		sprite.getScale().x -= 0.01f;
+		if(sprite.getScale().x < 0) sprite.getScale().x = 0;
+		
 		CEPosition2D pos2 = sprite2.getPosition();
-		sprite2.setAngle(sprite2.getAngle() + 0.001f);
-		sprite2.setPosition(pos2.x + 0.03f,pos2.y + 0.03f);
+		sprite2.setAngle(sprite2.getAngle() + 0.0f);
+		
+		pos2.x += 0.02f;
+		pos2.y += 0.02f;
+		
 		
 
 		CEPosition2D pos3 = sprite3.getPosition();
-		sprite3.setAngle(sprite3.getAngle() + 0.002f);
-		sprite3.setPosition(pos3.x + 0.03f,pos3.y + 0.02f);
-		
-		sprite.setScale( sprite.getScale().x - 0.0001f, 1);
+		sprite3.setAngle(sprite3.getAngle() + 0.02f);
+		sprite3.getPosition().x += 0.01f;
+		sprite3.getPosition().y += 0.01f;
 	
+		
 		
 	}
 	
@@ -74,7 +86,7 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 	}
 	
 	
-	private final LinkedList<CERenderableNode> RenderingList = new LinkedList<CERenderableNode>();
+ 	private final List<CERenderableNode> RenderingList = new ArrayList<CERenderableNode>();
 
 	private void UpdateRenderList()
 	{
@@ -82,12 +94,10 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		VisitAndGenChildCommands();
 	}
 	
-	private CERenderCommandCustom SpriteRenderCommand = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
+		private CERenderCommandCustom SpriteRenderCommand = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
 		@Override
 		public void invoke() {
 			
-			
-
 			if(isChildUpdated == true)
 				{
 					UpdateRenderList();
@@ -99,16 +109,16 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 			Drawing();
 			
 			
-			for(CERenderableNode renderablenode : RenderingList)
+			for(int i = 0 ; i< RenderingList.size(); i++)
 			{
-				CERenderCommand command = renderablenode.genRenderCommand();
+				CERenderCommand command = RenderingList.get(i).genRenderCommand();
 				if(command != null)
 				{
-					if(CENode2D.class.isAssignableFrom(renderablenode.getClass()))
+					if(CENode2D.class.isAssignableFrom(RenderingList.get(i).getClass()))
 					{
 						command.execute();
 					}
-					else if(CENode3D.class.isAssignableFrom(renderablenode.getClass()))
+					else if(CENode3D.class.isAssignableFrom(RenderingList.get(i).getClass()))
 					{
 						
 						command.execute();

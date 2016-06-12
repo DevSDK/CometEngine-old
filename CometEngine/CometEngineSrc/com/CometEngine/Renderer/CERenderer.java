@@ -1,6 +1,9 @@
 package com.CometEngine.Renderer;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESceneManager;
@@ -13,7 +16,6 @@ import com.CometEngine.Renderer.VAO.CEVAOLoader;
 import com.CometEngine.Tester.Tester;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CESize;
-import com.CometEngine.Util.Meth.jglm.Vec3;
 
 public class CERenderer {
 	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
@@ -42,11 +44,14 @@ public class CERenderer {
 	{
 		return m_RendererType;
 	}
-	public void Sorting()
-	{
-		
-	}
 	
+	public void GL_CLEAR()
+	{
+		CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
+		CEGL.ClearColor(0, 1, 1, 1);
+		CEGL.Enable(CEGL.GL_BLEND); 
+		CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
+	}
 	public void VisitRenderTarget()
 	{
 		CEScene scene =  CESceneManager.getInstence().getScene();
@@ -57,18 +62,8 @@ public class CERenderer {
 			if(command != null)
 				command.execute();
 		}
+	
 		
-		CERenderCommandCustom ClearCommand = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
-			
-			@Override
-			public void invoke() {
-				CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
-				CEGL.ClearColor(0, 1, 1, 1);
-				CEGL.Enable(CEGL.GL_BLEND); 
-				CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
-			}
-		});
-		CERenderCommandManager.getInstence().AddCommand(ClearCommand);
 		
 		if(command != null)	
 			CERenderCommandManager.getInstence().AddCommand(command);
@@ -79,6 +74,7 @@ public class CERenderer {
 			CEGLResourceManager.getInstence().LoadUPGLResrouce();
 		
 		VisitRenderTarget();
+		GL_CLEAR();
 		CERenderCommandManager.getInstence().InvokeAllCommands();
 
 	}
@@ -94,5 +90,5 @@ public class CERenderer {
 	private int Renderer_Height = 0;
 	private int Renderer_Weidth = 0;
 	private RENDERER_TYPE m_RendererType = RENDERER_TYPE.CE_RENDERER_NULL;
-	private LinkedList<CERenderCommand> m_RenderingQue = new LinkedList<CERenderCommand>();
+	private List<CERenderCommand> m_RenderingQue = new ArrayList<CERenderCommand>();
 }

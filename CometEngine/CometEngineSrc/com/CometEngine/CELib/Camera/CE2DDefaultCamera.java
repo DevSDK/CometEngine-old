@@ -8,11 +8,25 @@ import com.CometEngine.Util.Meth.jglm.Matrices;
 
 public class CE2DDefaultCamera extends  CECamera2D{
 	
+
+	Mat4 matrix = null;
+	public CE2DDefaultCamera()
+	{
+		CESize viewsize = CometEngine.getInstece().getRenderer().getViewSize();
+		
+		matrix = Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
+	}
+	
+	public void UpdateCameraMatrix()
+	{
+		CESize viewsize = CometEngine.getInstece().getRenderer().getViewSize();
+		
+		matrix = Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
+	}
 	@Override
 	public Mat4 getPorjection() 	{
-		CESize viewsize = CometEngine.getInstece().getRenderer().getViewSize();
-			return Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
-		}
+		return matrix;
+	}
 	
 	
 }

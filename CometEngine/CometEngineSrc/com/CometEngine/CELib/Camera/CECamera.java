@@ -4,6 +4,7 @@ import com.CometEngine.Util.Meth.jglm.Mat4;
 import com.CometEngine.Util.Meth.jglm.Matrices;
 
 public abstract class CECamera {
+	private Mat4 matrix = null;
 	public enum CECameraType{
 		CE_NULL, CE_CAM2D, CE_CAM3D
 	}

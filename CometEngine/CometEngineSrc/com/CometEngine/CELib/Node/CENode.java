@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 
 import com.CometEngine.Util.Meth.CEScale3D;
-import com.CometEngine.Util.Meth.jglm.support.Compare;
 
 
 public abstract class CENode {

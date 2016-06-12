@@ -6,7 +6,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
-import org.lwjgl.opengl.GL30;
 
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 

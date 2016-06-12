@@ -15,21 +15,12 @@ public abstract class CENode2D extends CERenderableNode {
 	
 	public CEScale2D getScale()
 	{
-		return scale.Clone();
+		return scale;
 	}
-	public void setScale(float x, float y)
-	{
-		if(x < 0)
-			x=0;
-		if(y < 0)
-			y = 0;
-		
-		scale.x = x;
-		scale.y = y;
-	}
+
 	public CEPosition2D getPosition()
 	{
-		return mPosition.Clone();
+		return mPosition;
 	}
 	public void setAngle(float angle)
 	{
@@ -39,16 +30,7 @@ public abstract class CENode2D extends CERenderableNode {
 	{
 		return angle;
 	}
-	public void setPosition(float x, float y)
-	{
-		mPosition.x = x;
-		mPosition.y = y;
-	}
-	public void setPosition(CEPosition2D position)
-	{
-		mPosition.x = position.x;
-		mPosition.y = position.y;
-	}
+
 	
 	
 

@@ -12,9 +12,6 @@ import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Renderer.VBO.CEIndexBufferObject;
 import com.CometEngine.Renderer.VBO.CEVertexBufferObject;
 import com.CometEngine.Tester.Default2DShader;
-import com.CometEngine.Util.Meth.jglm.Mat4;
-import com.CometEngine.Util.Meth.jglm.Matrices;
-import com.CometEngine.Util.Meth.jglm.Vec3;
 
 public class CEQuad {
 

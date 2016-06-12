@@ -11,7 +11,6 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:largeHeap="true"
         android:allowClearUserData="true" 
         android:label="@string/app_name"
         android:theme="@style/AppTheme" android:allowTaskReparenting="true" android:vmSafeMode="true" android:enabled="true">

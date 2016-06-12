@@ -28,6 +28,7 @@ public class Run {
 	
 	public static void LoadLWJGL()
 	{
+		
 		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
 		
 		if(GLFW.glfwInit() != GLFW.GLFW_TRUE)

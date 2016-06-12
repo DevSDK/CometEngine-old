@@ -24,6 +24,7 @@ import com.CometEngine.Renderer.VBO.CEIndexBufferObject;
 import com.CometEngine.Renderer.VBO.CEVertexBufferObject;
 import com.CometEngine.Tester.Default2DShader;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
+import com.CometEngine.Util.Meth.CEMatrix4f;
 import com.CometEngine.Util.Meth.jglm.Mat4;
 import com.CometEngine.Util.Meth.jglm.Matrices;
 import com.CometEngine.Util.Meth.jglm.Vec3;
@@ -42,9 +43,10 @@ public class CESprite2D extends CENode2D{
 	protected CEQuad quad = null;
 	protected CEColor4f color = new CEColor4f(1, 1, 1, 1);
 	
+    FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
+	FloatBuffer ModelViewMatrixBuffer = CEBufferUtils.CreateFloatBuffer(16);
     
     
-	
 	public CESprite2D(String filename) {
 		 texture  = CETexture2D.CreateTexture2D(filename);
 		 shader = new Default2DShader();
@@ -72,6 +74,9 @@ public class CESprite2D extends CENode2D{
 			quad.setColor(color);
 	}
 	
+	
+	private CEMatrix4f modelviewmatrix = new  CEMatrix4f();
+	
 	@Override
 	public void onDraw() {
 	
@@ -90,20 +95,23 @@ public class CESprite2D extends CENode2D{
 		
 		shader.setProjectionMatrix(CESceneManager.getInstence().nowRender2DCamera.getPorjection());
 		
-		Mat4 sc = new Mat4(scale.x, 	0,		0, 		0, 
-							0, 		scale.y,	0, 		0,
-							0,			0 , 	1, 		0,
-							0, 			0, 		0, 		1);
 		
-		Mat4 transmat = Mat4.MAT4_IDENTITY.translate(new Vec3(mPosition.x, mPosition.y, 0));
 		
-		Mat4 matrix = Matrices.rotate(angle, new Vec3(0, 0, 1));
+		
+		
+		
 		
 		//  Identity * translate * rotate * scale
 		
-		shader.setModelViewMatrix(transmat.multiply(matrix).multiply(sc));
+		modelviewmatrix.resetIDENTITY();
+		modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y, 1);
 		
-		shader.setColor4f(new Vec4(quad.color.Red, quad.color.Green, quad.color.Blue, quad.color.Alpha));
+		
+		shader.setModelViewMatrix(modelviewmatrix);
+		
+		color.getBuffer(colorbuffer);
+		shader.setColor4f(colorbuffer);
+		
 		CEGL.ActiveTexture(CEGL.GL_TEXTURE0);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, texture.getTextureID());
 		
