@@ -2,6 +2,7 @@ package com.CometEngine.Renderer.VAO;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.CometEngine.Renderer.CEGL;
@@ -12,6 +13,7 @@ import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 public class CEVAO extends CEGLResource{
 	
+	private final ArrayList<Integer> VBOS = new ArrayList<Integer>();
 	public static class CEVboObject
 	{
 		public CEVboObject(int index, int coordsize, float[] vertexs)
@@ -20,6 +22,7 @@ public class CEVAO extends CEGLResource{
 			this.vertexs = buffer;
 			this.index = index;
 			this.coordsize = coordsize;
+		
 		}
 		
 		protected FloatBuffer vertexs =null;
@@ -31,20 +34,29 @@ public class CEVAO extends CEGLResource{
 	
 	
 	private int ID = 0;
-	
+	private int glStatment = CEGL.GL_STATIC_DRAW;
 	private IntBuffer IboData = null;
 	private CEVboObject [] VboData = null; 
 	
 	
+	public static CEVAO Create(int[] ibo, CEVboObject [] VboData, int glStatment)
+	{
+		CEVAO vao = new CEVAO();
+		IntBuffer buffer = CEBufferUtils.ArrayToBuffer(ibo);
+		vao.IboData = buffer;
+		vao.VboData = VboData;
+		vao.glStatment = glStatment;
+		CEGLResourceManager.getInstence().putGLResrouce(vao);
+		return vao;
+	}
+	private CEVAO(){};
 	public static CEVAO Create(int[] ibo, CEVboObject [] VboData)
 	{
 		CEVAO vao = new CEVAO();
 		IntBuffer buffer = CEBufferUtils.ArrayToBuffer(ibo);
 		vao.IboData = buffer;
 		vao.VboData = VboData;
-		
 		CEGLResourceManager.getInstence().putGLResrouce(vao);
-		
 		return vao;
 	}
 	
@@ -65,25 +77,32 @@ public class CEVAO extends CEGLResource{
 		
 		CEGL.BindVertexArray(0);
 	}
-
+	
+	public int getVBOID(int idx)
+	{
+		if(VBOS.isEmpty() == false)
+			return VBOS.get(idx);
+		return 0;
+	}
+	
 	private void StoreIndexBuffer(IntBuffer buffer)
 	{
 		int ibo = CEGL.GenBuffers();
 		CEGL.BindBuffer(CEGL.GL_ELEMENT_ARRAY_BUFFER, ibo);
-		CEGL.BufferData(CEGL.GL_ELEMENT_ARRAY_BUFFER, buffer, CEGL.GL_STATIC_DRAW);
+		CEGL.BufferData(CEGL.GL_ELEMENT_ARRAY_BUFFER, buffer, glStatment);
 		
 	}
 	
 	private void StoreVertexBuffer(int index,int coods ,FloatBuffer Vertexs)
 	{
 		int vbo = CEGL.GenBuffers();
-	
+		VBOS.add(vbo);
+		
 		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vbo);
-		CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Vertexs, CEGL.GL_STATIC_DRAW);
+		CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Vertexs, glStatment);
 		CEGL.VertexAttribPointer(index, coods, CEGL.GL_FLOAT, false, 0, 0);
 		
 		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, 0);
-
 	}
 	
 	@Override

@@ -3,17 +3,23 @@ package com.CometEngine.CELib.Node;
 import java.util.LinkedList;
 
 import com.CometEngine.Util.Meth.CEPosition2D;
-import com.CometEngine.Util.Meth.CEScale2D;
+import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEScale3D;
 import com.CometEngine.Util.Meth.CESize;
 
 public abstract class CENode2D extends CERenderableNode {
 	protected final CEPosition2D mPosition = new CEPosition2D();;
 	protected float angle = 0;
-	protected final CEScale2D  scale = new CEScale2D(1, 1);
+	protected final CEFloat2D scale = new CEFloat2D(1, 1);
+	protected final CEFloat2D control_point  = new CEFloat2D(0.5f, 0.5f); 
 	
 	
-	public CEScale2D getScale()
+	public CEFloat2D getControlPoint()
+	{
+		return control_point;
+	}
+	
+	public CEFloat2D getScale()
 	{
 		return scale;
 	}

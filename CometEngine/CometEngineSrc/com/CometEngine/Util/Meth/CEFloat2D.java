@@ -1,10 +1,10 @@
 package com.CometEngine.Util.Meth;
 
-public class CEScale2D {
+public class CEFloat2D {
 	public float x = 0;
 	public float y = 0;
-	public CEScale2D(){}
-	public CEScale2D(float x, float y)
+	public CEFloat2D(){}
+	public CEFloat2D(float x, float y)
 	{
 		this.x = x;
 		this.y = y;

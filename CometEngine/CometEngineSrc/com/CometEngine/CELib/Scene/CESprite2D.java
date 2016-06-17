@@ -97,10 +97,6 @@ public class CESprite2D extends CENode2D{
 		
 		
 		
-		
-		
-		
-		
 		//  Identity * translate * rotate * scale
 		
 		modelviewmatrix.resetIDENTITY();

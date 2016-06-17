@@ -1,0 +1,24 @@
+#version 150
+
+uniform mat4 glProjection;
+uniform mat4 ModelViewMatrix;
+uniform mat4 lineMatrix;
+uniform mat4 charMatrix;
+
+in  vec3 Pos;
+in  vec3 Normal;
+in  vec2 Tex;
+
+out vec2 cood;
+out vec3 normalse;
+out vec4 colorPos;
+
+void main(void)
+{
+   normalse = Normal;
+   cood = Tex;
+  vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
+   colorPos = Vertex;
+    gl_Position =  glProjection * ModelViewMatrix * lineMatrix *  charMatrix * Vertex ;
+}
+    

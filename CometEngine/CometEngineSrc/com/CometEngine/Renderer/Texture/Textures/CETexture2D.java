@@ -49,6 +49,14 @@ public class CETexture2D extends CETexture {
 			return;
 		}	
 	}
+	public static CETexture2D CreateTexture2D(String FilePath, int WRAP)
+	{
+	
+		CETexture2D texture =  CreateTexture2D(FilePath);
+		texture.WRAP_S = WRAP;
+		texture.WRAP_T = WRAP;
+		return texture;
+	}
 	
 	public static CETexture2D CreateTexture2D(String FilePath)
 	{	

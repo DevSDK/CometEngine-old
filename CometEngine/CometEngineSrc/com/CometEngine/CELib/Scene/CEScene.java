@@ -10,6 +10,8 @@ import com.CometEngine.CELib.Node.CENode;
 import com.CometEngine.CELib.Node.CENode2D;
 import com.CometEngine.CELib.Node.CENode3D;
 import com.CometEngine.CELib.Node.CERenderableNode;
+import com.CometEngine.CELib.Text.CETextLabel;
+import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
@@ -22,20 +24,27 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 	
 	//Maybe move to Node
 	
-	
+	CETextLabel label;
 	CESprite2D sprite;
 	CESprite2D sprite2;
 	CESprite2D sprite3;
 	public CEScene() {
 
 		sprite = new CESprite2D("0.png");
-		this.add(sprite);
+	//	this.add(sprite);
 		
 		sprite2 = new CESprite2D("1.png");
 		sprite3 = new CESprite2D("2.png");
-	
-		this.add(sprite2,2);
-		this.add(sprite3);
+		 label = CETextLabel.CreateBMPText("CometEngine!\n"
+		 		+ "FontRendering\n"
+		 		+ "YESS!!", 1f, false, CEBMPFont.create("font.png", "font.fnt"));
+		 label.getPosition().x = 500;
+		 label.getPosition().y = 500;
+		 
+		 this.add(label);
+		
+	//	this.add(sprite2,2);
+	//	this.add(sprite3);
 
 	}
 	
@@ -48,12 +57,10 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		CEPosition2D pos = sprite.getPosition();
 		
 		sprite.setAngle(sprite.getAngle() + 0.1f);
-		sprite.getPosition().x += 0.01f;
-		sprite.getPosition().y += 0.01f;
+		sprite.getPosition().x += 0.1f;
+		sprite.getPosition().y += 0.1f;
 		
 		
-		sprite.getScale().x -= 0.01f;
-		if(sprite.getScale().x < 0) sprite.getScale().x = 0;
 		
 		CEPosition2D pos2 = sprite2.getPosition();
 		sprite2.setAngle(sprite2.getAngle() + 0.0f);
@@ -64,7 +71,7 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		
 
 		CEPosition2D pos3 = sprite3.getPosition();
-		sprite3.setAngle(sprite3.getAngle() + 0.02f);
+		sprite3.setAngle(sprite3.getAngle() - 0.02f);
 		sprite3.getPosition().x += 0.01f;
 		sprite3.getPosition().y += 0.01f;
 	
@@ -79,10 +86,8 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 			if(CERenderableNode.class.isAssignableFrom(child.getClass()))
 			{
 					RenderingList.add((CERenderableNode)child);				
-			}
-			
+			}	
 		}
-
 	}
 	
 	
