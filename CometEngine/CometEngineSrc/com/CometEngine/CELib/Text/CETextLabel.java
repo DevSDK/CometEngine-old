@@ -17,16 +17,18 @@ import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public abstract class CETextLabel extends CENode2D {
 	protected CEFont Font = null;
-	private boolean isCentered = false;
+	protected boolean isCentered = false;
 	ArrayList<String> TextString;
 	ArrayList<char []> TextCharData = new ArrayList<char[]>();
 	protected int LabelWidth = 0 ;
 	protected int LabelHeight = 0 ;
 	
+	
+	
 	ShaderProgram program = new Default2DShader();
 	CEMatrix4f TransLateMatrx = new CEMatrix4f();
 	
-	protected CETextLabel(String Text, float scale, boolean centered, CEFont font)
+	protected CETextLabel(String []Text, float scale, boolean centered, CEFont font)
 	{
 		this.scale.x = scale;
 		this.scale.y = scale;
@@ -36,30 +38,26 @@ public abstract class CETextLabel extends CENode2D {
 		
 	}
 	
-	public static CEBMPTextLabel CreateBMPText(String strings, float scale, boolean isCentered, CEBMPFont font)
+	public static CEBMPTextLabel CreateBMPText(CEBMPFont font, float scale, boolean isCentered, String ...strings)
 	{
-		CEBMPTextLabel label = new CEBMPTextLabel(strings, scale, isCentered, font);
+		CEBMPTextLabel label = new CEBMPTextLabel(font, scale, isCentered, strings);
 		return label;
 	}
 	
-	private String[] getLine(String string)
-	{	
-		String [] str =  string.split("[\r\n]");
-		
-		if(str[0].endsWith("\\\\"))
-		{
-			str[0] += "\\";
-		}
-		return str;
-	}
+
  	
-	public void setString(String string)
+
+	public void setString(String line){
+		TextCharData.clear();
+		TextCharData.add(line.toCharArray());	
+	}
+	public void setString(String []stringLine)
 	{
-		String [] lines = getLine(string);
-		
-		for(int i = 0 ; i < lines.length ; i++)
+		TextCharData.clear();
+		System.out.println("Line Index " + stringLine.length);
+		for(int i = 0 ; i < stringLine.length ; i++)
 		{
-			TextCharData.add(lines[i].toCharArray());
+			TextCharData.add(stringLine[i].toCharArray());
 		}
 	}
 	public ArrayList<String> getLines()

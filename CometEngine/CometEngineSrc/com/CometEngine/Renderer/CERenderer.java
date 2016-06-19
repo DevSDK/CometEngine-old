@@ -48,7 +48,6 @@ public class CERenderer {
 	public void GL_CLEAR()
 	{
 		CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
-		CEGL.ClearColor(0, 1, 1, 1);
 		CEGL.Enable(CEGL.GL_BLEND); 
 		CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
 	}

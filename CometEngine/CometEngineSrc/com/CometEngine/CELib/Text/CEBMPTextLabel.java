@@ -25,24 +25,19 @@ public class CEBMPTextLabel extends CETextLabel{
 		private CETexture2D texture  = null;
 		private FontShader2D shader = null;
 		
-	
-		
 		private CEVAO vao = null;
 		private CEColor4f color = new CEColor4f(1, 1, 1, 1);
 		private FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
+		
 		private CEMatrix4f lineTranslateMatrix = new CEMatrix4f();
 		private CEMatrix4f charTrlateMatrix = new CEMatrix4f();
 		private CEMatrix4f loadYoffset = new CEMatrix4f();
 
-		protected CEBMPTextLabel(String strings, float scale, boolean centered, CEFont font) {
+		protected CEBMPTextLabel( CEFont font, float scale, boolean centered, String []strings) {
 		super(strings, scale, centered, font);
 		texture = ( (CEBMPFont)font).getTexture();
 		
-		CEVAO.CEVboObject []InitVao = new CEVAO.CEVboObject[] {new CEVAO.CEVboObject(0, 2, 
-				new float[] {0, 512,
-							0 ,0,
-							712, 512,
-							712, 0}) , 
+		CEVAO.CEVboObject []InitVao = new CEVAO.CEVboObject[] {new CEVAO.CEVboObject(0, 2, new float[] {0, 512,0 ,0,712, 512,712, 0}) , 
 				new CEVAO.CEVboObject(1, 2, new float[] {0,0 , 0 , 1 , 1, 0 , 1 ,1})}; 
 		
 		vao = CEVAO.Create(new int []{ 0 , 1, 2  , 2, 1, 3 }, InitVao ,CEGL.GL_DYNAMIC_DRAW);
@@ -58,16 +53,18 @@ public class CEBMPTextLabel extends CETextLabel{
 			lineTranslateMatrix.resetIDENTITY();
 		}
 	
-	private int drawtLine(char [] line)
+	
+		
+	private void drawtLine(char [] line)
 	{		
-			if(TextCharData == null)
-				return 0;
-			if(Font.isLoaded() == false)
-				return 0;
-			if(vao.isGLLoaded() == false)
-				return 0;
+		if(line == null)
+			return ;
 			
-			int width = 0;
+			if(Font.isLoaded() == false)
+				return ;
+			if(vao.isGLLoaded() == false)
+				return ;
+			
 			
 			CEGL.ActiveTexture(CEGL.GL_TEXTURE0);
 			CEGL.BindTexture(CEGL.GL_TEXTURE_2D, texture.getTextureID());
@@ -80,25 +77,26 @@ public class CEBMPTextLabel extends CETextLabel{
 				character c_info = Font.getChar(c);
 				if(c_info == null)
 					continue;
+				
 				if( c_info.getId() == 32 )
 				{
-					charTrlateMatrix.translate(c_info.getxAdvance() * scale.x ,0, 0);
-					width += c_info.getxAdvance()* scale.x;
+					charTrlateMatrix.translate(c_info.getxAdvance() ,0, 0);
 					shader.setCharMatrix(charTrlateMatrix);
-				
+					
 					continue;
 				}
 				
 				
 				loadYoffset.setMatrix(charTrlateMatrix);
-				charTrlateMatrix.translate((c_info.getxOffset() )*scale.x ,( - c_info.getyOffset())*scale.y , 0);
+				charTrlateMatrix.translate((c_info.getxOffset() )*scale.x ,( - c_info.getyOffset()), 0);
 				
 				shader.setCharMatrix(charTrlateMatrix);
 				CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vao.getVBOID(0));
-				
+				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, 32, CEGL.GL_DYNAMIC_DRAW);
 				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Font.getVertex(c), CEGL.GL_DYNAMIC_DRAW);
 		
 				CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vao.getVBOID(1));
+				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, 32, CEGL.GL_DYNAMIC_DRAW);
 				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Font.getTexCoord(c), CEGL.GL_DYNAMIC_DRAW);
 			
 				CEGL.EnableVertexAttribArray(0);
@@ -111,12 +109,9 @@ public class CEBMPTextLabel extends CETextLabel{
 				CEGL.DisableVertexAttribArray(0);
 				CEGL.DisableVertexAttribArray(1);
 				
-				width += c_info.getxAdvance() * scale.x;
 			}
 			CEGL.BindVertexArray(0);
-			
-			return width;
-			
+	
 	}
 	
 	private CERenderCommand command = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
@@ -137,18 +132,42 @@ public class CEBMPTextLabel extends CETextLabel{
 		
 	}
 	
+	private int getLineWidth(char [] line)
+	{
 
+		int width = 0;
+		if(line == null)
+			return 0 ;
+		
+		for(int i = 0; i< line.length; i++)
+		{
+			char c = line[i];
+			character c_info = Font.getChar(c);
+			if(c_info == null)
+				continue;
+			if( c_info.getId() == 32 )
+			{
+				width += c_info.getxAdvance();
+				continue;
+			}
+			
+			width += c_info.getxAdvance() + c_info.getxOffset();
+		}
+		
+		return width;
+		
+	}
 	private CEMatrix4f translatematrix = new CEMatrix4f();
 	
 	private void ResetBox()
 	{
 		LabelHeight = 0;
-		LabelWidth = 0;
 	}
 	
 	@Override
 	public void onDraw() {
 	
+		
 		shader.Start();
 		shader.setProjectionMatrix(CESceneManager.getInstence().nowRender2DCamera.getPorjection());
 		
@@ -156,8 +175,9 @@ public class CEBMPTextLabel extends CETextLabel{
 		shader.setColor4f(colorbuffer);
 		translatematrix.resetIDENTITY();
 
-		translatematrix.translate(-(LabelWidth  )* control_point.x, (LabelHeight ) * control_point.y , 0);
-		translatematrix.translate(mPosition.x, mPosition.y, 0);
+		translatematrix.translate(-(LabelWidth * scale.x)* control_point.x, (LabelHeight * scale.y)  * (1- control_point.y ) , 0);
+		
+		translatematrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1);
 		translatematrix.scale(scale.x,  scale.x, 0);
 		shader.setModelViewMatrix(translatematrix);
 		
@@ -166,22 +186,31 @@ public class CEBMPTextLabel extends CETextLabel{
 		ResetBox();
 		for(int i = 0 ; i < TextCharData.size(); i ++ )
 		{
-			char [] line = TextCharData.get(i);
-
-			PrepareLineRendering();
-			lineTranslateMatrix.translate(0,  -Font.getLineHeight(), 0);
-			shader.setLineMatrix(lineTranslateMatrix);
+			char [] line  = null;
+				try{line = TextCharData.get(i);}catch(IndexOutOfBoundsException e)
+				{
+					return;
+				}
 			
-			LabelHeight += (i + 1 ) * Font.getLineHeight();
-			int linewidth = drawtLine(line);
-			 if(LabelWidth < linewidth)
+			PrepareLineRendering();
+			
+
+			int linewidth = getLineWidth(line);
+		
+			if(isCentered)
+				charTrlateMatrix.translate((LabelWidth/2 - linewidth/2 ),0, 0);
+			
+			LabelHeight +=  Font.getLineHeight() * scale.y;
+			
+			shader.setLineMatrix(lineTranslateMatrix);
+			drawtLine(line);
+			lineTranslateMatrix.translate(  0 ,  -Font.getLineHeight(), 0);
+
+			if(LabelWidth < linewidth)
 			 {
 				 LabelWidth = linewidth;
 			 }
-			 
-			
 		}
-		
 		
 		
 		shader.Stop();

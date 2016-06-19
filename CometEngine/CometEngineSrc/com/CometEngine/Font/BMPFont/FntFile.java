@@ -1,9 +1,11 @@
 package com.CometEngine.Font.BMPFont;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -11,6 +13,14 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
@@ -44,15 +54,28 @@ public class FntFile {
 	public FntFile(ByteBuffer file) {
 		
 		openFile(file);
+		loadTEXT(file);
+		
+	}
+	
+	
+	
+	private void loadTEXT(ByteBuffer file)
+	{
 		loadPaddingData();
+	
 		loadLineSizes();
 		LineHeight = getValueOfVariable("lineHeight");
 		int imageWidth = getValueOfVariable("scaleW");
 		int imageHeidth = getValueOfVariable("scaleH");
 		loadCharacterData(imageWidth, imageHeidth);
+
 		close();
+
 	}
 
+
+	
 	public double getSpaceWidth() {
 		return spaceWidth;
 	}
@@ -138,6 +161,7 @@ public class FntFile {
 	
 	private void loadPaddingData() {
 		processNextLine();
+		
 		this.padding = getValuesOfVariable("padding");
 		this.paddingWidth = padding[PAD_LEFT] + padding[PAD_RIGHT];
 		this.paddingHeight = padding[PAD_TOP] + padding[PAD_BOTTOM];
@@ -152,11 +176,14 @@ public class FntFile {
 	private void loadCharacterData(int imageWidth ,int imageHeight) {
 		processNextLine();
 		processNextLine();
-		while (processNextLine()) {
+	int count  =	getValueOfVariable("count");
+	for(int i = 0; i<count; i++)
+		{
+			processNextLine();
 			character c = loadCharacter(imageWidth, imageHeight);
 			if (c != null) {
 				metaData.put(c.getId(), c);
-			}
+				}
 		}
 	}
 
