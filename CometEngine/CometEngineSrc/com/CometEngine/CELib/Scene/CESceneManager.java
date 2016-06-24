@@ -5,12 +5,16 @@ import java.util.LinkedList;
 import com.CometEngine.CELib.Camera.CECamera;
 
 public class CESceneManager {
-	private static final CESceneManager instence = new CESceneManager();
-	public static CESceneManager getInstence()
-	{
-		return instence;
-	}
 	
+	private CESceneManager()
+	{
+		
+	}
+	private static final CESceneManager Instance = new CESceneManager();
+	public static CESceneManager getInstance()
+	{
+		return Instance;
+	}
 	public void setScene(CEScene scene)
 	{
 		nowScene = scene;

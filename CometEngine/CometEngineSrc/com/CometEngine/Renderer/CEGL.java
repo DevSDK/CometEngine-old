@@ -23,7 +23,7 @@ public class CEGL {
 				return false;
 		}
 		
-		public CEGLInterface getInstence()
+		public CEGLInterface getInstance()
 		{
 			return GL;
 		}

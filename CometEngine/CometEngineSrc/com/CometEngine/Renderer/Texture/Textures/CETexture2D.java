@@ -72,14 +72,12 @@ public class CETexture2D extends CETexture {
 		
 		if(CEResourceManager.getInstence().isData(FilePath))
 		{
-			System.out.println("IS LOADED");
 			image = CEResourceManager.getInstence().getResoruce(FilePath);
 			texture.setImageReousrce(image);
 			CEGLResourceManager.getInstence().putGLResrouce(texture);
 		}
 		else
 		{
-			System.out.println("IS UNLOADED");
 			image = new CEImageResrouce(FilePath);
 			CEResourceManager.getInstence().putResoruceData(image);			
 			texture.setImageReousrce(image);
@@ -113,8 +111,6 @@ public class CETexture2D extends CETexture {
 	
 	
 		CEGL.TexImage2D(CEGL.GL_TEXTURE_2D, 0, CEGL.GL_RGBA, image.getWidth(), image.getHeight(), 0, CEGL.GL_RGBA, CEGL.GL_UNSIGNED_BYTE, image.getData());
-		System.out.println(image.getFilePath() + " : " + " Width: "+image.getWidth()+ " Hight: " + image.getHeight()) ;
-		System.out.println("TEXTURE ID "  + TextureID);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, 0);
 	}
 	@Override

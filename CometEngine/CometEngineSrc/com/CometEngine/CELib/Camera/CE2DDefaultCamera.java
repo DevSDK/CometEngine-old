@@ -12,14 +12,14 @@ public class CE2DDefaultCamera extends  CECamera2D{
 	Mat4 matrix = null;
 	public CE2DDefaultCamera()
 	{
-		CESize viewsize = CometEngine.getInstece().getRenderer().getViewSize();
+		CESize viewsize = CometEngine.getInstance().getRenderer().getViewSize();
 		
 		matrix = Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
 	}
 	
 	public void UpdateCameraMatrix()
 	{
-		CESize viewsize = CometEngine.getInstece().getRenderer().getViewSize();
+		CESize viewsize = CometEngine.getInstance().getRenderer().getViewSize();
 		
 		matrix = Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
 	}

@@ -11,9 +11,12 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
+import org.newdawn.slick.command.Control;
+
 import com.CometEngine.*;
 import com.CometEngine.DeskTop.CEDeskTopAsyncFileIO;
 import com.CometEngine.DeskTop.CEDeskTopFileUtil;
+import com.CometEngine.DeskTop.CEDeskTopKeyboard;
 import com.CometEngine.DeskTop.CEDeskTopPlatForm;
 import com.CometEngine.DeskTop.CEDeskTopSyncFileIO;
 import com.CometEngine.DeskTop.CEDesktopEventThread;
@@ -25,10 +28,9 @@ public class Run {
 	private static int		WINDOW_WIDTH  = 1000;
 	private static int		WINDOW_HEIGHT  = 1000;
 	private static long	WINDOW;
-	
+	private static CEDeskTopKeyboard KeybordCallBack = new CEDeskTopKeyboard();
 	public static void LoadLWJGL()
 	{
-		
 		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
 		
 		if(GLFW.glfwInit() != GLFW.GLFW_TRUE)
@@ -47,12 +49,13 @@ public class Run {
 			throw new RuntimeException("Failed Create GLFW WINDWO");
 	
 		GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+		GLFW.glfwSetKeyCallback(WINDOW, KeybordCallBack);
 		GLFW.glfwSetWindowPos(WINDOW, vidmode.width() / 2,vidmode.height()/2);
 		GLFW.glfwMakeContextCurrent(WINDOW);
-		GLFW.glfwSwapInterval(1);
 		GLFW.glfwShowWindow(WINDOW);
 		GL.createCapabilities();	
 	}
+	
 	
 	public static void main(String [] argc)
 	{
@@ -62,27 +65,30 @@ public class Run {
 		init.GL = new CEDeskTopGL();
 		init.platformFileUtil = new CEDeskTopFileUtil();
 		
-		CometEngine.getInstece().Run(CometEngine.PLATFORM.CE_WIN32, init);
-		CometEngine.getInstece().getRenderer().setViewSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		CometEngine.getInstance().Run(CometEngine.PLATFORM.CE_WIN32, init);
+		CometEngine.getInstance().getRenderer().setViewSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
 		CEDesktopEventThread thread = new CEDesktopEventThread();
 		thread.start();
 		
+		
+		
+		GLFW.glfwGetJoystickName(0);
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
-			CometEngine.getInstece().getRenderer().RenderingCommands();
+			CometEngine.getInstance().getRenderer().RenderingCommands();
 			
 			GLFW.glfwSwapBuffers(WINDOW);
-			GLFW.glfwSwapInterval(1);
 
 			
-			CometEngine.getInstece().setPauseEvent(true); 
+			CometEngine.getInstance().setPauseEvent(true); 
+			
 			GLFW.glfwPollEvents();
-			CometEngine.getInstece().setPauseEvent(false);;
+			CometEngine.getInstance().setPauseEvent(false);;
 			
 			
 		}
-			CometEngine.getInstece().ExitCometEngine();
+			CometEngine.getInstance().ExitCometEngine();
 	}
 }
 	

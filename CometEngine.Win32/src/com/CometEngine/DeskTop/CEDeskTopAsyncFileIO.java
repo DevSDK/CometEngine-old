@@ -38,7 +38,6 @@ public class CEDeskTopAsyncFileIO {
 			AsynchronousFileChannel filechannel = AsynchronousFileChannel.open(file.toPath(), StandardOpenOption.READ);
 			
 			ByteBuffer buffer = ByteBuffer.allocate((int)filechannel.size());
-			System.out.println("FILE CHNNEL SIZE :" + filechannel.size());
 			AttachMent attacment = new AttachMent(file.toPath(), buffer, filechannel);
 			CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent> handler = new CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent>() {
 			
@@ -48,8 +47,7 @@ public class CEDeskTopAsyncFileIO {
 				}
 				@Override
 				public void completed(Integer arg0, AttachMent arg1) {
-		               System.out.println(
-		            		   arg1.path.getFileName() + " : " + arg1.buffer + " : " + Thread.currentThread().getName());
+					
 					handle.complite(arg1.buffer);
 				
 					try {

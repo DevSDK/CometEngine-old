@@ -12,8 +12,8 @@ public class character {
 	private double sizeX;
 	private double sizeY;
 	private double xAdvance;
-
-	protected character(int id, double xTextureCoord, double yTextureCoord, double xTexSize, double yTexSize,
+	private int DrawOffset;
+	protected character(int id, int DrawOffset , double xTextureCoord, double yTextureCoord, double xTexSize, double yTexSize,
 			double xOffset, double yOffset, double sizeX, double sizeY, double xAdvance) {
 		this.id = id;
 		this.xTextureCoord = xTextureCoord;
@@ -25,12 +25,16 @@ public class character {
 		this.xMaxTextureCoord = xTexSize + xTextureCoord;
 		this.yMaxTextureCoord = yTexSize + yTextureCoord;
 		this.xAdvance = xAdvance;
+		this.DrawOffset = DrawOffset;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
+	public int getDrawOffset()
+	{
+		return DrawOffset;
+	}
 	public double getxTextureCoord() {
 		return xTextureCoord;
 	}

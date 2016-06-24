@@ -6,6 +6,10 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
+
+import org.lwjgl.opengles.GLES31;
+import org.lwjgl.opengles.GLES32;
+
 import com.CometEngine.Renderer.CEGLInterface;
 
 
@@ -682,7 +686,7 @@ public class CEAndroidGL implements CEGLInterface{
 	public int GetShaderi(int shader, int pname) {
 		IntBuffer buf = IntBuffer.allocate(Integer.SIZE/8);
 		GLES30.glGetShaderiv(shader, pname, buf);
-	
+		
 		return buf.get();
 	}
 

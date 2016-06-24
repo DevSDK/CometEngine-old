@@ -93,7 +93,7 @@ public class CESprite2D extends CENode2D{
 		
 		shader.Start();
 		
-		shader.setProjectionMatrix(CESceneManager.getInstence().nowRender2DCamera.getPorjection());
+		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().nowRender2DCamera.getPorjection());
 		
 		
 		

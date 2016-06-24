@@ -10,6 +10,7 @@ import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -43,10 +44,13 @@ public class FntFile {
 	private int paddingWidth;
 	private int paddingHeight;
 	private int LineHeight = 0 ;
-	private Map<Integer, character> metaData = new HashMap<Integer, character>();
+	private int CharCount = 0;
+	private Map<Integer, character> Fontdata = new HashMap<Integer, character>();
 	
-	protected Hashtable<Integer, FloatBuffer> VertexTable = new Hashtable<Integer, FloatBuffer>();
-	protected Hashtable<Integer, FloatBuffer> TextureCoordTable = new Hashtable<Integer, FloatBuffer>();
+	protected Hashtable<Integer, Integer> OffsetTable = new Hashtable<Integer, Integer>();
+	protected final ArrayList<Float> VertexList = new ArrayList<Float>();
+	protected final ArrayList<Float> TexCoordList = new ArrayList<Float>();
+	//protected Hashtable<Integer, FloatBuffer> VertexTable = new Hashtable<Integer, FloatBuffer>();
 	
 	private BufferedReader reader;
 	private Map<String, String> values = new HashMap<String, String>();
@@ -54,10 +58,12 @@ public class FntFile {
 	public FntFile(ByteBuffer file) {
 		
 		openFile(file);
-		loadTEXT(file);
-		
+		loadTEXT(file);		
 	}
-	
+	public int getCharCounter()
+	{
+		return CharCount;
+	}
 	
 	
 	private void loadTEXT(ByteBuffer file)
@@ -81,7 +87,7 @@ public class FntFile {
 	}
 
 	public character getCharacter(int ascii) {
-		return metaData.get(ascii);
+		return Fontdata.get(ascii);
 	}
 
 	
@@ -127,23 +133,10 @@ public class FntFile {
 			e.printStackTrace();
 		}
 	}
-	public FloatBuffer getVertex(char c)
-	{
-		if(VertexTable.containsKey((int)c))
-		{
-			return VertexTable.get((int)c);
-		}
-		return null;
-				
-	}
-	public FloatBuffer TextureCoord(char c)
-	{
-		if(TextureCoordTable.containsKey((int)c))
-		{
-			return TextureCoordTable.get((int)c);
-		}
-		return null;
-	}
+
+	
+
+
 	
 	private void openFile(ByteBuffer file) {
 		try {
@@ -151,7 +144,7 @@ public class FntFile {
 			reader = new BufferedReader(new StringReader( new String(file.array(), Charset.forName("UTF-8"))));
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("Couldn't read font meta file!");
+			System.err.println("Couldn't read font Font file!");
 		}
 	}
 	public int getLineHeight()
@@ -176,55 +169,62 @@ public class FntFile {
 	private void loadCharacterData(int imageWidth ,int imageHeight) {
 		processNextLine();
 		processNextLine();
-	int count  =	getValueOfVariable("count");
-	for(int i = 0; i<count; i++)
+		CharCount  =	getValueOfVariable("count");
+	for(int i = 0; i<=CharCount; i++)
 		{
 			processNextLine();
 			character c = loadCharacter(imageWidth, imageHeight);
 			if (c != null) {
-				metaData.put(c.getId(), c);
+				Fontdata.put(c.getId(), c);
 				}
 		}
 	}
-
+	
+	
+	private int DrawOffsetCounter = 0 ;
+	
 	
 	private character loadCharacter(int imageWidth, int imageHeight) {
 		int id = getValueOfVariable("id");
 		if (id ==  32 ) {
 			this.spaceWidth = (getValueOfVariable("xadvance") - paddingWidth) ;
-			return new character(32, 0, 0, 0, 0, 0, 0, 0, 0, spaceWidth);
+			return new character(32,0 ,0, 0, 0, 0, 0, 0, 0, 0, spaceWidth);
 		}
 		float xTex = ((float) getValueOfVariable("x") ) / imageWidth;
 		float yTex = ((float) getValueOfVariable("y")) / imageHeight;
 		int width = getValueOfVariable("width") ;
 		int height = getValueOfVariable("height" );
 
-		float[] vertices = new float[]{
-	    		0, -height, 
-	    		0, 0,
-	            width, -height,
-	            width, 0
-	    };
-		VertexTable.put(id, CEBufferUtils.ArrayToBuffer(vertices));
+		VertexList.add(0.0f); VertexList.add((float) -height); 
+		VertexList.add(0.0f); VertexList.add(0.0f); 
+		VertexList.add((float) width); VertexList.add((float) -height); 
+		VertexList.add((float) width); VertexList.add(0.0f); 
+	
 	
 		double quadWidth = width;
 		double quadHeight = height;
 		float xTexSize = ((float) width  ) / imageWidth;
 		float yTexSize = ((float) height  )  / imageHeight ;
-		float []texcood = new float[]{
-				xTex , yTex + yTexSize ,
-				xTex  ,yTex , 
-				xTex  +xTexSize, yTex + yTexSize, 
-				xTex + xTexSize , yTex 
-		};
 		
+		TexCoordList.add(xTex); TexCoordList.add(yTex + yTexSize);
+		TexCoordList.add(xTex); TexCoordList.add(yTex);
+		TexCoordList.add(xTex  +xTexSize); TexCoordList.add( yTex + yTexSize);
+		TexCoordList.add(xTex + xTexSize); TexCoordList.add(yTex);
 		
+
 		
-		TextureCoordTable.put(id, CEBufferUtils.ArrayToBuffer(texcood));
 		
 		double xOff = (getValueOfVariable("xoffset")) ;
 		double yOff = (getValueOfVariable("yoffset") );
-		double xAdvance = (getValueOfVariable("xadvance") ) ;
-		return new character(id, xTex, yTex, xTexSize, yTexSize, xOff, yOff, quadWidth, quadHeight, xAdvance);
+		double xAdvance = (getValueOfVariable("xadvance") );
+		return new character(id, DrawOffsetCounter ++ , xTex, yTex, xTexSize, yTexSize, xOff, yOff, quadWidth, quadHeight, xAdvance);
+	}
+	public ArrayList<Float> getTexCoordList()
+	{
+		return TexCoordList;
+	}
+	public ArrayList<Float> getVertexList()
+	{
+		return VertexList;
 	}
 }

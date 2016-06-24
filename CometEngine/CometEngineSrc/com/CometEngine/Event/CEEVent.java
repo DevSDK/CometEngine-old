@@ -11,11 +11,12 @@ public abstract class CEEVent {
 	}
 	private EVENTTYPE m_Event_Type = EVENTTYPE.CE_EVENT_NULL;
 	
+	
+	
 	public EVENTTYPE getType()
 	{
 		return m_Event_Type;
 	}
 	
-	public abstract void invoke();
-	
+
 }

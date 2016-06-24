@@ -1,5 +1,7 @@
 package com.CometEngine;
 
+import com.CometEngine.CELib.Scene.CESceneManager;
+import com.CometEngine.Event.Listener.CEEventDispatcher;
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLInterface;
@@ -8,6 +10,14 @@ import com.CometEngine.Renderer.CERenderer;
 public class CometEngine {
 	
 	private boolean isPauseEvent = false;
+	private CESceneManager sceneManager = CESceneManager.getInstance();
+	private CEEventDispatcher EventDispatcher = CEEventDispatcher.getInstance();
+	
+	
+	public CESceneManager getSceneManager()
+	{
+		return sceneManager;
+	}
 	
 	public boolean isPauseEvent()
 	{return isPauseEvent;}
@@ -17,9 +27,10 @@ public class CometEngine {
 	}
 	
 	
-	public static CometEngine getInstece()
+	public static CometEngine getInstance()
 	{
-		return m_Instence;
+		
+		return m_Instance;
 	}
 	public void RunErrorCheck() //If Not Running Engine Access The Member Exception
 	{
@@ -80,7 +91,7 @@ public class CometEngine {
 		if(CEFileUtil.FileSystemInit(m_PlatForm, object.platformFileUtil) == false)
 		{
 			System.err.println("INIT FILESYSTEM ERROR : FileSystemInit return false");
-			CometEngine.getInstece().EXIT(-1);
+			CometEngine.getInstance().EXIT(-1);
 		}
 			
 		if(m_PlatForm == PLATFORM.CE_WIN32 || m_PlatForm == PLATFORM.CE_MAC)
@@ -125,7 +136,7 @@ public class CometEngine {
 	
 	
 	private CERenderer renderer = null;	
-	private static final CometEngine m_Instence = new CometEngine();
+	private static final CometEngine m_Instance = new CometEngine();
 	private  boolean IsRun = false;
 	public enum PLATFORM {	CE_NULL, CE_WIN32, CE_ANDROID, CE_IOS, CE_MAC }
 	private PLATFORM m_PlatForm = PLATFORM.CE_NULL;

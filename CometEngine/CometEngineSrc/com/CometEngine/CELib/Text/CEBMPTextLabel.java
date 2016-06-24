@@ -3,6 +3,7 @@ package com.CometEngine.CELib.Text;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
+import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Node.CEColor4f;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Font.CEBMPFont;
@@ -33,16 +34,19 @@ public class CEBMPTextLabel extends CETextLabel{
 		private CEMatrix4f charTrlateMatrix = new CEMatrix4f();
 		private CEMatrix4f loadYoffset = new CEMatrix4f();
 
-		protected CEBMPTextLabel( CEFont font, float scale, boolean centered, String []strings) {
+		protected CEBMPTextLabel(CEFont font, float scale, boolean centered, String []strings) {
 		super(strings, scale, centered, font);
 		texture = ( (CEBMPFont)font).getTexture();
 		
-		CEVAO.CEVboObject []InitVao = new CEVAO.CEVboObject[] {new CEVAO.CEVboObject(0, 2, new float[] {0, 512,0 ,0,712, 512,712, 0}) , 
-				new CEVAO.CEVboObject(1, 2, new float[] {0,0 , 0 , 1 , 1, 0 , 1 ,1})}; 
+		CEVAO.CEVboObject []InitVao = new CEVAO.CEVboObject[] {new CEVAO.CEVboObject(0, 2, Font.getVertexList()) , 
+				new CEVAO.CEVboObject(1, 2, Font.getTextureCoordList())}; 
+			int [] array = genIndeces(Font.getCharacterSize());
+			
+		vao = CEVAO.Create(array, InitVao ,CEGL.GL_STATIC_DRAW);
 		
-		vao = CEVAO.Create(new int []{ 0 , 1, 2  , 2, 1, 3 }, InitVao ,CEGL.GL_DYNAMIC_DRAW);
 		shader = new FontShader2D();
 		}
+		
 		private void PrepareLineRendering()
 		{
 			charTrlateMatrix.resetIDENTITY();
@@ -53,7 +57,25 @@ public class CEBMPTextLabel extends CETextLabel{
 			lineTranslateMatrix.resetIDENTITY();
 		}
 	
-	
+
+		private int[] genIndeces(int size)
+		{
+			int [] array= new int[size*6];
+			for(int i = 0  ; i  < size ; i++)
+			{
+			
+				array[i * 6] =  i * 4; 
+				array[i * 6 + 1] =  i * 4 + 1;
+				array[i * 6 + 2] =  i * 4 + 2;
+				
+				array[i * 6 + 3] =  i * 4 + 2;
+				array[i * 6 + 4] =  i * 4 + 1;
+				array[i * 6 + 5] =  i * 4 + 3;
+				
+			}
+		
+			return array;
+		}
 		
 	private void drawtLine(char [] line)
 	{		
@@ -71,16 +93,15 @@ public class CEBMPTextLabel extends CETextLabel{
 			
 			CEGL.BindVertexArray(vao.getID());
 			
-			for(int i = 0; i< line.length; i++)
+			for(int i = 0; i < line.length; i++)
 			{
 				char c = line[i];
 				character c_info = Font.getChar(c);
 				if(c_info == null)
 					continue;
-				
 				if( c_info.getId() == 32 )
 				{
-					charTrlateMatrix.translate(c_info.getxAdvance() ,0, 0);
+					charTrlateMatrix.translate(c_info.getxAdvance(),0, 0);
 					shader.setCharMatrix(charTrlateMatrix);
 					
 					continue;
@@ -88,21 +109,14 @@ public class CEBMPTextLabel extends CETextLabel{
 				
 				
 				loadYoffset.setMatrix(charTrlateMatrix);
-				charTrlateMatrix.translate((c_info.getxOffset() )*scale.x ,( - c_info.getyOffset()), 0);
+				charTrlateMatrix.translate((c_info.getxOffset() ) * scale.x ,( - c_info.getyOffset()), 0);
 				
 				shader.setCharMatrix(charTrlateMatrix);
-				CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vao.getVBOID(0));
-				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, 32, CEGL.GL_DYNAMIC_DRAW);
-				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Font.getVertex(c), CEGL.GL_DYNAMIC_DRAW);
-		
-				CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vao.getVBOID(1));
-				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, 32, CEGL.GL_DYNAMIC_DRAW);
-				CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, Font.getTexCoord(c), CEGL.GL_DYNAMIC_DRAW);
-			
+	
 				CEGL.EnableVertexAttribArray(0);
-				CEGL.EnableVertexAttribArray(1);
+				CEGL.EnableVertexAttribArray(1);	
 				
-				CEGL.DrawElements(CEGL.GL_TRIANGLES, 6, CEGL.GL_UNSIGNED_INT, 0);
+				CEGL.DrawElements(CEGL.GL_TRIANGLES, 6, CEGL.GL_UNSIGNED_INT, c_info.getDrawOffset()* 6 * 4);
 				
 				charTrlateMatrix.setMatrix(loadYoffset);
 				charTrlateMatrix.translate( ( c_info.getxAdvance()) , 0, 0);
@@ -148,6 +162,7 @@ public class CEBMPTextLabel extends CETextLabel{
 			if( c_info.getId() == 32 )
 			{
 				width += c_info.getxAdvance();
+				
 				continue;
 			}
 			
@@ -169,7 +184,7 @@ public class CEBMPTextLabel extends CETextLabel{
 	
 		
 		shader.Start();
-		shader.setProjectionMatrix(CESceneManager.getInstence().nowRender2DCamera.getPorjection());
+		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().nowRender2DCamera.getPorjection());
 		
 		color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);

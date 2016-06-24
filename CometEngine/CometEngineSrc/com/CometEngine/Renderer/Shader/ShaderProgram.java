@@ -91,7 +91,7 @@ public abstract class ShaderProgram extends CEGLResource {
 
 		String source = "";
 	
-		if( CometEngine.getInstece().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES)
+		if( CometEngine.getInstance().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES)
 		{
 			source = "#version 300 es\n";
 			
@@ -130,7 +130,6 @@ public abstract class ShaderProgram extends CEGLResource {
 		programID = CEGL.CreateProgram();
 		
 		//TODO: Remove The Debug
-		System.out.println(" Log : Debug ShaderProgram ProgramID " + programID );
 		CEGL.AttachShader(programID, vertexShaderID);
 		CEGL.AttachShader(programID, FragmentShaderID);
 		bindAttributes();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Camera.CECamera;
 import com.CometEngine.CELib.Node.CENode;
@@ -23,12 +24,13 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 	private CECamera DefaultCamera = new CE2DDefaultCamera();
 	
 	//Maybe move to Node
-	
+	 
 	CETextLabel label;
 	CETextLabel label2;
-	CESprite2D sprite;
+	CENode2D sprite;
 	CESprite2D sprite2;
 	CESprite2D sprite3;
+	CETextLabel FPSCounter;
 	public CEScene() {
 
 		sprite = new CESprite2D("0.png");
@@ -37,21 +39,25 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		sprite2 = new CESprite2D("1.png");
 		sprite3 = new CESprite2D("2.png");
 		 label = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt"), 1f, false,   "Timer");
-		 label2 = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt" ), 1f, false, "CometEngine Test", "Development Version 0.0", "TEST");
-		 label2.getPosition().y = 1000;
+		 label2 = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt" ), 0.8f, true,"CometEngineTester" ,"CometEngineTester","CometEngineTester","CometEngineTester","CometEngineTester" );
+		
+		 
+				 label2.getPosition().y = 1000;
 		 label2.getControlPoint().x = 0;
 		 label2.getControlPoint().y = 1f;
-		 this.add(label2);
+		 this.add(label2,4);
 		 label.getControlPoint().x = 0;
 		 label.getControlPoint().y = 1;
 		 label.getPosition().x = 300;
 		 label.getPosition().y = 500;
-		 
 		 this.add(label);
 		
-	//	this.add(sprite2,2);
-	//	this.add(sprite3);
-
+		this.add(sprite2,2);
+		this.add(sprite3);
+		FPSCounter = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt"), 1f, false,   "FPS : ");
+		FPSCounter.getControlPoint().y  =0;
+		FPSCounter.getControlPoint().x  =0;
+		this.add(FPSCounter);
 	}
 	
 	int timer = 0;
@@ -63,11 +69,11 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		CEPosition2D pos = sprite.getPosition();
 		
 		sprite.setAngle(sprite.getAngle() + 0.1f);
-		sprite.getPosition().x += 0.1f;
-		sprite.getPosition().y += 0.1f;
+		sprite.getPosition().x += 0.5f;
+		sprite.getPosition().y += 0.5f;
 		
 		label.setString("Tick :  " + timer );
-		
+		FPSCounter.setString("FPS : " + CometEngine.getInstance().getRenderer().getFPS());
 		CEPosition2D pos2 = sprite2.getPosition();
 		sprite2.setAngle(sprite2.getAngle() + 0.0f);
 		
@@ -78,8 +84,8 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 		
 		CEPosition2D pos3 = sprite3.getPosition();
 		sprite3.setAngle(sprite3.getAngle() - 0.02f);
-		sprite3.getPosition().x += 0.01f;
-		sprite3.getPosition().y += 0.01f;
+		sprite3.getPosition().x += 0.5f;
+		sprite3.getPosition().y += 0.5f;
 	
 		
 		
@@ -115,7 +121,7 @@ public class CEScene extends CERenderableNode /* extends root class ex) Node*/ {
 					isChildUpdated = false;
 				}
 			
-			CESceneManager.getInstence().nowRender2DCamera =  DefaultCamera; 
+			CometEngine.getInstance().getSceneManager().nowRender2DCamera =  DefaultCamera; 
 		
 			Drawing();
 			

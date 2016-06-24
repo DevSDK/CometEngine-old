@@ -2,6 +2,7 @@ package com.CometEngine.Font;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.CometEngine.FileUtil.CEFileUtil;
@@ -13,6 +14,7 @@ public class CEBMPFont extends CEFont{
 
 	private FntFile file = null;
 	private CETexture2D texture = null;
+	private ArrayList<Float> VertexList = null;
 	@Override
 	public character getChar(char c) {
 		return file.getCharacter((int)c);
@@ -32,31 +34,39 @@ public class CEBMPFont extends CEFont{
 	{
 		texture = CETexture2D.CreateTexture2D(BitMapFileName);
 		file = new FntFile(CEFileUtil.getInstence().ReadResurceDirectoryToSync(FontFileName));
+		VertexList = file.getVertexList();
 	}
 		
 	@Override
 	public boolean isLoaded() {
 		return texture.isGLLoaded();
 	}
+	@Override
+	public ArrayList<Float> getVertexList()
+	{
+		return VertexList;
+	}
 	public CETexture2D getTexture()
 	{
 		return texture;
 	}
 
-	@Override
-	public FloatBuffer getVertex(char c) {
-		
-		return file.getVertex(c);
-	}
+
 	
-	@Override
-	public FloatBuffer getTexCoord(char c) {
-		return file.TextureCoord(c);
-	}
 
 	@Override
 	public int getLineHeight() {
 		return file.getLineHeight();
+	}
+
+	@Override
+	public ArrayList<Float> getTextureCoordList() {
+		return file.getTexCoordList();
+	}
+
+	@Override
+	public int getCharacterSize() {
+		return file.getCharCounter();
 	}
 	
 }

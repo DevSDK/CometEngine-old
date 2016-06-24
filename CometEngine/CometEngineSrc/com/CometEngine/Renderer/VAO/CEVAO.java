@@ -24,6 +24,36 @@ public class CEVAO extends CEGLResource{
 			this.coordsize = coordsize;
 		
 		}
+		private float[] FloatTofloatArray(ArrayList<Float> array)
+		{
+			float [] arr = new float[array.size()];
+			for(int i = 0  ; i < array.size(); i++)
+			{
+				arr[i] = array.get(i);
+			}
+			return arr;
+		}
+			
+		public CEVboObject(int index, int coordsize, ArrayList<Float> VertexList)
+		{
+			
+			FloatBuffer buffer = CEBufferUtils.ArrayToBuffer(FloatTofloatArray(VertexList));
+			
+			this.vertexs = buffer;
+			this.index = index;
+			this.coordsize = coordsize;
+			
+		}
+		public CEVboObject(int index, int coordsize, int buffersize)
+		{
+			this.isBufferObject = true;
+			this.index = index;
+			this.coordsize = coordsize;
+			this.buffersize = buffersize;
+		}
+		protected boolean isBufferObject = false;
+		protected int buffersize = 0 ;
+		protected int offsetSize = 0;
 		
 		protected FloatBuffer vertexs =null;
 		protected int index = -1;
@@ -37,6 +67,7 @@ public class CEVAO extends CEGLResource{
 	private int glStatment = CEGL.GL_STATIC_DRAW;
 	private IntBuffer IboData = null;
 	private CEVboObject [] VboData = null; 
+	
 	
 	
 	public static CEVAO Create(int[] ibo, CEVboObject [] VboData, int glStatment)
@@ -71,13 +102,29 @@ public class CEVAO extends CEGLResource{
 		
 		for(CEVboObject vbo : VboData)
 		{
+			if(vbo.isBufferObject == true)
+			{
+				CreateBuffer(vbo.index,vbo.coordsize,vbo.buffersize);
+			}else
+			{
 			if( !( vbo == null ||vbo.index < 0 || vbo.coordsize < 0 ||vbo.vertexs == null ) )
 				StoreVertexBuffer(vbo.index, vbo.coordsize, vbo.vertexs);
+			}
 		}
 		
 		CEGL.BindVertexArray(0);
 	}
-	
+	private void CreateBuffer(int index , int coord, int size)
+	{
+		int vbo = CEGL.GenBuffers();
+		VBOS.add(vbo);
+		
+		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, vbo);
+		CEGL.BufferData(CEGL.GL_ARRAY_BUFFER, size, glStatment);
+		CEGL.VertexAttribPointer(index, coord, CEGL.GL_FLOAT, false, 0, 0);
+		
+		CEGL.BindBuffer(CEGL.GL_ARRAY_BUFFER, 0);
+	}
 	public int getVBOID(int idx)
 	{
 		if(VBOS.isEmpty() == false)

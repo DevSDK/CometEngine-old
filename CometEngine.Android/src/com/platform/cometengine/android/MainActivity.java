@@ -34,7 +34,6 @@ import com.CometEngine.CometEngineInitObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.CometEngine.PLATFORM;
-import com.CometEngine.Event.Manager.CEEventManager;
 import com.CometEngine.Renderer.CEGL;
 import com.platform.cometengine.android.gl.CEAndroidGL;
 import com.platform.cometengine.io.CEAndroidAsyncFileIO;
@@ -72,13 +71,13 @@ public class MainActivity extends Activity {
             public void onSurfaceChanged(GL10 gl, int width, int height) {
             	
             	System.out.println(" Width : " + width + " Height " + height);
-            	CometEngine.getInstece().getRenderer().setViewSize(width, height);
+            	CometEngine.getInstance().getRenderer().setViewSize(width, height);
             	GLES30.glViewport(0, 0, width, height);
             }
             
             @Override
             public void onDrawFrame(GL10 gl) {
-            	CometEngine.getInstece().getRenderer().RenderingCommands();
+            	CometEngine.getInstance().getRenderer().RenderingCommands();
             }
  
 			@Override
@@ -89,7 +88,7 @@ public class MainActivity extends Activity {
 				CometEngineInitObject init = new CometEngineInitObject();
 				init.GL =  new CEAndroidGL();
 				init.platformFileUtil = new CEAndroidFileUtil();
-				CometEngine.getInstece().Run(PLATFORM.CE_ANDROID, init);
+				CometEngine.getInstance().Run(PLATFORM.CE_ANDROID, init);
 	
 				task = new EVENT_TASK();	
 				task.execute();
@@ -109,7 +108,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		CometEngine.getInstece().EXIT(0);
+		CometEngine.getInstance().EXIT(0);
 		moveTaskToBack(true); 
 		try {
 			Thread.sleep(100);
@@ -136,28 +135,25 @@ public class MainActivity extends Activity {
 			
 			public void init()
 			{
-				CESceneManager.getInstence().setScene(new CEScene());
+				CESceneManager.getInstance().setScene(new CEScene());
 				
 			}
 			
 			int n = 0 ;
 			public void loop()
 			{
-				while(CometEngine.getInstece().isRun() && flag)
+				while(CometEngine.getInstance().isRun() && flag)
 				{		
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						break;
 					}
-					CEEventManager.getInstence().PollAllEvent();
-					CESceneManager.getInstence().getScene().tick();
+					
+					CESceneManager.getInstance().getScene().tick();
 				}
 		
 			}
-				
-		   
-			 
 				
 			   @Override
 		        protected void onPreExecute() {

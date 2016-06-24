@@ -54,10 +54,9 @@ public abstract class CETextLabel extends CENode2D {
 	public void setString(String []stringLine)
 	{
 		TextCharData.clear();
-		System.out.println("Line Index " + stringLine.length);
 		for(int i = 0 ; i < stringLine.length ; i++)
 		{
-			TextCharData.add(stringLine[i].toCharArray());
+		  TextCharData.add(stringLine[i].toCharArray());
 		}
 	}
 	public ArrayList<String> getLines()

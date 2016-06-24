@@ -1,6 +1,7 @@
 package com.CometEngine.Renderer;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,8 @@ import com.CometEngine.Util.Meth.CESize;
 
 public class CERenderer {
 	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
-
+	private double Timer = 0 ;
+	private int RenderFPS = 0 ;
 	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
 	{
 		
@@ -32,6 +34,14 @@ public class CERenderer {
 			System.err.println("CEGL INIT ERROR");
 		}
 	}
+	
+	public int getFPS()
+	{
+		return RenderFPS;
+	}
+	
+	
+	
 	public void init()
 	{
 		
@@ -53,7 +63,7 @@ public class CERenderer {
 	}
 	public void VisitRenderTarget()
 	{
-		CEScene scene =  CESceneManager.getInstence().getScene();
+		CEScene scene = CometEngine.getInstance().getSceneManager().getScene();
 		CERenderCommandCustom command  = null;
 		if(scene  != null)
 		{
@@ -62,20 +72,40 @@ public class CERenderer {
 				command.execute();
 		}
 	
-		
-		
 		if(command != null)	
 			CERenderCommandManager.getInstence().AddCommand(command);
 	}
+	
+	private int Frame = 0 ;
+	private void CalculateFPS()
+	{
+		Frame ++;
+		startTime = System.currentTimeMillis();
+		RenderFPS = (int) ( Frame * 1000/(startTime - EndTime+ 0.000000000001));
+		
+		if(startTime - EndTime > 1000)
+		{
+			EndTime = startTime;
+			Frame = 0;
+		}
+	}
+	
+	private long EndTime =0;
+	private long startTime =0;
+	
+	
+	
 	public void RenderingCommands()
 	{
+		
 		if(CEGLResourceManager.getInstence().isLoadeingListEmpty() == false)
 			CEGLResourceManager.getInstence().LoadUPGLResrouce();
 		
 		VisitRenderTarget();
 		GL_CLEAR();
 		CERenderCommandManager.getInstence().InvokeAllCommands();
-
+	
+		CalculateFPS();
 	}
 	public void setViewSize(int width, int height)
 	{

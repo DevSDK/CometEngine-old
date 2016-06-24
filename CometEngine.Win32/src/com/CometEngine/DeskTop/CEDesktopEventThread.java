@@ -7,7 +7,6 @@ import java.nio.charset.Charset;
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESceneManager;
-import com.CometEngine.Event.Manager.CEEventManager;
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Font.BMPFont.FntFile;
@@ -30,15 +29,15 @@ public class CEDesktopEventThread extends Thread{
 	
 	public void init()
 	{
-		CESceneManager.getInstence().setScene(new CEScene());
+		CometEngine.getInstance().getSceneManager().setScene(new CEScene());
 		
 	}
 	public void loop()
 	{
-		while(CometEngine.getInstece().isRun())
+		while(CometEngine.getInstance().isRun())
 		{		
-			CESceneManager.getInstence().getScene().tick();
-			CEEventManager.getInstence().PollAllEvent();
+			CometEngine.getInstance().getSceneManager().getScene().tick();
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -49,7 +48,7 @@ public class CEDesktopEventThread extends Thread{
 		
 		
 		System.out.println("CLOSE");
-		CometEngine.getInstece().EXIT(0);
+		CometEngine.getInstance().EXIT(0);
 	}
 }
 	
