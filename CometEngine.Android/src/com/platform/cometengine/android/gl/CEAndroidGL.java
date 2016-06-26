@@ -7,9 +7,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
-import org.lwjgl.opengles.GLES31;
-import org.lwjgl.opengles.GLES32;
-
 import com.CometEngine.Renderer.CEGLInterface;
 
 

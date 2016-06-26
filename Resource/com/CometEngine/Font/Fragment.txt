@@ -1,4 +1,3 @@
-#version 150
 uniform vec4 gColor;
 uniform sampler2D textureSampler;
 in vec2 cood;

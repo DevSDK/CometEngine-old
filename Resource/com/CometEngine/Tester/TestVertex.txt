@@ -1,5 +1,3 @@
-#version 150
-
 uniform mat4 glProjection;
 uniform mat4 ModelViewMatrix;
 
