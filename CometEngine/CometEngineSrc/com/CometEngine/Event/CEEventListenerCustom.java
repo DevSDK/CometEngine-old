@@ -1,6 +1,6 @@
-package com.CometEngine.Event.Listener;
+package com.CometEngine.Event;
 
-public class CEEventCustomListener extends CEEventListener{
+public class CEEventListenerCustom extends CEEventListener{
 	
 	public interface EventCustomHandler{
 		public void invoke(Object arg0);
@@ -9,7 +9,7 @@ public class CEEventCustomListener extends CEEventListener{
 	private String EventName = "";
 	
 	
-	private CEEventCustomListener(String EventName, EventCustomHandler handler){
+	private CEEventListenerCustom(String EventName, EventCustomHandler handler){
 		this.EventName = EventName;
 		this.EventHandeler = handler;
 	}

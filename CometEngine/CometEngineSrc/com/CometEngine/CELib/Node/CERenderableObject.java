@@ -5,18 +5,18 @@ import java.util.LinkedList;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
-public abstract class CERenderableNode  extends CENode{
+public abstract class CERenderableObject  extends CEObject{
 	public abstract CERenderCommand genRenderCommand();
 	
 
-	public CERenderableNode()
+	public CERenderableObject()
 	{
 		onInit();
 	}
 	
 	public abstract void onInit();
 	public abstract void onDraw();
-	
+	 
 
 	
 	

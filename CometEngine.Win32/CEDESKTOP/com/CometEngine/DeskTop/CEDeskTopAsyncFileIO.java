@@ -17,64 +17,63 @@ import com.CometEngine.FileUtil.Handle.CEFileWriteHandle;
 import com.sun.xml.internal.ws.api.message.Attachment;
 
 public class CEDeskTopAsyncFileIO {
-	public class AttachMent
-	{
+	public class AttachMent {
 		Path path;
-		AsynchronousFileChannel channel ;
-		 ByteBuffer buffer ;
+		AsynchronousFileChannel channel;
+		ByteBuffer buffer;
+
 		public AttachMent(Path path, ByteBuffer buffer, AsynchronousFileChannel channel) {
 			this.path = path;
 			this.channel = channel;
-			this.buffer =buffer;
+			this.buffer = buffer;
 		}
-		
+
 	}
-	
-	
+
 	public void read(File file, final CEFileReadHandle handle) {
 
-		
 		try {
 			AsynchronousFileChannel filechannel = AsynchronousFileChannel.open(file.toPath(), StandardOpenOption.READ);
-			
-			ByteBuffer buffer = ByteBuffer.allocate((int)filechannel.size());
+
+			ByteBuffer buffer = ByteBuffer.allocate((int) filechannel.size());
 			AttachMent attacment = new AttachMent(file.toPath(), buffer, filechannel);
 			CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent> handler = new CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent>() {
-			
+
 				@Override
 				public void failed(Throwable arg0, AttachMent arg1) {
-						handle.failure(arg0);
+					handle.failure(arg0);
 				}
+
 				@Override
 				public void completed(Integer arg0, AttachMent arg1) {
-					
+
 					handle.complite(arg1.buffer);
-				
+
 					try {
 						arg1.channel.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					
+
 				}
 			};
-			
+
 			filechannel.read(buffer, 0, attacment, handler);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void write(File file, byte[] buf, CEFileWriteHandle handle) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void cleanUP() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

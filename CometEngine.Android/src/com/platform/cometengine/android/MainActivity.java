@@ -6,7 +6,7 @@ import java.nio.IntBuffer;
 import javax.microedition.khronos.egl.EGL;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
+import javax.microedition.khronos.egl.EGLSurface; 
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;

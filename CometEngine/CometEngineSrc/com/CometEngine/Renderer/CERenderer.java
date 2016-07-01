@@ -19,103 +19,97 @@ import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CESize;
 
 public class CERenderer {
-	public enum RENDERER_TYPE { CE_RENDERER_NULL ,CE_RENDERER_GL, CE_RENDERER_GLES }
-	private double Timer = 0 ;
-	private int RenderFPS = 0 ;
-	public CERenderer(RENDERER_TYPE target, CEGLInterface gl)
-	{
-		
-		if(CEGL.init(gl) == true) 
-		{
+	public enum RENDERER_TYPE {
+		CE_RENDERER_NULL, CE_RENDERER_GL, CE_RENDERER_GLES
+	}
+
+	private double Timer = 0;
+	private int RenderFPS = 0;
+
+	public CERenderer(RENDERER_TYPE target, CEGLInterface gl) {
+
+		if (CEGL.init(gl) == true) {
 			m_RendererType = target;
-		}
-		else
-		{
+		} else {
 			System.err.println("CEGL INIT ERROR");
 		}
 	}
-	
-	public int getFPS()
-	{
+
+	public int getFPS() {
 		return RenderFPS;
 	}
-	
-	
-	
-	public void init()
-	{
-		
+
+	public void init() {
+
 	}
-	public void AddRenderCommend(CERenderCommand render)
-	{
+
+	public void AddRenderCommend(CERenderCommand render) {
 		m_RenderingQue.add(render);
 	}
-	public RENDERER_TYPE getType()
-	{
+
+	public RENDERER_TYPE getType() {
 		return m_RendererType;
 	}
-	
-	public void GL_CLEAR()
-	{
+
+	public void GL_CLEAR() {
 		CEGL.Clear(CEGL.GL_DEPTH_BUFFER_BIT | CEGL.GL_COLOR_BUFFER_BIT);
-		CEGL.Enable(CEGL.GL_BLEND); 
+		CEGL.Enable(CEGL.GL_BLEND);
 		CEGL.BlendFunc(CEGL.GL_SRC_ALPHA, CEGL.GL_ONE_MINUS_SRC_ALPHA);
 	}
-	public void VisitRenderTarget()
-	{
+
+	public void VisitRenderTarget() {
 		CEScene scene = CometEngine.getInstance().getSceneManager().getScene();
-		CERenderCommandCustom command  = null;
-		if(scene  != null)
-		{
-				command = scene.genRenderCommand();
-			if(command != null)
+		CERenderCommandCustom command = null;
+		if (scene != null) {
+			command = scene.genRenderCommand();
+			if (command != null)
 				command.execute();
 		}
-	
-		if(command != null)	
+
+		if (command != null)
 			CERenderCommandManager.getInstence().AddCommand(command);
 	}
-	
-	private int Frame = 0 ;
-	private void CalculateFPS()
-	{
-		Frame ++;
+
+	private int Frame = 0;
+
+	private void CalculateFPS() {
+		Frame++;
 		startTime = System.currentTimeMillis();
-		RenderFPS = (int) ( Frame * 1000/(startTime - EndTime+ 0.000000000001));
-		
-		if(startTime - EndTime > 1000)
-		{
+
+		if (startTime - EndTime != 0) {
+			RenderFPS = (int) (Frame * 1000 / (startTime - EndTime));
+		}
+
+		if (startTime - EndTime > 1000) {
 			EndTime = startTime;
 			Frame = 0;
 		}
 	}
-	
-	private long EndTime =0;
-	private long startTime =0;
-	
-	
-	
-	public void RenderingCommands()
-	{
-		
-		if(CEGLResourceManager.getInstence().isLoadeingListEmpty() == false)
+
+	private long EndTime = 0;
+	private long startTime = 0;
+
+	public void RenderingCommands() {
+
+		if (CEGLResourceManager.getInstence().isLoadeingListEmpty() == false)
 			CEGLResourceManager.getInstence().LoadUPGLResrouce();
-		
+
 		VisitRenderTarget();
 		GL_CLEAR();
 		CERenderCommandManager.getInstence().InvokeAllCommands();
-	
+
 		CalculateFPS();
 	}
-	public void setViewSize(int width, int height)
-	{
+
+	public void setViewSize(int width, int height) {
 		this.Renderer_Weidth = width;
 		this.Renderer_Height = height;
 	}
-	public CESize getViewSize()
-	{
+
+	public CESize getViewSize() {
 		return new CESize(Renderer_Weidth, Renderer_Height);
 	}
+
 	private int Renderer_Height = 0;
 	private int Renderer_Weidth = 0;
 	private RENDERER_TYPE m_RendererType = RENDERER_TYPE.CE_RENDERER_NULL;

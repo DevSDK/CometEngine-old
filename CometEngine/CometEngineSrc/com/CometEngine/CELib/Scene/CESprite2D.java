@@ -9,8 +9,8 @@ import org.newdawn.slick.TrueTypeFont;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Node.CEColor4f;
-import com.CometEngine.CELib.Node.CENode2D;
-import com.CometEngine.CELib.Node.CERenderableNode;
+import com.CometEngine.CELib.Node.CEObject;
+import com.CometEngine.CELib.Node.CERenderableObject;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
@@ -31,7 +31,7 @@ import com.CometEngine.Util.Meth.jglm.Vec3;
 import com.CometEngine.Util.Meth.jglm.Vec4;
 
 
-public class CESprite2D extends CENode2D{
+public class CESprite2D extends CERenderableObject{
 
 
 	
@@ -100,7 +100,7 @@ public class CESprite2D extends CENode2D{
 		//  Identity * translate * rotate * scale
 		
 		modelviewmatrix.resetIDENTITY();
-		modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y, 1);
+		modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y, scale.z);
 		
 		
 		shader.setModelViewMatrix(modelviewmatrix);

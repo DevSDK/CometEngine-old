@@ -30,20 +30,24 @@ public class CEDesktopEventThread extends Thread{
 	public void init()
 	{
 		CometEngine.getInstance().getSceneManager().setScene(new CEScene());
+		CometEngine.getInstance().getSceneManager().testScene = new CEScene();
 		
 	}
 	public void loop()
 	{
+
 		while(CometEngine.getInstance().isRun())
 		{		
-			CometEngine.getInstance().getSceneManager().getScene().tick();
-			
 			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+			CometEngine.getInstance().getSceneManager().getScene().tick();
+			CometEngine.getInstance().UpdateEvent();
 	
+			
+
 		}
 		
 		

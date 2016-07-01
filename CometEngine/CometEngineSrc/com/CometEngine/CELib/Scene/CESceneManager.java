@@ -20,14 +20,19 @@ public class CESceneManager {
 		nowScene = scene;
 	}
 	
+	
 	public CEScene getScene()
 	{
 		return nowScene;
 	}
 	public CECamera nowRender2DCamera = null;
-	//test
+
+	
+	
+	
 	private CEScene nowScene = null;
 	
 	private LinkedList<CECamera> Camera_List = new LinkedList<CECamera>();
+		public CEScene testScene ;
 	
 }

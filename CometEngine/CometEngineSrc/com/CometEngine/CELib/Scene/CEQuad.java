@@ -1,7 +1,6 @@
 package com.CometEngine.CELib.Scene;
 
 import com.CometEngine.CELib.Node.CEColor4f;
-import com.CometEngine.CELib.Node.CENode2D;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;

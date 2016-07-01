@@ -1,6 +1,6 @@
 package com.CometEngine.Event;
 
-public abstract class CEEVent {
+public abstract class CEEvent {
 	enum EVENTTYPE
 	{
 		CE_EVENT_NULL,

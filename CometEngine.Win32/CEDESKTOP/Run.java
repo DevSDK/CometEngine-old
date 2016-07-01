@@ -74,6 +74,7 @@ public class Run {
 		
 		
 		GLFW.glfwGetJoystickName(0);
+		GLFW.glfwSwapInterval(1);
 		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE)
 		{
 			CometEngine.getInstance().getRenderer().RenderingCommands();

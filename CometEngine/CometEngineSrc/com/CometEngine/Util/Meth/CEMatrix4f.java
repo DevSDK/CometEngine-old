@@ -2,7 +2,6 @@ package com.CometEngine.Util.Meth;
 
 import java.nio.FloatBuffer;
 
-import com.CometEngine.Util.Meth.jglm.Mat4;
 import com.CometEngine.Util.Meth.jglm.Vec3;
 import com.CometEngine.Util.Meth.jglm.Vec4;
 

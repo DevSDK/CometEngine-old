@@ -1,12 +1,14 @@
 package com.CometEngine;
 
+import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESceneManager;
-import com.CometEngine.Event.Listener.CEEventDispatcher;
+import com.CometEngine.Event.CEEvent;
+import com.CometEngine.Event.CEEventDispatcher;
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLInterface;
 import com.CometEngine.Renderer.CERenderer;
-
+ 
 public class CometEngine {
 	
 	private boolean isPauseEvent = false;
@@ -18,6 +20,8 @@ public class CometEngine {
 	{
 		return sceneManager;
 	}
+
+
 	
 	public boolean isPauseEvent()
 	{return isPauseEvent;}
@@ -25,7 +29,11 @@ public class CometEngine {
 	{
 		this.isPauseEvent = p;
 	}
-	
+	public void UpdateEvent()
+	{
+		EventDispatcher.PullEvents();
+	}
+			
 	
 	public static CometEngine getInstance()
 	{
@@ -68,7 +76,7 @@ public class CometEngine {
 			m_PlatForm = TargetPlatForm;
 			initEngine(initdata);
 			initResource();
-			EventCall();
+			PullEvent();
 		}
 		else
 		{
@@ -112,9 +120,9 @@ public class CometEngine {
 		
 	}
 	
-	private void EventCall()
+	private void PullEvent()
 	{
-		
+		EventDispatcher.PullEvents();	
 	}
 	
 	public PLATFORM getTargetPlatForm()
@@ -133,7 +141,6 @@ public class CometEngine {
 		
 		IsRun = false;
 	}
-	
 	
 	private CERenderer renderer = null;	
 	private static final CometEngine m_Instance = new CometEngine();

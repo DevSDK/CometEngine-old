@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
-import com.CometEngine.CELib.Node.CENode2D;
+import com.CometEngine.CELib.Node.CEObject;
+import com.CometEngine.CELib.Node.CERenderableObject;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Font.CEFont;
 import com.CometEngine.Renderer.CEGL;
@@ -15,7 +16,7 @@ import com.CometEngine.Renderer.Shader.ShaderProgram;
 import com.CometEngine.Tester.Default2DShader;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
-public abstract class CETextLabel extends CENode2D {
+public abstract class CETextLabel extends CERenderableObject {
 	protected CEFont Font = null;
 	protected boolean isCentered = false;
 	ArrayList<String> TextString;

@@ -31,20 +31,18 @@ import com.CometEngine.Renderer.CEGLInterface;
 
 import sun.nio.cs.ext.GB18030;
 
-public class CEDeskTopGL implements CEGLInterface{
+public class CEDeskTopGL implements CEGLInterface {
 
-
-	
 	@Override
 	public void Clear(int mask) {
-		GL11.glClear(mask);	
-	
+		GL11.glClear(mask);
+
 	}
 
 	@Override
 	public void ClearColor(float red, float green, float blue, float alpha) {
 		GL11.glClearColor(red, green, blue, alpha);
-		
+
 	}
 
 	@Override
@@ -58,9 +56,9 @@ public class CEDeskTopGL implements CEGLInterface{
 	}
 
 	@Override
-	public void Hint(int target, int hint) {	
+	public void Hint(int target, int hint) {
 		GL11.glHint(target, hint);
-		
+
 	}
 
 	@Override
@@ -191,7 +189,7 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public void DeleteTextures(IntBuffer textures) {
-			GL11.glDeleteTextures(textures);
+		GL11.glDeleteTextures(textures);
 	}
 
 	@Override
@@ -206,7 +204,7 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public void DepthRange(double nearVal, double farVal) {
-		GL11.glDepthRange( nearVal, farVal );
+		GL11.glDepthRange(nearVal, farVal);
 	}
 
 	@Override
@@ -264,7 +262,7 @@ public class CEDeskTopGL implements CEGLInterface{
 	public void GetInteger(int pname, IntBuffer params) {
 		CheackBuffer(params);
 		GL11.glGetIntegerv(pname, params);
-		
+
 	}
 
 	@Override
@@ -275,7 +273,7 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public String GetProgramInfoLog(int program, int maxLength) {
-		return	GL20.glGetProgramInfoLog(program, maxLength);
+		return GL20.glGetProgramInfoLog(program, maxLength);
 	}
 
 	@Override
@@ -385,8 +383,7 @@ public class CEDeskTopGL implements CEGLInterface{
 	public void Uniform1iv(int location, IntBuffer value) {
 		CheackBuffer(value);
 		GL20.glUniform1iv(location, value);
-		
-		
+
 	}
 
 	@Override
@@ -403,14 +400,14 @@ public class CEDeskTopGL implements CEGLInterface{
 	public void Uniform2iv(int location, IntBuffer value) {
 		CheackBuffer(value);
 		GL20.glUniform2iv(location, value);
-		
+
 	}
 
 	@Override
 	public void Uniform2fv(int location, FloatBuffer value) {
 		CheackBuffer(value);
 		GL20.glUniform2fv(location, value);
-		
+
 	}
 
 	@Override
@@ -422,7 +419,7 @@ public class CEDeskTopGL implements CEGLInterface{
 	public void Uniform3iv(int location, IntBuffer value) {
 		CheackBuffer(value);
 		GL20.glUniform3iv(location, value);
-		
+
 	}
 
 	@Override
@@ -440,7 +437,7 @@ public class CEDeskTopGL implements CEGLInterface{
 	public void Uniform4fv(int location, FloatBuffer value) {
 		CheackBuffer(value);
 		GL20.glUniform4fv(location, value);
-		
+
 	}
 
 	@Override
@@ -468,24 +465,24 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public void UseProgram(int program) {
-			GL20.glUseProgram(program);
-		
+		GL20.glUseProgram(program);
+
 	}
 
 	@Override
 	public void VertexAttribPointer(int index, int size, int type, boolean normalized, int stride, long pointer) {
-			GL20.glVertexAttribPointer(index, size, type, normalized, stride, pointer);
+		GL20.glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 	}
 
 	@Override
 	public void Viewport(int x, int y, int width, int height) {
-			GL11.glViewport(x, y, width, height);
+		GL11.glViewport(x, y, width, height);
 	}
 
 	@Override
 	public void BlitFramebufferEXT(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1,
 			int dstY1, int mask, int filter) {
-			
+
 	}
 
 	@Override
@@ -520,7 +517,7 @@ public class CEDeskTopGL implements CEGLInterface{
 	@Override
 	public void GetMultisample(int pname, int index, FloatBuffer val) {
 		CheackBuffer(val);
-	    ARBTextureMultisample.glGetMultisamplefv(pname, index, val);
+		ARBTextureMultisample.glGetMultisamplefv(pname, index, val);
 	}
 
 	@Override
@@ -531,13 +528,14 @@ public class CEDeskTopGL implements CEGLInterface{
 	@Override
 	public void TexImage2DMultisample(int target, int samples, int internalformat, int width, int height,
 			boolean fixedsamplelocations) {
-		   ARBTextureMultisample.glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
+		ARBTextureMultisample.glTexImage2DMultisample(target, samples, internalformat, width, height,
+				fixedsamplelocations);
 	}
 
 	@Override
 	public void VertexAttribDivisorARB(int index, int divisor) {
-		 ARBInstancedArrays.glVertexAttribDivisorARB(index, divisor);
-		
+		ARBInstancedArrays.glVertexAttribDivisorARB(index, divisor);
+
 	}
 
 	@Override
@@ -547,62 +545,62 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public void BindRenderbufferEXT(int param1, int param2) {
-        EXTFramebufferObject.glBindRenderbufferEXT(param1, param2);
-		
+		EXTFramebufferObject.glBindRenderbufferEXT(param1, param2);
+
 	}
 
 	@Override
 	public int CheckFramebufferStatusEXT(int param1) {
-        return EXTFramebufferObject.glCheckFramebufferStatusEXT(param1);
+		return EXTFramebufferObject.glCheckFramebufferStatusEXT(param1);
 	}
 
 	@Override
 	public void DeleteFramebuffersEXT(IntBuffer param1) {
 		CheackBuffer(param1);
-		   EXTFramebufferObject.glDeleteRenderbuffersEXT(param1);
+		EXTFramebufferObject.glDeleteRenderbuffersEXT(param1);
 
 	}
 
 	@Override
 	public void DeleteRenderbuffersEXT(IntBuffer param1) {
 		CheackBuffer(param1);
-		   EXTFramebufferObject.glDeleteRenderbuffersEXT(param1);
+		EXTFramebufferObject.glDeleteRenderbuffersEXT(param1);
 	}
 
 	@Override
 	public void FramebufferRenderbufferEXT(int param1, int param2, int param3, int param4) {
 
-        EXTFramebufferObject.glFramebufferRenderbufferEXT(param1, param2, param3, param4);
+		EXTFramebufferObject.glFramebufferRenderbufferEXT(param1, param2, param3, param4);
 	}
 
 	@Override
 	public void FramebufferTexture2DEXT(int param1, int param2, int param3, int param4, int param5) {
 
-        EXTFramebufferObject.glFramebufferTexture2DEXT(param1, param2, param3, param4, param5);
+		EXTFramebufferObject.glFramebufferTexture2DEXT(param1, param2, param3, param4, param5);
 	}
 
 	@Override
 	public void GenFramebuffersEXT(IntBuffer param1) {
 		CheackBuffer(param1);
-		  EXTFramebufferObject.glGenFramebuffersEXT(param1);
-		
+		EXTFramebufferObject.glGenFramebuffersEXT(param1);
+
 	}
 
 	@Override
 	public void GenRenderbuffersEXT(IntBuffer param1) {
 		CheackBuffer(param1);
-		 EXTFramebufferObject.glGenRenderbuffersEXT(param1);
+		EXTFramebufferObject.glGenRenderbuffersEXT(param1);
 	}
 
 	@Override
 	public void GenerateMipmapEXT(int param1) {
-		 EXTFramebufferObject.glGenerateMipmapEXT(param1);		
+		EXTFramebufferObject.glGenerateMipmapEXT(param1);
 	}
 
 	@Override
 	public void RenderbufferStorageEXT(int param1, int param2, int param3, int param4) {
-		 EXTFramebufferObject.glRenderbufferStorageEXT(param1, param2, param3, param4);
-		
+		EXTFramebufferObject.glRenderbufferStorageEXT(param1, param2, param3, param4);
+
 	}
 
 	@Override
@@ -612,12 +610,12 @@ public class CEDeskTopGL implements CEGLInterface{
 
 	@Override
 	public int ClientWaitSync(Object sync, int flags, long timeout) {
-		 return ARBSync.glClientWaitSync((Long) sync, flags, timeout);
+		return ARBSync.glClientWaitSync((Long) sync, flags, timeout);
 	}
 
 	@Override
 	public void DeleteSync(Object sync) {
-		 ARBSync.glDeleteSync((Long) sync);
+		ARBSync.glDeleteSync((Long) sync);
 	}
 
 	@Override
@@ -628,30 +626,25 @@ public class CEDeskTopGL implements CEGLInterface{
 	@Override
 	public void BlendEquationSeparate(int colorMode, int alphaMode) {
 		GL20.glBlendEquationSeparate(colorMode, alphaMode);
-		
+
 	}
-    private static void CheackBuffer(Buffer buffer) {
-        if (buffer == null) {
-            return;
-        }
-        if (buffer.limit() == 0) {
-        	System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
-        }
-        if (buffer.remaining() == 0) {
-        	System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
-        }	
-    }
 
-
+	private static void CheackBuffer(Buffer buffer) {
+		if (buffer == null) {
+			return;
+		}
+		if (buffer.limit() == 0) {
+			System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
+		}
+		if (buffer.remaining() == 0) {
+			System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
+		}
+	}
 
 	@Override
 	public void ShaderSource(int shader, String string) {
 		GL20.glShaderSource(shader, string);
 	}
-
-	
-
-
 
 	@Override
 	public void DrawElements(int mode, int count, int type, ByteBuffer indices) {
@@ -693,7 +686,4 @@ public class CEDeskTopGL implements CEGLInterface{
 		GL30.glDeleteVertexArrays(target);
 	}
 
-
-
-    
 }

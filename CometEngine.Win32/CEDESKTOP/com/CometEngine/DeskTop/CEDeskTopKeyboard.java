@@ -9,14 +9,14 @@ import com.CometEngine.Device.CEKeyBoard;
 public class CEDeskTopKeyboard extends GLFWKeyCallback{
 	
 	public CEDeskTopKeyboard() {
-		CEDeviceManager.getInstance().addDevice(this, new CEKeyBoard());
+		CEDeviceManager.getInstance().addDevice("KeyBoard", new CEKeyBoard());
 	}
 	
 	
 	
 	@Override
 	public void invoke(long window, int key, int idonknow, int status, int mode) {
-		CEKeyBoard keybord = (CEKeyBoard) CEDeviceManager.getInstance().getDevice(this);
+		CEKeyBoard keybord = (CEKeyBoard) CEDeviceManager.getInstance().getDevice("KeyBoard");
 		
 		if(status > 0)
 		{
@@ -26,7 +26,7 @@ public class CEDeskTopKeyboard extends GLFWKeyCallback{
 		else if(status == 0)
 		{
 			keybord.stop();
-			keybord.RelaseKey(key);	
+			keybord.RelaseKey(key,mode);	
 		}
 		
 	}
