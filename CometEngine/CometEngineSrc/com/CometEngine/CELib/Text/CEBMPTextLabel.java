@@ -16,7 +16,6 @@ import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Texture.Textures.CETexture;
 import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
 import com.CometEngine.Renderer.VAO.CEVAO;
-import com.CometEngine.Tester.Default2DShader;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 import com.CometEngine.Util.Meth.CESize;

@@ -5,8 +5,6 @@ import java.nio.FloatBuffer;
 import com.CometEngine.Renderer.Shader.ShaderProgram;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
-import com.CometEngine.Util.Meth.jglm.Mat4;
-
 public class FontShader2D extends ShaderProgram{
 
 
@@ -37,7 +35,7 @@ public class FontShader2D extends ShaderProgram{
 		super.LoadVector4f(gColor, vector);
 	}
 
-	public void setProjectionMatrix(Mat4 matrix)
+	public void setProjectionMatrix(CEMatrix4f matrix)
 	{
 		matrix.getBuffer(buffer);
 		super.LoadeMatrix4f(location, buffer);

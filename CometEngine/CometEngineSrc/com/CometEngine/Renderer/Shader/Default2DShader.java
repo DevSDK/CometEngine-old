@@ -1,14 +1,11 @@
-package com.CometEngine.Tester;
+package com.CometEngine.Renderer.Shader;
 
 import java.io.File;
 import java.nio.FloatBuffer;
 
 import com.CometEngine.FileUtil.CEFileUtil;
-import com.CometEngine.Renderer.Shader.ShaderProgram;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
-import com.CometEngine.Util.Meth.jglm.Mat4;
-import com.CometEngine.Util.Meth.jglm.Vec4;
 
 
 
@@ -39,7 +36,7 @@ public class Default2DShader extends ShaderProgram{
 		super.LoadVector4f(gColor, vector);
 	}
 
-	public void setProjectionMatrix(Mat4 matrix)
+	public void setProjectionMatrix(CEMatrix4f matrix)
 	{
 		matrix.getBuffer(buffer);
 		super.LoadeMatrix4f(location, buffer);

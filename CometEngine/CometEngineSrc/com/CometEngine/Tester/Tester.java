@@ -6,6 +6,7 @@ import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
 import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.Shader.Default2DShader;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
 import com.CometEngine.Util.Buffer.CEBufferUtils;

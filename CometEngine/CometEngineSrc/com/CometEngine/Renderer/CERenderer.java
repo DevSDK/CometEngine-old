@@ -35,6 +35,14 @@ public class CERenderer {
 		}
 	}
 
+	public int getRenderWidth() {
+		return Renderer_Weidth;
+	}
+
+	public int getRenderHeight() {
+		return Renderer_Height;
+	}
+
 	public int getFPS() {
 		return RenderFPS;
 	}

@@ -57,7 +57,7 @@ public class CometEngine {
 	}
 	public CERenderer getRenderer()
 	{
-		RunErrorCheck();
+	
 		return renderer;
 	}
 
@@ -90,7 +90,7 @@ public class CometEngine {
 		IsRun = false;
 		
 	}
-	public synchronized boolean isRun()
+	public  boolean isRun()
 	{
 		return IsRun;
 	}
@@ -108,7 +108,7 @@ public class CometEngine {
 			renderer = new CERenderer(CERenderer.RENDERER_TYPE.CE_RENDERER_GLES, object.GL);
 	
 		if(renderer != null)
-			renderer.init ();
+			renderer.init();
 	
 		
 	

@@ -2,31 +2,29 @@ package com.CometEngine.CELib.Camera;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.Renderer.CERenderer;
+import com.CometEngine.Util.Meth.CEMatrix4f;
 import com.CometEngine.Util.Meth.CESize;
-import com.CometEngine.Util.Meth.jglm.Mat4;
-import com.CometEngine.Util.Meth.jglm.Matrices;
 
-public class CE2DDefaultCamera extends  CECamera2D{
-	
+public class CE2DDefaultCamera extends CECamera2D {
 
-	Mat4 matrix = null;
-	public CE2DDefaultCamera()
-	{
-		CESize viewsize = CometEngine.getInstance().getRenderer().getViewSize();
-		
-		matrix = Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
+	CEMatrix4f matrix = new CEMatrix4f();
+
+	public CE2DDefaultCamera() {
+		CERenderer renderer = CometEngine.getInstance().getRenderer();
+		CEMatrix4f.ortho2d(matrix, 0, renderer.getRenderWidth(), 0, renderer.getRenderHeight());
 	}
-	
-	public void UpdateCameraMatrix()
-	{
+
+	public void UpdateCameraMatrix() {
 		CESize viewsize = CometEngine.getInstance().getRenderer().getViewSize();
-		
-		matrix = Matrices.ortho2d(0, viewsize.getWidth(), 0, viewsize.getHight());
+
+		matrix.resetIDENTITY();
+		CERenderer renderer = CometEngine.getInstance().getRenderer();
+		CEMatrix4f.ortho2d(matrix, 0, renderer.getRenderWidth(), 0, renderer.getRenderHeight());
 	}
+
 	@Override
-	public Mat4 getPorjection() 	{
+	public CEMatrix4f getPorjection() {
 		return matrix;
 	}
-	
-	
+
 }

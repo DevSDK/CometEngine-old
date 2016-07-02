@@ -12,8 +12,8 @@ import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
+import com.CometEngine.Renderer.Shader.Default2DShader;
 import com.CometEngine.Renderer.Shader.ShaderProgram;
-import com.CometEngine.Tester.Default2DShader;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public abstract class CETextLabel extends CERenderableObject {

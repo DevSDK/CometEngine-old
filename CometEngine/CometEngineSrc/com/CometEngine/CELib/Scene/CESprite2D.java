@@ -15,6 +15,7 @@ import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
+import com.CometEngine.Renderer.Shader.Default2DShader;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
 import com.CometEngine.Renderer.VAO.CEVAO;
@@ -22,15 +23,8 @@ import com.CometEngine.Renderer.VAO.CEVAOLoader;
 import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Renderer.VBO.CEIndexBufferObject;
 import com.CometEngine.Renderer.VBO.CEVertexBufferObject;
-import com.CometEngine.Tester.Default2DShader;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
-import com.CometEngine.Util.Meth.jglm.Mat4;
-import com.CometEngine.Util.Meth.jglm.Matrices;
-import com.CometEngine.Util.Meth.jglm.Vec3;
-import com.CometEngine.Util.Meth.jglm.Vec4;
-
-
 public class CESprite2D extends CERenderableObject{
 
 

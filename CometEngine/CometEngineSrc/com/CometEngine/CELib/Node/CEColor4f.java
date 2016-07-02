@@ -29,6 +29,7 @@ public class CEColor4f {
 
 	public void getBuffer(FloatBuffer buffer)
 	{
+		
 		buffer.put(Red);
 		buffer.put(Green);
 		buffer.put(Blue);
