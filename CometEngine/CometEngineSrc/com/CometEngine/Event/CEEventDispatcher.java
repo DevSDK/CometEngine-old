@@ -116,9 +116,13 @@ public class CEEventDispatcher {
 	}
 
 	private void SetKeyboardEvents() {
-		if (((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getGetPushedKeyCounter() > 0) {
-			KeyBoardEvent.Mode = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getMode();
+		if(CEDeviceManager.getInstance().getDevice("Keyboard") == null)
+			return;
+		
+		if ( ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getGetPushedKeyCounter() > 0) {
 			KeyBoardEvent.KEYDATA = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getKeyMap();
+			if(KeyBoardEvent.KEYDATA == null)
+			KeyBoardEvent.Mode = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getMode();
 			PutEvent(KeyBoardEvent);
 			UpdateKeyPushData();
 		}

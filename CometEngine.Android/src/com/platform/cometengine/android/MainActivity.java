@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,6 +37,7 @@ import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.CometEngine.PLATFORM;
 import com.CometEngine.Renderer.CEGL;
 import com.platform.cometengine.android.gl.CEAndroidGL;
+import com.platform.cometengine.android.gl.CEAndroidGLSurface;
 import com.platform.cometengine.io.CEAndroidAsyncFileIO;
 import com.platform.cometengine.io.CEAndroidFilePath;
 import com.platform.cometengine.io.CEAndroidFileUtil;
@@ -52,6 +54,8 @@ public class MainActivity extends Activity {
 	
 	
 	GLSurfaceView surfaceView = null;
+
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class MainActivity extends Activity {
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		CEAndroidFilePath.InitFileSysten(getResources(),this);
 		
-		 surfaceView = new GLSurfaceView(this);
+		 surfaceView = new CEAndroidGLSurface(this);
 		 surfaceView.setEGLContextClientVersion(3);
 		
         surfaceView.setRenderer(glview = new GLSurfaceView.Renderer() {
@@ -75,6 +79,7 @@ public class MainActivity extends Activity {
             	GLES30.glViewport(0, 0, width, height);
             }
             
+         
             @Override
             public void onDrawFrame(GL10 gl) {
             	CometEngine.getInstance().getRenderer().RenderingCommands();

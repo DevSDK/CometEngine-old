@@ -17,7 +17,7 @@ public class CEAndroidSyncFileIO{
 
 	public ByteBuffer read(File file) {
 		
-		
+
 		
 		int size = (int) file.length();
 		byte[] bytes = new byte[size];

@@ -21,7 +21,7 @@ public class CEDeskTop {
 	private static CEDeskTopMouseClick MouseClickEvent = new CEDeskTopMouseClick();
 	private static CEDeskTopMouseMove MouseMoveEvent = new CEDeskTopMouseMove();
 
-	public static int getFrameWidth() {
+	public static int getFrameWidth() { 
 		return WINDOW_WIDTH;
 	}
 

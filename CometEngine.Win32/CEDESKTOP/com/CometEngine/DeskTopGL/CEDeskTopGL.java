@@ -36,7 +36,7 @@ public class CEDeskTopGL implements CEGLInterface {
 	@Override
 	public void Clear(int mask) {
 		GL11.glClear(mask);
-
+ 
 	}
 
 	@Override
