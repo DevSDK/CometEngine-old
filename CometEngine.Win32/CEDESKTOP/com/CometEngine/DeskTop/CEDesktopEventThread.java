@@ -17,42 +17,38 @@ import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Resrouce.CEResourceManager;
 import com.CometEngine.Tester.Tester;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
+
 //TODO: Must Remove Test Code
-public class CEDesktopEventThread extends Thread{
+public class CEDesktopEventThread extends Thread {
 
-
-	public void run()
-	{
+	public void run() {
 		init();
 		loop();
 	}
-	
-	public void init()
-	{
-		CometEngine.getInstance().getSceneManager().setScene(new CEScene());
-		CometEngine.getInstance().getSceneManager().testScene = new CEScene();
+
+	public void init() {
 		
 	}
-	public void loop()
-	{
 
-		while(CometEngine.getInstance().isRun())
-		{		
+	public void loop() {
+
+		while (CometEngine.getInstance().isRun()) {
 			try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-			CometEngine.getInstance().getSceneManager().getScene().tick();
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (CometEngine.getInstance().getSceneManager().getScene() == null) {
+
+			} else {
+
+				CometEngine.getInstance().getSceneManager().getScene().tick();
+			}
 			CometEngine.getInstance().UpdateEvent();
-	
-			
 
 		}
-		
-		
+
 		System.out.println("CLOSE");
 		CometEngine.getInstance().EXIT(0);
 	}
 }
-	

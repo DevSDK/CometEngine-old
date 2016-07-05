@@ -1,14 +1,21 @@
 package com.CometEngine.DeskTop;
 
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWDropCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CometEngineInitObject;
+import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.DeskTopGL.CEDeskTopGL;
+import com.CometEngine.Device.CEDeviceManager;
+import com.CometEngine.Device.CEKeyBoard;
+import com.CometEngine.Device.CEMouse;
+import com.CometEngine.Renderer.CEGL;
 
 public class CEDeskTop {
 	private static boolean SCENE_RESIZEABLE = false;
@@ -20,13 +27,22 @@ public class CEDeskTop {
 	private static CEDeskTopKeyboard KeybordCallBack = new CEDeskTopKeyboard();
 	private static CEDeskTopMouseClick MouseClickEvent = new CEDeskTopMouseClick();
 	private static CEDeskTopMouseMove MouseMoveEvent = new CEDeskTopMouseMove();
+	private static GLFWScrollCallback MouseScrollEvent = new CEDeskTopMouseScroll();
+	
 
-	public static int getFrameWidth() { 
+
+	public static int getFrameWidth() {
 		return WINDOW_WIDTH;
 	}
 
 	public static int getFrameHeight() {
 		return WINDOW_HEIGHT;
+	}
+
+	private static void LoadDevice() {
+		CEDeviceManager.getInstance().addDevice("KeyBoard", new CEKeyBoard());
+		CEDeviceManager.getInstance().addDevice("Mouse", new CEMouse());
+
 	}
 
 	private static void LoadLWJGL() {
@@ -49,7 +65,9 @@ public class CEDeskTop {
 			throw new RuntimeException("Failed Create GLFW WINDWO");
 
 		GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+		LoadDevice();
 		GLFW.glfwSetKeyCallback(WINDOW, KeybordCallBack);
+		GLFW.glfwSetScrollCallback(WINDOW, MouseScrollEvent);
 		GLFW.glfwSetMouseButtonCallback(WINDOW, MouseClickEvent);
 		GLFW.glfwSetCursorPosCallback(WINDOW, MouseMoveEvent);
 
@@ -59,8 +77,7 @@ public class CEDeskTop {
 		GL.createCapabilities();
 	}
 
-	
-	public static void Run(int FrameWidth, int FrameHeight, int XcoordSize, int YCoordSize) {
+	public static void INIT(int FrameWidth, int FrameHeight, int XcoordSize, int YCoordSize) {
 
 		WINDOW_HEIGHT = FrameHeight;
 		WINDOW_WIDTH = FrameWidth;
@@ -68,30 +85,35 @@ public class CEDeskTop {
 		COORD_WIDTH = XcoordSize;
 		LoadLWJGL();
 
-
 		CometEngineInitObject init = new CometEngineInitObject();
 		init.GL = new CEDeskTopGL();
 		init.platformFileUtil = new CEDeskTopFileUtil();
 
-		CometEngine.getInstance().Run(CometEngine.PLATFORM.CE_WIN32, init);
-		CometEngine.getInstance().getRenderer().setViewSize(COORD_WIDTH, COORD_HEIGHT);
+		CometEngine.getInstance().RUN(CometEngine.PLATFORM.CE_WIN32, init);
 
+		CometEngine.getInstance().getRenderer().setViewSize(COORD_WIDTH, COORD_HEIGHT);
+		
 		CEDesktopEventThread thread = new CEDesktopEventThread();
 		thread.start();
 
 		GLFW.glfwGetJoystickName(0);
 		GLFW.glfwSwapInterval(1);
-		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE) {
-			CometEngine.getInstance().getRenderer().RenderingCommands();
+		CEGL.CullFace(CEGL.GL_BACK);
 
-			GLFW.glfwSwapBuffers(WINDOW);
-
-			CometEngine.getInstance().setPauseEvent(true);
-			GLFW.glfwPollEvents();
-			CometEngine.getInstance().setPauseEvent(false);
-			;
-
-		}
-		CometEngine.getInstance().ExitCometEngine();
 	}
+
+public static void RUN()
+{
+	while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE) {
+		CometEngine.getInstance().getRenderer().RenderingCommands();
+
+		GLFW.glfwSwapBuffers(WINDOW);
+
+		CometEngine.getInstance().setPauseEvent(true);
+		GLFW.glfwPollEvents();
+		CometEngine.getInstance().setPauseEvent(false);
+
+	}
+	CometEngine.getInstance().ExitCometEngine();
+}
 }

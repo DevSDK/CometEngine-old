@@ -13,7 +13,6 @@ import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Commend.Manager.CERenderCommandManager;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
-import com.CometEngine.Renderer.VAO.CEVAOLoader;
 import com.CometEngine.Tester.Tester;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CESize;
@@ -102,9 +101,17 @@ public class CERenderer {
 		if (CEGLResourceManager.getInstence().isLoadeingListEmpty() == false)
 			CEGLResourceManager.getInstence().LoadUPGLResrouce();
 
-		VisitRenderTarget();
 		GL_CLEAR();
-		CERenderCommandManager.getInstence().InvokeAllCommands();
+		CEScene scene = CometEngine.getInstance().getSceneManager().getScene();
+		CERenderCommandCustom command = null;
+		if (scene != null) {
+			command = scene.genRenderCommand();
+			if (command != null)
+				command.execute();
+		}
+
+		if (command != null)
+			command.execute();
 
 		CalculateFPS();
 	}

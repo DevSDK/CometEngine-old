@@ -15,6 +15,7 @@ public class CESceneManager {
 	{
 		return Instance;
 	}
+
 	public void setScene(CEScene scene)
 	{
 		nowScene = scene;

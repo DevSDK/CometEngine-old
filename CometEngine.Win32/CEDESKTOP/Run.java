@@ -13,6 +13,7 @@ import org.lwjgl.system.MemoryUtil;
 import org.newdawn.slick.command.Control;
 
 import com.CometEngine.*;
+import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.DeskTop.CEDeskTop;
 import com.CometEngine.DeskTop.CEDeskTopAsyncFileIO;
 import com.CometEngine.DeskTop.CEDeskTopFileUtil;
@@ -27,6 +28,10 @@ import com.CometEngine.DeskTopGL.CEDeskTopGL;
 public class Run {
 
 	public static void main(String[] argc) {
-		CEDeskTop.Run(600, 600, 1000, 1000);
+		
+		CEDeskTop.INIT(600, 600, 1000, 1000);
+		CometEngine.getInstance().getSceneManager().setScene(new TestScene());
+		CEDeskTop.RUN();
 	}
+
 }

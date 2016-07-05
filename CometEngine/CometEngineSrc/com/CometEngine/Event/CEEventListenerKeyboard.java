@@ -2,12 +2,14 @@ package com.CometEngine.Event;
 
 import java.util.EventListener;
 
+import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEKeyBoard.InputStatus;
 
 public class CEEventListenerKeyboard extends CEEventListener {
+	
 	public interface KeyBoardEventCallBack {
 		public void KeyBoardEvent(CEEventKeyboard event);
 	}
@@ -20,27 +22,28 @@ public class CEEventListenerKeyboard extends CEEventListener {
 	};
 	public KeyBoardEventCallBack CallBack;
 
-	private CEScene TargetScene = null;
-
 	private CEEventListenerKeyboard() {
 	};
 
-	public static CEEventListenerKeyboard CreateWithScene(CEScene scene) {
+	public static CEEventListenerKeyboard Create(CEObject object) {
 		CEEventListenerKeyboard listener = new CEEventListenerKeyboard();
 		listener.CallBack = DefaultMethod;
-		listener.TargetScene = scene;
-  
+		listener.TargetObject = object;
+
 		return listener;
 	}
 
-	public static CEEventListenerKeyboard Create(KeyBoardEventCallBack CallBack, CEScene scene) {
-		CEEventListenerKeyboard listener = CreateWithScene(scene);
+	public static CEEventListenerKeyboard Create() {
+		return Create(null);
+	}
+
+	public static CEEventListenerKeyboard Create(KeyBoardEventCallBack CallBack, CEObject scene) {
+		CEEventListenerKeyboard listener = Create(scene);
 		listener.CallBack = CallBack;
 		return listener;
-
 	}
-	public CEScene getTargetScene()
-	{
+
+	public CEObject getTargetScene() {
 		return TargetScene;
 	}
 

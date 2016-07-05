@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
-import com.CometEngine.CELib.Node.CEObject;
-import com.CometEngine.CELib.Node.CERenderableObject;
+import com.CometEngine.CELib.Object.CEObject;
+import com.CometEngine.CELib.Object.CERenderableObject;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Font.CEFont;
 import com.CometEngine.Renderer.CEGL;

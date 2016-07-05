@@ -17,6 +17,7 @@ public class CEAndroidGL implements CEGLInterface{
    
     	CheckBuffer(buffer);
         return buffer.limit();
+        
     }
 
     private static int getBufferLimit(ShortBuffer buffer) {

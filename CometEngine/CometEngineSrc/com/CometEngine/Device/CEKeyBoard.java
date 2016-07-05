@@ -254,14 +254,4 @@ public class CEKeyBoard extends CEDevice {
 		return keybord;
 	}
 
-	@Override
-	public void Active() {
-
 	}
-
-	@Override
-	public void stop() {
-
-	}
-
-}
