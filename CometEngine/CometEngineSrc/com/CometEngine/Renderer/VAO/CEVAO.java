@@ -14,6 +14,12 @@ import com.CometEngine.Util.Buffer.CEBufferUtils;
 public class CEVAO extends CEGLResource {
 
 	private final ArrayList<Integer> VBOS = new ArrayList<Integer>();
+	private static final HashMap<Object, CEVAO> VAOTABLE = new HashMap<Object, CEVAO>();
+	private int ID = 0;
+	private int glStatment = CEGL.GL_STATIC_DRAW;
+	private Object ManagementKey = null;
+	private IntBuffer IboData = null;
+	private CEVboObject[] VboData = null;
 
 	public static class CEVboObject {
 		public CEVboObject(int index, int coordsize, float[] vertexs) {
@@ -59,11 +65,6 @@ public class CEVAO extends CEGLResource {
 
 	}
 
-	private int ID = 0;
-	private int glStatment = CEGL.GL_STATIC_DRAW;
-	private IntBuffer IboData = null;
-	private CEVboObject[] VboData = null;
-
 	public static CEVAO Create(Object ManagementKey, int[] ibo, CEVboObject[] VboData, int glStatment) {
 		if (ManagementKey == null) {
 			CEVAO vao = new CEVAO();
@@ -71,6 +72,7 @@ public class CEVAO extends CEGLResource {
 			vao.IboData = buffer;
 			vao.VboData = VboData;
 			vao.glStatment = glStatment;
+			ManagementKey = null;
 			CEGLResourceManager.getInstence().putGLResrouce(vao);
 			return vao;
 		} else if (VAOTABLE.containsKey(ManagementKey)) {
@@ -82,6 +84,7 @@ public class CEVAO extends CEGLResource {
 		vao.IboData = buffer;
 		vao.VboData = VboData;
 		vao.glStatment = glStatment;
+		vao.ManagementKey = ManagementKey;
 		CEGLResourceManager.getInstence().putGLResrouce(vao);
 		VAOTABLE.put(ManagementKey, vao);
 		return vao;
@@ -90,14 +93,13 @@ public class CEVAO extends CEGLResource {
 	private CEVAO() {
 	};
 
-	private static final HashMap<Object, CEVAO> VAOTABLE = new HashMap<Object, CEVAO>();
-
 	public static CEVAO Create(Object ManagementKey, int[] ibo, CEVboObject[] VboData) {
 		if (ManagementKey == null) {
 			CEVAO vao = new CEVAO();
 			IntBuffer buffer = CEBufferUtils.ArrayToBuffer(ibo);
 			vao.IboData = buffer;
 			vao.VboData = VboData;
+			vao.ManagementKey = null;
 			CEGLResourceManager.getInstence().putGLResrouce(vao);
 			return vao;
 		} else if (VAOTABLE.containsKey(ManagementKey)) {
@@ -107,6 +109,7 @@ public class CEVAO extends CEGLResource {
 		IntBuffer buffer = CEBufferUtils.ArrayToBuffer(ibo);
 		vao.IboData = buffer;
 		vao.VboData = VboData;
+		vao.ManagementKey = ManagementKey;
 		CEGLResourceManager.getInstence().putGLResrouce(vao);
 		VAOTABLE.put(ManagementKey, vao);
 		return vao;
@@ -169,7 +172,6 @@ public class CEVAO extends CEGLResource {
 
 	@Override
 	protected void onGLDelete() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -180,6 +182,19 @@ public class CEVAO extends CEGLResource {
 
 	public int getID() {
 		return ID;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void Delete() {
+		if (isDeleted == false) {
+
+			isDeleted = true;
+			VAOTABLE.remove(ManagementKey);
+			CEGL.DeleteVertexArrays(ID);
+		}
 	}
 
 }

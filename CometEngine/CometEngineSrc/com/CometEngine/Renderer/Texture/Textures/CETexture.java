@@ -7,21 +7,22 @@ import com.CometEngine.Renderer.CEGLResource;
 public abstract class CETexture extends CEGLResource {
 	protected int TextureID = 0;
 	protected String HashKey = "";
-	public void setTextureID(int texture)
-	{
+
+	public void setTextureID(int texture) {
 		TextureID = texture;
 	}
-	public void setHashKey(String key)
-	{
+
+	public void setHashKey(String key) {
 		HashKey = key;
 	}
-	public String getHashKey()
-	{
+
+	public String getHashKey() {
 		return HashKey;
 	}
-	public int getTextureID()
-	{
+
+	public int getTextureID() {
 		return TextureID;
 	}
+
 	public abstract String getKey();
 }

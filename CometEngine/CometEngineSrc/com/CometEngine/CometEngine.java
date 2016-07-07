@@ -55,7 +55,7 @@ public class CometEngine {
 		return renderer;
 	}
 
-	public void RUN(final PLATFORM TargetPlatForm, CometEngineInitObject initdata) {
+	public void Initalize(final PLATFORM TargetPlatForm, CometEngineInitObject initdata) {
 		if (initdata == null || initdata.GL == null || initdata.platformFileUtil == null) {
 			System.out.println("Init Object data have null");
 			return;
@@ -74,8 +74,8 @@ public class CometEngine {
 	}
 
 	public void ExitCometEngine() {
-
 		IsRun = false;
+		CometEngine.getInstance().getSceneManager().ExitCurrentScene();
 
 	}
 
@@ -117,8 +117,10 @@ public class CometEngine {
 	}
 
 	public void EXIT(int status) {
-		
+
 		IsRun = false;
+		CometEngine.getInstance().getSceneManager().ExitCurrentScene();
+
 	}
 
 	private CERenderer renderer = null;

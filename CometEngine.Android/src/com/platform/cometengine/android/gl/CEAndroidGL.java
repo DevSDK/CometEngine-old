@@ -9,56 +9,54 @@ import java.nio.ShortBuffer;
 
 import com.CometEngine.Renderer.CEGLInterface;
 
+public class CEAndroidGL implements CEGLInterface {
 
-public class CEAndroidGL implements CEGLInterface{
-	
+	private static int getBufferLimit(ByteBuffer buffer) {
+ 
+		CheckBuffer(buffer);
+		return buffer.limit();
 
-    private static int getBufferLimit(ByteBuffer buffer) {
-   
-    	CheckBuffer(buffer);
-        return buffer.limit();
-        
-    }
+	}
 
-    private static int getBufferLimit(ShortBuffer buffer) {
-  
-    	CheckBuffer(buffer);
-        return buffer.limit() * 2;
-    }
+	private static int getBufferLimit(ShortBuffer buffer) {
 
-    private static int getBufferLimit(IntBuffer buffer) {
+		CheckBuffer(buffer);
+		return buffer.limit() * 2;
+	}
 
-			CheckBuffer(buffer);
-	
-	
-        return buffer.limit() * 4;
-    }
+	private static int getBufferLimit(IntBuffer buffer) {
 
-    private static int getBufferLimit(FloatBuffer buffer) {
-      
-			CheckBuffer(buffer);
-	
-        return buffer.limit() * 4;
-    }
+		CheckBuffer(buffer);
 
-    private static int getBufferLimitOfCounter(Buffer buffer, int elementSize) {
-  
-			CheckBuffer(buffer);
+		return buffer.limit() * 4;
+	}
 
-        return buffer.limit() / elementSize;
-    }
+	private static int getBufferLimit(FloatBuffer buffer) {
 
-    private static void CheckBuffer(Buffer buffer)  {
-        if (buffer == null) {
-            return;
-        }
-         if (buffer.limit() == 0) {
-        	System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
-        }
-        if (buffer.remaining() == 0) {
-        	System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
-        }	
-    }
+		CheckBuffer(buffer);
+
+		return buffer.limit() * 4;
+	}
+
+	private static int getBufferLimitOfCounter(Buffer buffer, int elementSize) {
+
+		CheckBuffer(buffer);
+
+		return buffer.limit() / elementSize;
+	}
+
+	private static void CheckBuffer(Buffer buffer) {
+		if (buffer == null) {
+			return;
+		}
+		if (buffer.limit() == 0) {
+			System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
+		}
+		if (buffer.remaining() == 0) {
+			System.err.println("CEGL Warnning Buffer" + buffer + "Size = 0");
+		}
+	}
+
 	@Override
 	public void Clear(int mask) {
 		GLES30.glClear(mask);
@@ -67,7 +65,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public void ClearColor(float red, float green, float blue, float alpha) {
 		GLES30.glClearColor(red, green, blue, alpha);
-		
+
 	}
 
 	@Override
@@ -109,7 +107,7 @@ public class CEAndroidGL implements CEGLInterface{
 	public void BindBuffer(int target, int buffer) {
 		GLES30.glBindBuffer(target, buffer);
 	}
-	
+
 	@Override
 	public void ColorMask(boolean red, boolean green, boolean blue, boolean alpha) {
 		GLES30.glColorMask(red, green, blue, alpha);
@@ -119,7 +117,6 @@ public class CEAndroidGL implements CEGLInterface{
 	public void CompileShader(int shader) {
 		GLES30.glCompileShader(shader);
 	}
-
 
 	@Override
 	public int CreateProgram() {
@@ -134,9 +131,8 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public void CullFace(int mode) {
 		GLES30.glCullFace(mode);
+	
 	}
-
-
 
 	@Override
 	public void DeleteProgram(int program) {
@@ -148,8 +144,6 @@ public class CEAndroidGL implements CEGLInterface{
 		GLES30.glDeleteShader(shader);
 	}
 
-
-
 	@Override
 	public void DepthFunc(int func) {
 		GLES30.glDepthFunc(func);
@@ -159,8 +153,6 @@ public class CEAndroidGL implements CEGLInterface{
 	public void DepthMask(boolean flag) {
 		GLES30.glDepthMask(flag);
 	}
-
-
 
 	@Override
 	public void DetachShader(int program, int shader) {
@@ -177,9 +169,6 @@ public class CEAndroidGL implements CEGLInterface{
 		GLES30.glDrawArrays(mode, first, count);
 	}
 
-
-	
-
 	@Override
 	public void EnableVertexAttribArray(int index) {
 		GLES30.glEnableVertexAttribArray(index);
@@ -187,13 +176,13 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void BufferData(int target, FloatBuffer data, int usage) {
-	
+
 		GLES30.glBufferData(target, getBufferLimit(data), data, usage);
 	}
 
 	@Override
 	public void BufferData(int target, ShortBuffer data, int usage) {
-	   GLES30.glBufferData(target, getBufferLimit(data), data, usage);
+		GLES30.glBufferData(target, getBufferLimit(data), data, usage);
 	}
 
 	@Override
@@ -203,8 +192,8 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void BufferData(int target, int data_size, int usage) {
-		GLES30.glBufferData(target, (int)data_size, null, usage);
-		
+		GLES30.glBufferData(target, (int) data_size, null, usage);
+
 	}
 
 	@Override
@@ -225,7 +214,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public void GetBufferSubData(int target, int offset, ByteBuffer data) {
 		System.err.println("OPEN GL ES has does not support glGetBufferSubData");
-		
+
 	}
 
 	@Override
@@ -237,8 +226,9 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public void CompressedTexSubImage2D(int target, int level, int xoffset, int yoffset, int width, int height,
 			int format, ByteBuffer data) {
-		GLES30.glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, getBufferLimit(data), data);
-		
+		GLES30.glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, getBufferLimit(data),
+				data);
+
 	}
 
 	@Override
@@ -253,31 +243,29 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void DepthRange(double nearVal, double farVal) {
-		GLES30.glDepthRangef((float)nearVal,(float) farVal);
+		GLES30.glDepthRangef((float) nearVal, (float) farVal);
 	}
 
 	@Override
 	public void DrawRangeElements(int mode, int start, int end, int count, int type, long indices) {
-		GLES30.glDrawElements(mode, count, type, (int)indices);
+		GLES30.glDrawElements(mode, count, type, (int) indices);
 	}
 
 	@Override
 	public int GenBuffers() {
 
 		IntBuffer genbuf = IntBuffer.allocate(1);
-		GLES30.glGenBuffers(getBufferLimit(genbuf),genbuf);
-	
-		int out = genbuf.get(); 
+		GLES30.glGenBuffers(getBufferLimit(genbuf), genbuf);
+
+		int out = genbuf.get();
 		int t = out;
-			return t;
-		
-		}
-	
-	
-	
+		return t;
+
+	}
+
 	@Override
 	public int GenTextures() {
-		IntBuffer buffer =  IntBuffer.allocate(1); 
+		IntBuffer buffer = IntBuffer.allocate(1);
 		GLES30.glGenTextures(getBufferLimit(buffer), buffer);
 		return buffer.get(0);
 	}
@@ -315,7 +303,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public String GetProgramInfoLog(int program, int maxLength) {
 		return GLES30.glGetProgramInfoLog(program);
-		}
+	}
 
 	@Override
 	public void GetShader(int shader, int pname, IntBuffer params) {
@@ -326,7 +314,7 @@ public class CEAndroidGL implements CEGLInterface{
 	@Override
 	public String GetShaderInfoLog(int shader, int maxLength) {
 		return GLES30.glGetShaderInfoLog(shader);
-		}
+	}
 
 	@Override
 	public String GetString(int name) {
@@ -375,10 +363,10 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void ShaderSource(int shader, String[] strings, IntBuffer length) {
-        if (strings.length != 1) {
-        	System.err.println("CEGL SHADERSOURCE STRING LENGTH != 1. is GLES Error");
-              }
-        GLES30.glShaderSource(shader, strings[0]);
+		if (strings.length != 1) {
+			System.err.println("CEGL SHADERSOURCE STRING LENGTH != 1. is GLES Error");
+		}
+		GLES30.glShaderSource(shader, strings[0]);
 	}
 
 	@Override
@@ -417,7 +405,7 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void Uniform1fv(int location, FloatBuffer value) {
-		GLES30.glUniform1fv(location, getBufferLimitOfCounter(value, 1),  value);
+		GLES30.glUniform1fv(location, getBufferLimitOfCounter(value, 1), value);
 	}
 
 	@Override
@@ -487,7 +475,7 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void UniformMatrix4fv(int location, boolean transpose, FloatBuffer value) {
-		GLES30.glUniformMatrix4fv(location, getBufferLimitOfCounter(value, 4*4), transpose, value);
+		GLES30.glUniformMatrix4fv(location, getBufferLimitOfCounter(value, 4 * 4), transpose, value);
 	}
 
 	@Override
@@ -497,7 +485,7 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void VertexAttribPointer(int index, int size, int type, boolean normalized, int stride, long pointer) {
-		GLES30.glVertexAttribPointer(index, size, type, normalized, stride, (int)pointer);
+		GLES30.glVertexAttribPointer(index, size, type, normalized, stride, (int) pointer);
 	}
 
 	@Override
@@ -519,7 +507,7 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void BufferSubData(int target, long offset, IntBuffer data) {
-		GLES30.glBufferSubData(target, (int)offset, getBufferLimit(data), data);
+		GLES30.glBufferSubData(target, (int) offset, getBufferLimit(data), data);
 	}
 
 	@Override
@@ -600,7 +588,7 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public void FramebufferTexture2DEXT(int param1, int param2, int param3, int param4, int param5) {
-		GLES30.glFramebufferTexture2D(param1,param2, param3, param4, param5);
+		GLES30.glFramebufferTexture2D(param1, param2, param3, param4, param5);
 	}
 
 	@Override
@@ -653,12 +641,10 @@ public class CEAndroidGL implements CEGLInterface{
 		GLES30.glBlendEquationSeparate(colorMode, alphaMode);
 	}
 
-
 	@Override
 	public void ShaderSource(int shader, String string) {
 		GLES30.glShaderSource(shader, string);
-	}	
-
+	}
 
 	@Override
 	public void DrawElements(int mode, int count, int type, ByteBuffer indices) {
@@ -682,16 +668,16 @@ public class CEAndroidGL implements CEGLInterface{
 
 	@Override
 	public int GetShaderi(int shader, int pname) {
-		IntBuffer buf = IntBuffer.allocate(Integer.SIZE/8);
+		IntBuffer buf = IntBuffer.allocate(Integer.SIZE / 8);
 		GLES30.glGetShaderiv(shader, pname, buf);
-		
+
 		return buf.get();
 	}
 
 	@Override
 	public void BindVertexArray(int array) {
 		GLES30.glBindVertexArray(array);
-		
+
 	}
 
 	@Override
@@ -708,12 +694,5 @@ public class CEAndroidGL implements CEGLInterface{
 		buffer.flip();
 		GLES30.glDeleteVertexArrays(getBufferLimit(buffer), buffer);
 	}
-	
-	
-	
-	
-	
-
-
 
 }

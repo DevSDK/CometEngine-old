@@ -27,7 +27,7 @@ public class CEDesktopEventThread extends Thread {
 	}
 
 	public void init() {
-		
+
 	}
 
 	public void loop() {
@@ -38,12 +38,7 @@ public class CEDesktopEventThread extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (CometEngine.getInstance().getSceneManager().getScene() == null) {
-
-			} else {
-
-				CometEngine.getInstance().getSceneManager().getScene().tick();
-			}
+		
 			CometEngine.getInstance().UpdateEvent();
 
 		}

@@ -131,10 +131,13 @@ public class CEEventDispatcher {
 			for (int i = 0; i < listener.size(); i++) {
 				if (listener.get(i) instanceof CEEventListenerKeyboard) {
 					CEEventListenerKeyboard t = (CEEventListenerKeyboard) listener.get(i);
-					if (t.getTargetScene() == CESceneManager.getInstance().getScene()) {
-						KeyBoardEvent.TargetObject = t.TargetObject;
+					if (CESceneManager.getInstance().getCurrentScene().isFinalize() == false) {
 
-						t.ListenKeyBoardEvent(KeyBoardEvent);
+						if (t.getTargetScene() == CESceneManager.getInstance().getCurrentScene()) {
+							KeyBoardEvent.TargetObject = t.TargetObject;
+
+							t.ListenKeyBoardEvent(KeyBoardEvent);
+						}
 					}
 				}
 			}
@@ -170,7 +173,6 @@ public class CEEventDispatcher {
 			KeyBoardEvent.KEYDATA = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getKeyMap();
 			if (KeyBoardEvent.KEYDATA == null)
 				KeyBoardEvent.Mode = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getMode();
-
 			PutEvent(KeyBoardEvent);
 			UpdateKeyPushData();
 		}
@@ -178,8 +180,8 @@ public class CEEventDispatcher {
 
 	public void RelaseKeyBoardEvents() {
 
-		KeyBoardEvent.Mode = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getMode();
 		KeyBoardEvent.KEYDATA = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getKeyMap();
+		KeyBoardEvent.Mode = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getMode();
 		PutEvent(KeyBoardEvent);
 		UpdateKeyPushData();
 	}
@@ -192,17 +194,20 @@ public class CEEventDispatcher {
 			for (int i = 0; i < listener.size(); i++) {
 				if (listener.get(i) instanceof CEEventListenerMouse) {
 					CEEventListenerMouse t = (CEEventListenerMouse) listener.get(i);
-					if (t.TargetScene == CESceneManager.getInstance().getScene()) {
-						mouse.TargetObject = t.TargetObject;
+					if (CESceneManager.getInstance().getCurrentScene().isFinalize() == false) {
 
-						if (mouse.type == EVENT_TYPE.MOUSE_CLICK) {
-							t.ListenClickEvent(mouse);
-						} else if (mouse.type == EVENT_TYPE.MOUSE_MOVE) {
-							t.ListenMoveEvent(mouse);
-						} else if (mouse.type == EVENT_TYPE.MOUSE_SCROLL) {
-							t.ListenScrollEvent(mouse);
+						if (t.TargetScene == CESceneManager.getInstance().getCurrentScene()) {
+
+							if (mouse.type == EVENT_TYPE.MOUSE_CLICK) {
+								t.ListenClickEvent(mouse);
+							} else if (mouse.type == EVENT_TYPE.MOUSE_MOVE) {
+								t.ListenMoveEvent(mouse);
+							} else if (mouse.type == EVENT_TYPE.MOUSE_SCROLL) {
+								t.ListenScrollEvent(mouse);
+							}
+
+							mouse.TargetObject = t.TargetObject;
 						}
-
 					}
 				}
 			}

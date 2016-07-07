@@ -11,48 +11,39 @@ import com.CometEngine.Resrouce.CEResrouce;
 import com.CometEngine.Resrouce.CEResourceManager;
 
 public class CETextureManager {
-	private  static final Hashtable<String, CETexture> TextureTable = new Hashtable<String, CETexture>();
+	private static final Hashtable<String, CETexture> TextureTable = new Hashtable<String, CETexture>();
 	private static final CETextureManager instence = new CETextureManager();
-		
-	
-	public static CETextureManager getInstence()
-	{			
+
+	public static CETextureManager getInstence() {
 		return instence;
 	}
-	
-	
-	public void showLog()
-	{
-		System.out.println("Texture Manager : Counter " + TextureTable.size() );
-		for(CETexture tex : TextureTable.values())
-		{
+
+	public void showLog() {
+		System.out.println("Texture Manager : Counter " + TextureTable.size());
+		for (CETexture tex : TextureTable.values()) {
 			System.out.println(tex.getTextureID());
 		}
 	}
 
-	public void addTexture(String filepath, CETexture texture)
-	{	
+	public void addTexture(String filepath, CETexture texture) {
 
-			TextureTable.put(filepath, texture);	
-		
-		
+		TextureTable.put(filepath, texture);
+
 	}
-	public boolean isHaveTexture(String path)
-	{		
-		return TextureTable.containsKey(path) ;
+
+	public boolean isHaveTexture(String path) {
+		return TextureTable.containsKey(path);
 	}
-	public int getSize()
-	{
-		return instence.getSize(); 
+
+	public int getSize() {
+		return instence.getSize();
 	}
-	public CETexture2D getTexture2D(String filepath)
-	{
-			if(TextureTable.containsKey(filepath))
-				return (CETexture2D)TextureTable.get(filepath);
-		return null;	
-		
-			
+
+	public CETexture2D getTexture2D(String filepath) {
+		if (TextureTable.containsKey(filepath))
+			return (CETexture2D) TextureTable.get(filepath);
+		return null;
+
 	}
-	
+
 }
-

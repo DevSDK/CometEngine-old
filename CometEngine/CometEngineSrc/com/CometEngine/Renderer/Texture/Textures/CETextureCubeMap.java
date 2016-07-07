@@ -1,11 +1,11 @@
 package com.CometEngine.Renderer.Texture.Textures;
 
-public class CETextureCubeMap extends CETexture{
+public class CETextureCubeMap extends CETexture {
 
 	@Override
 	public void onGLLoad() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -23,8 +23,7 @@ public class CETextureCubeMap extends CETexture{
 	@Override
 	public void onGLDelete() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

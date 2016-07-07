@@ -11,47 +11,38 @@ import com.CometEngine.Renderer.Commend.CERenderCommandGroup;
 import com.CometEngine.Renderer.Commend.CERenderCommandMesh;
 import com.CometEngine.Renderer.Commend.CERenderCommandNull;
 
-
-
 public class CERenderCommandManager {
-	private static final CERenderCommandManager m_s_Instence =  new CERenderCommandManager();
+	private static final CERenderCommandManager m_s_Instence = new CERenderCommandManager();
 	private static final List<CERenderCommand> CommandQue = new ArrayList<CERenderCommand>();
 	private Object Sync = new Object();
-	
- 	
-	public void AddCommand(CERenderCommand command)
-	{
+
+	public void AddCommand(CERenderCommand command) {
 		synchronized (Sync) {
 			CommandQue.add(command);
-	}}
-	public synchronized  void AddCommands(ArrayList<CERenderCommand> commands)
-	{	
+		}
+	}
+
+	public synchronized void AddCommands(ArrayList<CERenderCommand> commands) {
 		CommandQue.addAll(commands);
 	}
 
-	public void _debug_LoggingInformation()
-	{
-		System.out.println(" Rendering QUE Lenght : " + CommandQue.size()  );
-		for(CERenderCommand command : CommandQue )
-		{
+	public void _debug_LoggingInformation() {
+		System.out.println(" Rendering QUE Lenght : " + CommandQue.size());
+		for (CERenderCommand command : CommandQue) {
 			System.out.println(command.getType());
 		}
 	}
-	
 
-	public void InvokeAllCommands()
-	{
-		synchronized(Sync){
-			for(int i = 0 ;  i < CommandQue.size(); i++)
-			{
+	public void InvokeAllCommands() {
+		synchronized (Sync) {
+			for (int i = 0; i < CommandQue.size(); i++) {
 				CommandQue.get(i).execute();
 			}
-			CommandQue.clear();			
-		}		
+			CommandQue.clear();
+		}
 	}
-	
-	public static CERenderCommandManager getInstence()
-	{
-			return m_s_Instence;	
+
+	public static CERenderCommandManager getInstence() {
+		return m_s_Instence;
 	}
 }

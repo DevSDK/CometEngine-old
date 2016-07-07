@@ -6,7 +6,7 @@ import java.nio.IntBuffer;
 import javax.microedition.khronos.egl.EGL;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface; 
+import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;
@@ -43,78 +43,65 @@ import com.platform.cometengine.io.CEAndroidFilePath;
 import com.platform.cometengine.io.CEAndroidFileUtil;
 import com.platform.cometengine.io.CEAndroidSyncFileIO;
 
-
-
-
 public class MainActivity extends Activity {
 
-	private	EVENT_TASK task = null;
-	
-	private Renderer glview =null;
-	
-	
+	private EVENT_TASK task = null;
+
+	private Renderer glview = null;
+
 	GLSurfaceView surfaceView = null;
-
-
-	
+ 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	
-		
+
 		super.onCreate(savedInstanceState);
+
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		CEAndroidFilePath.InitFileSysten(getResources(), this);
+
+		surfaceView = new CEAndroidGLSurface(this);
 		
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE); 
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		CEAndroidFilePath.InitFileSysten(getResources(),this);
-		
-		 surfaceView = new CEAndroidGLSurface(this);
-		 surfaceView.setEGLContextClientVersion(3);
-		
-        surfaceView.setRenderer(glview = new GLSurfaceView.Renderer() {
-            @Override
-            public void onSurfaceChanged(GL10 gl, int width, int height) {
-            	
-            	System.out.println(" Width : " + width + " Height " + height);
-            	CometEngine.getInstance().getRenderer().setViewSize(width, height);
-            	GLES30.glViewport(0, 0, width, height);
-            }
-            
-         
-            @Override
-            public void onDrawFrame(GL10 gl) {
-            	CometEngine.getInstance().getRenderer().RenderingCommands();
-            }
- 
+		surfaceView.setEGLContextClientVersion(3);
+
+		surfaceView.setRenderer(glview = new GLSurfaceView.Renderer() {
+			@Override
+			public void onSurfaceChanged(GL10 gl, int width, int height) {
+
+				System.out.println(" Width : " + width + " Height " + height);
+				CometEngine.getInstance().getRenderer().setViewSize(width, height);
+				GLES30.glViewport(0, 0, width, height);
+			}
+
+			@Override
+			public void onDrawFrame(GL10 gl) {
+				CometEngine.getInstance().getRenderer().RenderingCommands();
+			}
+
 			@Override
 			public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
-		
-				
-				
+
 				CometEngineInitObject init = new CometEngineInitObject();
-				init.GL =  new CEAndroidGL();
+				init.GL = new CEAndroidGL();
 				init.platformFileUtil = new CEAndroidFileUtil();
-				CometEngine.getInstance().Run(PLATFORM.CE_ANDROID, init);
-	
-				task = new EVENT_TASK();	
+				CometEngine.getInstance().Initalize(PLATFORM.CE_ANDROID, init);
+
+				task = new EVENT_TASK();
 				task.execute();
-				
+
 			}
-        });
-        
-       
-        setContentView(surfaceView);
+		});
 
-        
+		setContentView(surfaceView);
+
 	}
-	
-	
 
-	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		CometEngine.getInstance().EXIT(0);
-		moveTaskToBack(true); 
+		moveTaskToBack(true);
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -123,72 +110,63 @@ public class MainActivity extends Activity {
 		android.os.Process.killProcess(android.os.Process.myPid());
 
 	}
-	
-	
-	
-	   public class EVENT_TASK extends AsyncTask<Void,Void,Void> {
 
-		   
-			boolean flag = true;
-			String []paths = { "1"};
-			public void run()
-			{
-			
-				init();
-				loop();
-			}
-			
-			public void init()
-			{
-				CESceneManager.getInstance().setScene(new CEScene());
-				
-			}
-			
-			int n = 0 ;
-			public void loop()
-			{
-				while(CometEngine.getInstance().isRun() && flag)
-				{		
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						break;
-					}
-					
-					CESceneManager.getInstance().getScene().tick();
-				}
-		
-			}
-				
-			   @Override
-		        protected void onPreExecute() {
-		            super.onPreExecute();
-		            
-		        }
-		         
-		   
-		         
-		        @Override
-		        protected void onPostExecute(Void r) {
-		            super.onPostExecute(null);
-		         
-		        }
-		         
-		        @Override
-		        protected void onCancelled() {
-		            super.onCancelled();
-		            flag = false;
-		        }
+	public class EVENT_TASK extends AsyncTask<Void, Void, Void> {
 
-				@Override
-				protected Void doInBackground(Void... params) {
-				
-					run();
-					return null;
+		boolean flag = true;
+		String[] paths = { "1" };
+
+		public void run() {
+
+			init();
+			loop();
+		}
+
+		public void init() {
+			CESceneManager.getInstance().setScene(new CEScene());
+
+		}
+
+		int n = 0;
+
+		public void loop() {
+			while (CometEngine.getInstance().isRun() && flag) {
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					break;
 				}
-		         
-		   
-	   
-	    }
-	
+
+				CESceneManager.getInstance().getScene().tick();
+			}
+
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+		}
+
+		@Override
+		protected void onPostExecute(Void r) {
+			super.onPostExecute(null);
+
+		}
+
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+			flag = false;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			run();
+			return null;
+		}
+
+	}
+
 }

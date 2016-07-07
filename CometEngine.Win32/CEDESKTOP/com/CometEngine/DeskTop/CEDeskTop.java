@@ -89,12 +89,11 @@ public class CEDeskTop {
 		init.GL = new CEDeskTopGL();
 		init.platformFileUtil = new CEDeskTopFileUtil();
 
-		CometEngine.getInstance().RUN(CometEngine.PLATFORM.CE_WIN32, init);
+		CometEngine.getInstance().Initalize(CometEngine.PLATFORM.CE_WIN32, init);
 
 		CometEngine.getInstance().getRenderer().setViewSize(COORD_WIDTH, COORD_HEIGHT);
 		
-		CEDesktopEventThread thread = new CEDesktopEventThread();
-		thread.start();
+	
 
 		GLFW.glfwGetJoystickName(0);
 		GLFW.glfwSwapInterval(1);
@@ -104,6 +103,8 @@ public class CEDeskTop {
 
 public static void RUN()
 {
+	CEDesktopEventThread thread = new CEDesktopEventThread();
+	thread.start();
 	while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE) {
 		CometEngine.getInstance().getRenderer().RenderingCommands();
 

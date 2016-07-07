@@ -65,7 +65,7 @@ public class CERenderer {
 	}
 
 	public void VisitRenderTarget() {
-		CEScene scene = CometEngine.getInstance().getSceneManager().getScene();
+		CEScene scene = CometEngine.getInstance().getSceneManager().getCurrentScene();
 		CERenderCommandCustom command = null;
 		if (scene != null) {
 			command = scene.genRenderCommand();
@@ -102,7 +102,7 @@ public class CERenderer {
 			CEGLResourceManager.getInstence().LoadUPGLResrouce();
 
 		GL_CLEAR();
-		CEScene scene = CometEngine.getInstance().getSceneManager().getScene();
+		CEScene scene = CometEngine.getInstance().getSceneManager().getCurrentScene();
 		CERenderCommandCustom command = null;
 		if (scene != null) {
 			command = scene.genRenderCommand();

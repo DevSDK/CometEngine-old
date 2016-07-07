@@ -214,4 +214,10 @@ public class CEBMPTextLabel extends CETextLabel {
 
 		shader.Stop();
 	}
+
+	@Override
+	public void CleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

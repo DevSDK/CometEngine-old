@@ -23,33 +23,54 @@ import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Commend.Manager.CERenderCommandManager;
+import com.CometEngine.Scheduler.CESchedule;
+import com.CometEngine.Scheduler.CEScheduler;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
 public class CEScene
 		extends CERenderableObject /* extends root class ex) Node */ {
-
+	private final CEScheduler SCHEDULER = new CEScheduler();
 	private CECamera DefaultCamera = new CE2DDefaultCamera();
 
 	// Maybe move to Node
 
-
-
 	int count = 0;
 	int objectcounter = 0;
+	boolean isExited = true;
 	final CEScene scene = this;
 
 	public CEScene() {
-	
-	}
-
-	public void tick() {
-	
 
 	}
+
+	public void PuaseAllSchedule() {
+		SCHEDULER.PauseAll();
+	}
+
+	public void ResumeAllSchedule() {
+		SCHEDULER.ResumeAll();
+	}
+
+	public void PauseSchedule(CESchedule schedule) {
+		SCHEDULER.Pause(schedule);
+	}
+
+	public void ResumeSchedule(CESchedule schedule) {
+		SCHEDULER.Resume(schedule);
+	}
+
+	public void StartSchedule(CESchedule schedule) {
+		SCHEDULER.Run(schedule);
+	}
+
+	public boolean isFinalize() {
+		return isExited;
+	}
+
 
 	private void VisitAndGenChildCommands() {
 		for (CEObject child : ChildList) {
-			if (CERenderableObject.class.isAssignableFrom(child.getClass())) {
+			if (child instanceof CERenderableObject) {
 				RenderingList.add((CERenderableObject) child);
 			}
 		}
@@ -101,4 +122,28 @@ public class CEScene
 
 	}
 
+	@Override
+	public void CleanUp() {
+
+	}
+
+	protected void MANAGER_CALL_ENTER() {
+		SCHEDULER.EnterScene();
+		isExited = false;
+		onEnter();
+	}
+
+	protected void MANAGER_CALL_EXIT() {
+		onExit();
+		isExited = true;
+		SCHEDULER.ExitScene();
+	}
+
+	protected void onExit() {
+
+	}
+
+	protected void onEnter() {
+
+	}
 }

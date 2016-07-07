@@ -28,9 +28,10 @@ import com.CometEngine.DeskTopGL.CEDeskTopGL;
 public class Run {
 
 	public static void main(String[] argc) {
-		
+		CEScene scene;
 		CEDeskTop.INIT(600, 600, 1000, 1000);
-		CometEngine.getInstance().getSceneManager().setScene(new TestScene());
+		CometEngine.getInstance().getSceneManager().setScene(scene = new TESTSCENE2());
+		
 		CEDeskTop.RUN();
 	}
 

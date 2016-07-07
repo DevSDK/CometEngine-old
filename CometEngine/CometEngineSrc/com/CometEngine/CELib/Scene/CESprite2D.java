@@ -66,7 +66,7 @@ public class CESprite2D extends CERenderableObject {
 
 	@Override
 	public void onDraw() {
-
+		
 		if (texture.isloaded() == false) {
 			return;
 		}
@@ -105,6 +105,11 @@ public class CESprite2D extends CERenderableObject {
 	@Override
 	public void onInit() {
 
+	}
+
+	@Override
+	public void CleanUp() {
+		
 	}
 
 }
