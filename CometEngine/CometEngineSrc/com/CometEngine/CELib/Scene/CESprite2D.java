@@ -8,6 +8,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.BoundBox.CEBound2D;
+import com.CometEngine.CELib.BoundBox.CEBoundBox2D;
+import com.CometEngine.CELib.Camera.CECamera2D;
 import com.CometEngine.CELib.Object.CEColor4f;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Object.CERenderableObject;
@@ -25,7 +28,7 @@ import com.CometEngine.Renderer.VBO.CEVertexBufferObject;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
-public class CESprite2D extends CERenderableObject {
+public class CESprite2D extends CERenderableObject implements CEBound2D {
 
 	protected CETexture2D texture = null;
 	protected Default2DShader shader = null;
@@ -58,6 +61,8 @@ public class CESprite2D extends CERenderableObject {
 	private void initQuad() {
 		int width = texture.getData().getWidth();
 		int height = texture.getData().getHeight();
+		boundbox = new CEBoundBox2D(width, height,
+				(CECamera2D) CometEngine.getInstance().getSceneManager().nowRender2DCamera);
 		quad = CEQuad.Create(texture, width, height);
 		quad.setColor(color);
 	}
@@ -66,7 +71,7 @@ public class CESprite2D extends CERenderableObject {
 
 	@Override
 	public void onDraw() {
-		
+
 		if (texture.isloaded() == false) {
 			return;
 		}
@@ -109,7 +114,21 @@ public class CESprite2D extends CERenderableObject {
 
 	@Override
 	public void CleanUp() {
-		
+
+	}
+
+	private CEBoundBox2D boundbox = new CEBoundBox2D(0, 0, null);
+
+	private CEMatrix4f PxT = new CEMatrix4f();
+
+	@Override
+	public CEBoundBox2D getBoundingBox() {
+
+		PxT.resetIDENTITY();
+		PxT.multiply(modelviewmatrix);
+
+		boundbox.updateBoundingBox(PxT);
+		return boundbox;
 	}
 
 }

@@ -196,7 +196,7 @@ public class CEEventDispatcher {
 					CEEventListenerMouse t = (CEEventListenerMouse) listener.get(i);
 					if (CESceneManager.getInstance().getCurrentScene().isFinalize() == false) {
 
-						if (t.TargetScene == CESceneManager.getInstance().getCurrentScene()) {
+						if (t.TargetScene == CESceneManager.getInstance().getCurrentScene() ) {
 
 							if (mouse.type == EVENT_TYPE.MOUSE_CLICK) {
 								t.ListenClickEvent(mouse);

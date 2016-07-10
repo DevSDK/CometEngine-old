@@ -54,6 +54,19 @@ public class CEMatrix4f {
 
 	}
 
+	public CEFloat4f multiply(CEFloat4f right, CEFloat4f result) {
+
+		float rx = right.x;
+		float ry = right.y;
+		float rz = right.z;
+		float rw = right.w;
+		result.x = m00 * rx + m10 * ry + m20 * rz + m30 * rw;
+		result.y = m01 * rx + m11 * ry + m21 * rz + m31 * rw;
+		result.z = m02 * rx + m12 * ry + m22 * rz + m32 * rw;
+		result.w = m03 * rx + m23 * ry + m23 * rz + m33 * rw;
+		return result;
+	}
+
 	public CEMatrix4f multiply(CEMatrix4f right) {
 		m00 = this.m00 * right.m00 + this.m10 * right.m01 + this.m20 * right.m02 + this.m30 * right.m03;
 		m01 = this.m01 * right.m00 + this.m11 * right.m01 + this.m21 * right.m02 + this.m31 * right.m03;
@@ -79,8 +92,8 @@ public class CEMatrix4f {
 		m01 -= right.m01;
 		m02 -= right.m02;
 		m03 -= right.m03;
-		m10 -= right.m10;
 		m11 -= right.m11;
+		m10 -= right.m10;
 		m12 -= right.m12;
 		m13 -= right.m13;
 		m20 -= right.m20;
@@ -151,6 +164,15 @@ public class CEMatrix4f {
 		m22 = this.m22 * z;
 		m23 = this.m23 * z;
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append(getClass().getSimpleName()).append("{").append("\n ")
+				.append(String.format("%8.5f %8.5f %8.5f %8.5f", m00, m10, m20, m30)).append("\n ")
+				.append(String.format("%8.5f %8.5f %8.5f %8.5f", m01, m11, m21, m31)).append("\n ")
+				.append(String.format("%8.5f %8.5f %8.5f %8.5f", m02, m12, m22, m32)).append("\n ")
+				.append(String.format("%8.5f %8.5f %8.5f %8.5f", m03, m13, m23, m33)).append("\n}").toString();
 	}
 
 	public boolean equals(CEMatrix4f other) {

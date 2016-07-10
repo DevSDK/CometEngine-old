@@ -44,7 +44,9 @@ public class CEEventListenerMouse extends CEEventListener {
 	}
 
 	public void ListenClickEvent(CEEventMouse event) {
+		
 		MouseClickCallBack.invoke(event.ActiveButton, event.Status, event.XPos, event.YPos);
+		event.isActived = true;
 	}
 
 	public void ListenMoveEvent(CEEventMouse event) {

@@ -56,6 +56,19 @@ public class CEScheduler {
 		}
 	}
 
+	public void RemoveSchedule(CESchedule schedule) {
+		if (SchedulerTabel.containsKey(schedule)) {
+			if (!schedule.isPaused() || !schedule.isPaused()) {
+
+				SchedulerTabel.get(schedule).cancel();
+				SchedulerTabel.get(schedule).purge();
+				schedule.genTimerTask().cancel();
+
+			}
+			SchedulerTabel.remove(schedule);
+		}
+	}
+
 	public void PauseAll() {
 		for (CESchedule schedule : SchedulerTabel.keySet()) {
 			Pause(schedule);

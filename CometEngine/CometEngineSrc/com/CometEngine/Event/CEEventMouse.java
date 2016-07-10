@@ -4,6 +4,7 @@ public class CEEventMouse extends CEEvent {
 	public enum EVENT_TYPE {
 		NULL, MOUSE_CLICK, MOUSE_MOVE, MOUSE_SCROLL
 	}
+	protected boolean isActived = false;
 	protected String ListenerKey = "";
 	protected double scroll = 0;
 	protected double XPos = 0;

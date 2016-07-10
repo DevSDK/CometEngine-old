@@ -4,12 +4,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.BoundBox.CEBoundBox;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESprite2D;
 import com.CometEngine.Device.CEKeyBoard;
+import com.CometEngine.Device.CEMouse;
 import com.CometEngine.Event.CEEventDispatcher;
 import com.CometEngine.Event.CEEventKeyboard;
 import com.CometEngine.Event.CEEventListenerKeyboard;
+import com.CometEngine.Event.CEEventListenerMouse;
 import com.CometEngine.Scheduler.CESchedule;
 import com.CometEngine.Scheduler.CEScheduler;
 
@@ -17,7 +20,6 @@ public class TESTSCENE2 extends CEScene {
 
 	CESprite2D sprite;
 
-	
 	public void tick() {
 
 	}
@@ -71,7 +73,7 @@ public class TESTSCENE2 extends CEScene {
 						scene.ResumeSchedule(scheduless);
 					}
 				}
-				if (event.isKeyPush(CEKeyBoard.CE_KEY_2, CEKeyBoard.CE_KEY_STATUS_PRESS)) {
+				if (event.isKeyPush(CEKeyBoard.CE_KEY_1, CEKeyBoard.CE_KEY_STATUS_PRESS)) {
 					TestScene sce;
 					System.out.println("This event Test 1");
 					CometEngine.getInstance().getSceneManager().setScene(sce = new TestScene());
@@ -80,6 +82,34 @@ public class TESTSCENE2 extends CEScene {
 			}
 		};
 		CEEventDispatcher.getInstance().addEventListener(keyboard, this);
+		CEEventListenerMouse mouse = CEEventListenerMouse.Create(new CEEventListenerMouse.CEMouseMove() {
+
+			@Override
+			public void invoke(double XPos, double YPos) {
+			
+			}
+		}, new CEEventListenerMouse.CEMouseClick() {
+
+			@Override
+			public void invoke(int Button, int Status, double XPos, double YPos) {
+				if (Status == CEMouse.MOUSE_DOWN) {
+					if (CEBoundBox.getBoundingBoxAABB(sprite).isContainPoint((float) XPos, (float) YPos)) {
+						TestScene sce;
+						CometEngine.getInstance().getSceneManager().setScene(sce = new TestScene());
+						sce.BeforeScene = scene;
+					}
+				}
+			}
+		}, new CEEventListenerMouse.CEMouseScroll() {
+
+			@Override
+			public void invoke(double delta) {
+				// TODO Auto-generated method stub
+
+			}
+		}, sprite);
+
+		CEEventDispatcher.getInstance().addEventListener(mouse, this);
 
 		this.StartSchedule(scheduless = CESchedule.CreateScheduleRepeat(new CESchedule.CHEDULERFUNC() {
 			@Override

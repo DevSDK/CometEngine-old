@@ -2,6 +2,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.BoundBox.CEBound2D;
+import com.CometEngine.CELib.BoundBox.CEBoundBox;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESprite2D;
@@ -14,6 +16,7 @@ import com.CometEngine.Event.CEEventListenerKeyboard;
 import com.CometEngine.Event.CEEventListenerMouse;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Scheduler.CESchedule;
+import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
 public class TestScene extends CEScene {
@@ -104,10 +107,11 @@ public class TestScene extends CEScene {
 			@Override
 			public void invoke(int Button, int Status, double XPos, double YPos) {
 				System.out.println("Button : " + Button + " Status : " + Status + " XPos: " + XPos + " YPos: " + YPos);
-				if (Status == CEMouse.MOUSE_DOWN) {
-					sprite2.setActive(!sprite2.isActive());
+				if (Status == CEMouse.MOUSE_DOWN)
+					if (CEBoundBox.getBoundingBoxAABB(sprite2).isContainPoint((float) XPos, (float) YPos)) {
+						System.out.println("YEHAA");
 
-				}
+					}
 			}
 		};
 		mouse.MouseMoveCallBack = new CEEventListenerMouse.CEMouseMove() {
@@ -124,17 +128,17 @@ public class TestScene extends CEScene {
 				System.out.println("DELTA : " + delta);
 			}
 		};
-			
+
 		FPSCounter = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt"), 1f, false, "FPS : ");
-			CESchedule mainLoop = CESchedule.CreateScheduleRepeat(new CESchedule.CHEDULERFUNC() {
-				
-				@Override
-				public void invoke(float delta) {
+		CESchedule mainLoop = CESchedule.CreateScheduleRepeat(new CESchedule.CHEDULERFUNC() {
+
+			@Override
+			public void invoke(float delta) {
 				tick();
 			}
 		}, 0, 1);
 		thisscene.StartSchedule(mainLoop);
-		
+
 		CEEventDispatcher.getInstance().addEventListener(mouse, this);
 		label2.Position().y = 1000;
 		label2.getControlPoint().x = 0;

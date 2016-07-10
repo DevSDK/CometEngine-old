@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 	private Renderer glview = null;
 
 	GLSurfaceView surfaceView = null;
- 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
 		CEAndroidFilePath.InitFileSysten(getResources(), this);
 
 		surfaceView = new CEAndroidGLSurface(this);
-		
+
 		surfaceView.setEGLContextClientVersion(3);
 
 		surfaceView.setRenderer(glview = new GLSurfaceView.Renderer() {
@@ -137,7 +137,6 @@ public class MainActivity extends Activity {
 					break;
 				}
 
-				CESceneManager.getInstance().getScene().tick();
 			}
 
 		}

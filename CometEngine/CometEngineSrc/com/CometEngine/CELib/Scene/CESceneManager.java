@@ -27,7 +27,7 @@ public class CESceneManager {
 			return;
 		nowScene.MANAGER_CALL_EXIT();
 		nowScene = null;
-	} 
+	}
 
 	public CEScene getCurrentScene() {
 		return nowScene;

@@ -14,6 +14,7 @@ public class CEMouse extends CEDevice {
 	private int Button;
 	private int Status;
 	private double scroll;
+	
 	public static final int MOUSE_DOWN = 1;
 	public static final int MOUSE_UP = 0;
 	

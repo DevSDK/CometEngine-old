@@ -7,14 +7,15 @@ public class CESchedule {
 
 	private boolean isPaused = false;
 	private boolean isExit = false;
-	private long LastTime = 0;
+	private boolean isRemovedSchedule = false;
 
+	private long LastTime = 0;
 
 	private CHEDULERFUNC func = null;
 	private SCHEDULETYPE type = SCHEDULETYPE.NULL;
 	private int Delay = 0;
 	private int Repeat = 0;
-
+	
 	private CESchedule() {
 
 	}
@@ -49,7 +50,7 @@ public class CESchedule {
 		sch.type = SCHEDULETYPE.REPEAT;
 		return sch;
 	}
-
+	
 	public void ChangeScheduleExitedStatus(boolean status) {
 		isExit = status;
 	}

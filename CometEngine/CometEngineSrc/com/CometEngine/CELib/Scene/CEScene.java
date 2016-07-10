@@ -33,7 +33,6 @@ public class CEScene
 	private CECamera DefaultCamera = new CE2DDefaultCamera();
 
 	// Maybe move to Node
-
 	int count = 0;
 	int objectcounter = 0;
 	boolean isExited = true;
@@ -42,6 +41,8 @@ public class CEScene
 	public CEScene() {
 
 	}
+
+	
 
 	public void PuaseAllSchedule() {
 		SCHEDULER.PauseAll();
@@ -66,7 +67,6 @@ public class CEScene
 	public boolean isFinalize() {
 		return isExited;
 	}
-
 
 	private void VisitAndGenChildCommands() {
 		for (CEObject child : ChildList) {
