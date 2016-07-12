@@ -54,7 +54,7 @@ public class CEQuad {
 		float dh = quad.Hight / 2;
 		float[] vertices = new float[] { -dw, dh, -dw, -dh, dw, dh, dw, -dh, };
 
-		float[] texs = new float[] { 1, 0, 1, 1, 0, 0, 0, 1 };
+		float[] texs = new float[] { 0, 0, 0, 1, 1, 0, 1, 1 };
 		CEVboObject[] obj = new CEVboObject[] { new CEVAO.CEVboObject(0, 2, vertices),
 				new CEVAO.CEVboObject(1, 2, texs) };
 

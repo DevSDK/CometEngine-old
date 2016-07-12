@@ -1,6 +1,10 @@
 package com.CometEngine.Event;
 
+import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Object.CEObject;
+import com.CometEngine.Device.CEDevice;
+import com.CometEngine.Device.CEDeviceManager;
+import com.CometEngine.Device.CEMouse;
 
 public class CEEventListenerMouse extends CEEventListener {
 
@@ -13,7 +17,7 @@ public class CEEventListenerMouse extends CEEventListener {
 	}
 
 	public interface CEMouseClick {
-		void invoke(int Button, int Status, double XPos, double YPos);
+		void invoke(int Button, int Status, double XPos, double YPos, CEEventMouse event);
 	}
 
 	public interface CEMouseMove {
@@ -44,8 +48,9 @@ public class CEEventListenerMouse extends CEEventListener {
 	}
 
 	public void ListenClickEvent(CEEventMouse event) {
-		
-		MouseClickCallBack.invoke(event.ActiveButton, event.Status, event.XPos, event.YPos);
+		if (((CEMouse) CEDeviceManager.getInstance().getDevice("Mouse"))
+				.getActiveScene(event.ActiveButton) == CometEngine.getInstance().getSceneManager().getCurrentScene())
+			MouseClickCallBack.invoke(event.ActiveButton, event.Status, event.XPos, event.YPos, event);
 		event.isActived = true;
 	}
 
@@ -69,7 +74,7 @@ public class CEEventListenerMouse extends CEEventListener {
 	};
 	private static final CEMouseClick DEFAULT_CLICKMETHOD = new CEMouseClick() {
 		@Override
-		public void invoke(int Button, int Status, double XPos, double YPos) {
+		public void invoke(int Button, int Status, double XPos, double YPos, CEEventMouse mouse) {
 		}
 	};
 

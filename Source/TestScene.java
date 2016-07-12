@@ -6,7 +6,7 @@ import com.CometEngine.CELib.BoundBox.CEBound2D;
 import com.CometEngine.CELib.BoundBox.CEBoundBox;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Scene.CEScene;
-import com.CometEngine.CELib.Scene.CESprite2D;
+import com.CometEngine.CELib.Scene.CESprited2D;
 import com.CometEngine.CELib.Text.CETextLabel;
 import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEMouse;
@@ -14,6 +14,7 @@ import com.CometEngine.Event.CEEventDispatcher;
 import com.CometEngine.Event.CEEventKeyboard;
 import com.CometEngine.Event.CEEventListenerKeyboard;
 import com.CometEngine.Event.CEEventListenerMouse;
+import com.CometEngine.Event.CEEventMouse;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Scheduler.CESchedule;
 import com.CometEngine.Util.Meth.CEFloat2D;
@@ -23,8 +24,8 @@ public class TestScene extends CEScene {
 	CETextLabel label;
 	CETextLabel label2;
 	CEObject sprite;
-	CESprite2D sprite2;
-	CESprite2D sprite3;
+	CESprited2D sprite2;
+	CESprited2D sprite3;
 	CETextLabel FPSCounter;
 	int timer = 0;
 	int timercounter = 0;
@@ -46,8 +47,8 @@ public class TestScene extends CEScene {
 		CEPosition2D pos = sprite.Position();
 
 		sprite.setAngle(sprite.getAngle() + 0.1f);
-		sprite.Position().x += 0.5f;
-		sprite.Position().y += 0.5f;
+		sprite.Position().x += 0.1f;
+		sprite.Position().y += 0.1f;
 
 		label.setString("Tick :  " + timer);
 		FPSCounter.setString("FPS : " + CometEngine.getInstance().getRenderer().getFPS());
@@ -65,10 +66,10 @@ public class TestScene extends CEScene {
 
 	public TestScene() {
 
-		sprite = new CESprite2D("0.png");
+		sprite = new CESprited2D("0.png");
 
-		sprite2 = new CESprite2D("1.png");
-		sprite3 = new CESprite2D("2.png");
+		sprite2 = new CESprited2D("1.png");
+		sprite3 = new CESprited2D("2.png");
 		label = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt"), 1f, false, "Timer");
 		label2 = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt"), 1f, true, "Comet Engine Tester",
 				"DSM !", "CometEngineTester", "CometEngineTester", "CometEngineTester");
@@ -105,7 +106,7 @@ public class TestScene extends CEScene {
 		CEEventListenerMouse mouse = CEEventListenerMouse.Create(this);
 		mouse.MouseClickCallBack = new CEEventListenerMouse.CEMouseClick() {
 			@Override
-			public void invoke(int Button, int Status, double XPos, double YPos) {
+			public void invoke(int Button, int Status, double XPos, double YPos, CEEventMouse event) {
 				System.out.println("Button : " + Button + " Status : " + Status + " XPos: " + XPos + " YPos: " + YPos);
 				if (Status == CEMouse.MOUSE_DOWN)
 					if (CEBoundBox.getBoundingBoxAABB(sprite2).isContainPoint((float) XPos, (float) YPos)) {
@@ -125,7 +126,6 @@ public class TestScene extends CEScene {
 
 			@Override
 			public void invoke(double delta) {
-				System.out.println("DELTA : " + delta);
 			}
 		};
 
@@ -150,12 +150,14 @@ public class TestScene extends CEScene {
 		label.Position().y = 500;
 		this.add(label, 4);
 
-		this.add(sprite2, 2);
+	//	this.add(sprite2, 2);
 		this.add(sprite3);
 		FPSCounter.getControlPoint().y = 0;
 		FPSCounter.getControlPoint().x = 0;
 		this.add(FPSCounter);
-
+		sprite.add(sprite2);
+		sprite2.Position().x = 50;
+		
 	}
 
 }

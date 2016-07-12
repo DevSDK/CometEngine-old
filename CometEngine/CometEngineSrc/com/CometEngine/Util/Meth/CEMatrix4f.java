@@ -63,7 +63,7 @@ public class CEMatrix4f {
 		result.x = m00 * rx + m10 * ry + m20 * rz + m30 * rw;
 		result.y = m01 * rx + m11 * ry + m21 * rz + m31 * rw;
 		result.z = m02 * rx + m12 * ry + m22 * rz + m32 * rw;
-		result.w = m03 * rx + m23 * ry + m23 * rz + m33 * rw;
+		result.w = m03 * rx + m13 * ry + m23 * rz + m33 * rw;
 		return result;
 	}
 

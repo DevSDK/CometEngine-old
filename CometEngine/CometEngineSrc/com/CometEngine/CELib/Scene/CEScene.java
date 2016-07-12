@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.Button.CEPickableObject;
 import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Camera.CECamera;
 import com.CometEngine.CELib.Object.CEObject;
@@ -27,11 +28,9 @@ import com.CometEngine.Scheduler.CESchedule;
 import com.CometEngine.Scheduler.CEScheduler;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
-public class CEScene
-		extends CERenderableObject /* extends root class ex) Node */ {
+public class CEScene extends CERenderableObject {
 	private final CEScheduler SCHEDULER = new CEScheduler();
 	private CECamera DefaultCamera = new CE2DDefaultCamera();
-
 	// Maybe move to Node
 	int count = 0;
 	int objectcounter = 0;
@@ -42,7 +41,9 @@ public class CEScene
 
 	}
 
-	
+	public boolean isExit() {
+		return isExited;
+	}
 
 	public void PuaseAllSchedule() {
 		SCHEDULER.PauseAll();
@@ -64,10 +65,6 @@ public class CEScene
 		SCHEDULER.Run(schedule);
 	}
 
-	public boolean isFinalize() {
-		return isExited;
-	}
-
 	private void VisitAndGenChildCommands() {
 		for (CEObject child : ChildList) {
 			if (child instanceof CERenderableObject) {
@@ -76,9 +73,8 @@ public class CEScene
 		}
 	}
 
-	private final List<CERenderableObject> RenderingList = new ArrayList<CERenderableObject>();
-
 	private void UpdateRenderList() {
+		CometEngine.getInstance().getSceneManager().nowRender2DCamera = DefaultCamera;
 		RenderingList.clear();
 		VisitAndGenChildCommands();
 	}
@@ -92,8 +88,6 @@ public class CEScene
 				isChildUpdated = false;
 			}
 
-			CometEngine.getInstance().getSceneManager().nowRender2DCamera = DefaultCamera;
-
 			Drawing();
 
 			for (int i = 0; i < RenderingList.size(); i++) {
@@ -104,6 +98,7 @@ public class CEScene
 
 				}
 			}
+
 		}
 	});
 
@@ -128,14 +123,22 @@ public class CEScene
 	}
 
 	protected void MANAGER_CALL_ENTER() {
-		SCHEDULER.EnterScene();
 		isExited = false;
+
 		onEnter();
+		SCHEDULER.EnterScene();
 	}
 
 	protected void MANAGER_CALL_EXIT() {
-		onExit();
 		isExited = true;
+		LinkedList<CEObject> childs = getChilds();
+		for (CEObject obj : childs) {
+			if (obj instanceof CEPickableObject) {
+				((CEPickableObject) obj).UnPick();
+				System.out.println("UnPick");
+			}
+		}
+		onExit();
 		SCHEDULER.ExitScene();
 	}
 

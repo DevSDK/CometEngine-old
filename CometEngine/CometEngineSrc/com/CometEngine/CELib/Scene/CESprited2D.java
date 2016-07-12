@@ -28,7 +28,7 @@ import com.CometEngine.Renderer.VBO.CEVertexBufferObject;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
-public class CESprite2D extends CERenderableObject implements CEBound2D {
+public class CESprited2D extends CERenderableObject implements CEBound2D {
 
 	protected CETexture2D texture = null;
 	protected Default2DShader shader = null;
@@ -38,22 +38,10 @@ public class CESprite2D extends CERenderableObject implements CEBound2D {
 	FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
 	FloatBuffer ModelViewMatrixBuffer = CEBufferUtils.CreateFloatBuffer(16);
 
-	public CESprite2D(String filename) {
+	public CESprited2D(String filename) {
 		texture = CETexture2D.CreateTexture2D(filename);
 		shader = new Default2DShader();
 
-	}
-
-	CERenderCommandCustom command = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
-		@Override
-		public void invoke() {
-			Drawing();
-		}
-	});;
-
-	@Override
-	public CERenderCommand genRenderCommand() {
-		return command;
 	}
 
 	boolean isInitVertex = false;
@@ -66,8 +54,6 @@ public class CESprite2D extends CERenderableObject implements CEBound2D {
 		quad = CEQuad.Create(texture, width, height);
 		quad.setColor(color);
 	}
-
-	private CEMatrix4f modelviewmatrix = new CEMatrix4f();
 
 	@Override
 	public void onDraw() {

@@ -131,11 +131,10 @@ public class CEEventDispatcher {
 			for (int i = 0; i < listener.size(); i++) {
 				if (listener.get(i) instanceof CEEventListenerKeyboard) {
 					CEEventListenerKeyboard t = (CEEventListenerKeyboard) listener.get(i);
-					if (CESceneManager.getInstance().getCurrentScene().isFinalize() == false) {
+					if (CESceneManager.getInstance().getCurrentScene().isExit() == false) {
 
 						if (t.getTargetScene() == CESceneManager.getInstance().getCurrentScene()) {
 							KeyBoardEvent.TargetObject = t.TargetObject;
-
 							t.ListenKeyBoardEvent(KeyBoardEvent);
 						}
 					}
@@ -161,7 +160,11 @@ public class CEEventDispatcher {
 				.getPushedKeys();
 
 		for (int i = 0; i < PushedKeys.size(); i++) {
-			KeyBoardEvent.KEYDATA.get(PushedKeys.get(i)).OnceStatUpper();
+			if (KeyBoardEvent.KEYDATA.get(PushedKeys.get(i)).getStat() == 1) {
+				KeyBoardEvent.KEYDATA.get(PushedKeys.get(i)).OnceStatUpper();
+
+			}
+
 		}
 	}
 
@@ -170,9 +173,11 @@ public class CEEventDispatcher {
 			return;
 
 		if (((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getGetPushedKeyCounter() > 0) {
-			KeyBoardEvent.KEYDATA = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getKeyMap();
+			CEKeyBoard device = (CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard");
+			KeyBoardEvent.KEYDATA = device.getKeyMap();
 			if (KeyBoardEvent.KEYDATA == null)
-				KeyBoardEvent.Mode = ((CEKeyBoard) CEDeviceManager.getInstance().getDevice("keyboard")).getMode();
+				KeyBoardEvent.Mode = device.getMode();
+
 			PutEvent(KeyBoardEvent);
 			UpdateKeyPushData();
 		}
@@ -194,10 +199,10 @@ public class CEEventDispatcher {
 			for (int i = 0; i < listener.size(); i++) {
 				if (listener.get(i) instanceof CEEventListenerMouse) {
 					CEEventListenerMouse t = (CEEventListenerMouse) listener.get(i);
-					if (CESceneManager.getInstance().getCurrentScene().isFinalize() == false) {
+					if (CESceneManager.getInstance().getCurrentScene().isExit() == false) {
+						if (t.TargetScene == CESceneManager.getInstance().getCurrentScene()) {
 
-						if (t.TargetScene == CESceneManager.getInstance().getCurrentScene() ) {
-
+							mouse.TargetObject = t.TargetObject;
 							if (mouse.type == EVENT_TYPE.MOUSE_CLICK) {
 								t.ListenClickEvent(mouse);
 							} else if (mouse.type == EVENT_TYPE.MOUSE_MOVE) {
@@ -206,7 +211,6 @@ public class CEEventDispatcher {
 								t.ListenScrollEvent(mouse);
 							}
 
-							mouse.TargetObject = t.TargetObject;
 						}
 					}
 				}
@@ -219,23 +223,19 @@ public class CEEventDispatcher {
 	}
 
 	public void MouseEventActive(CEEventMouse.EVENT_TYPE Type) {
-
 		CEMouse mousedevice = (CEMouse) CEDeviceManager.getInstance().getDevice(DEFAULT_MOUSE_LISTENER);
 		if (Type == EVENT_TYPE.MOUSE_CLICK) {
-
 			mouse.type = EVENT_TYPE.MOUSE_CLICK;
 			mouse.ActiveButton = mousedevice.getActiveButton();
 			mouse.Status = mousedevice.getStatus();
 			mouse.XPos = mousedevice.getXPos();
 			mouse.YPos = mousedevice.getYPos();
-
 		} else if (Type == EVENT_TYPE.MOUSE_MOVE) {
 			mouse.type = EVENT_TYPE.MOUSE_MOVE;
 			mouse.ActiveButton = -1;
 			mouse.Status = -1;
 			mouse.XPos = mousedevice.getXPos();
 			mouse.YPos = mousedevice.getYPos();
-
 		} else if (Type == EVENT_TYPE.MOUSE_SCROLL) {
 			mouse.type = EVENT_TYPE.MOUSE_SCROLL;
 			mouse.ActiveButton = -1;
@@ -243,7 +243,6 @@ public class CEEventDispatcher {
 			mouse.XPos = -1;
 			mouse.YPos = -1;
 			mouse.scroll = mousedevice.getScroll();
-
 		}
 		PutEvent(mouse);
 

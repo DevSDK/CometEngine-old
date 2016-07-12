@@ -5,7 +5,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
+
+import com.CometEngine.CometEngine;
 import com.CometEngine.Event.CEEventListener;
+import com.CometEngine.Renderer.Commend.CERenderCommand;
+import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
+import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEFloat3D;
 import com.CometEngine.Util.Meth.CEPosition2D;
@@ -16,8 +22,6 @@ public abstract class CEObject {
 	protected boolean isChildUpdated = false;
 	protected CEObject mParent = null;
 	protected boolean isActive = true;
-	
-	
 
 	public boolean isActive() {
 		return isActive;
@@ -45,10 +49,14 @@ public abstract class CEObject {
 	public void add(CEObject node) {
 		if (ChildList.contains(node) == false) {
 			isChildUpdated = true;
-			node.mParent = this;
 			ChildList.add(node);
 			Collections.sort(ChildList, CompareMethod);
+			node.setParent(this);
 		}
+	}
+
+	public LinkedList<CEObject> getChilds() {
+		return ChildList;
 	}
 
 	public void add(CEObject node, int weight) {
@@ -72,11 +80,12 @@ public abstract class CEObject {
 	}
 
 	// Node
- 
+
 	protected final CEPosition2D mPosition = new CEPosition2D();;
 	protected float angle = 0;
 	protected final CEFloat3D scale = new CEFloat3D(1, 1, 1);
 	protected final CEFloat3D control_point = new CEFloat3D(0.5f, 0.5f, 0.5f);
+
 
 	public CEFloat3D getControlPoint() {
 		return control_point;
@@ -94,14 +103,29 @@ public abstract class CEObject {
 		this.angle = angle;
 	}
 
+	public CEObject getRoot() {
+		CEObject obj = mParent;
+		while (obj != null) {
+			if (obj.mParent == null)
+				break;
+			obj = obj.mParent;
+		}
+		return obj;
+	}
+
+	public void setParent(CEObject p) {
+		this.mParent = p;
+	}
+
 	public float getAngle() {
 		return angle;
 	}
 
-
-
 	public void RemoveCallBack() {
-		
+
 	}
+
+	
+
 
 }

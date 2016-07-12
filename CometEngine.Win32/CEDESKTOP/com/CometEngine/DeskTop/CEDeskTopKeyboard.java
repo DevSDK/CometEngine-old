@@ -15,8 +15,8 @@ public class CEDeskTopKeyboard extends GLFWKeyCallback {
 	public void invoke(long window, int key, int idonknow, int status, int mode) {
 		CEKeyBoard keybord = (CEKeyBoard) CEDeviceManager.getInstance().getDevice("KeyBoard");
 
-		if (status > 0) {
-			keybord.PushKey(key, status, mode);
+		if (status == 1) {
+			keybord.PushKey(key, 1, mode);
 		} else if (status == 0) {
 			keybord.RelaseKey(key, mode);
 		}

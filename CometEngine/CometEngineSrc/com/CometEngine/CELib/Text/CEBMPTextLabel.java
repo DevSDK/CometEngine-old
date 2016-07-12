@@ -118,18 +118,7 @@ public class CEBMPTextLabel extends CETextLabel {
 
 	}
 
-	private CERenderCommand command = new CERenderCommandCustom(new CERenderCustomCommandInvoker() {
 
-		@Override
-		public void invoke() {
-			Drawing();
-		}
-	});
-
-	@Override
-	public CERenderCommand genRenderCommand() {
-		return command;
-	}
 
 	@Override
 	public void onInit() {

@@ -100,6 +100,7 @@ public class CERenderer {
 
 		if (CEGLResourceManager.getInstence().isLoadeingListEmpty() == false)
 			CEGLResourceManager.getInstence().LoadUPGLResrouce();
+		;
 
 		GL_CLEAR();
 		CEScene scene = CometEngine.getInstance().getSceneManager().getCurrentScene();

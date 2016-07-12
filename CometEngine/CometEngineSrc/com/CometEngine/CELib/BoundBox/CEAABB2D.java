@@ -85,7 +85,6 @@ public class CEAABB2D {
 		setMax(Updated_BottomLeft, Updated_BottomRight, Updated_TopLeft, Updated_TopRight);
 		setMin(Updated_BottomLeft, Updated_BottomRight, Updated_TopLeft, Updated_TopRight);
 
-
 		if (Min.x <= point.x && point.x <= Max.x && Min.y <= point.y && point.y <= Max.y)
 			return true;
 		return false;
