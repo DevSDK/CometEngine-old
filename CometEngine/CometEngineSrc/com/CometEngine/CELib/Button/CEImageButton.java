@@ -17,6 +17,7 @@ import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Shader.Default2DShader;
 import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
+import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class CEImageButton extends CEButton {
@@ -36,25 +37,32 @@ public class CEImageButton extends CEButton {
 
 	}
 
-
 	@Override
 	public void setParent(CEObject p) {
 		super.setParent(p);
-		CEObject scene = getRoot();
-		if (scene instanceof CEScene)
-			handler = new CEPickHandler((CEScene) scene, this);
 	}
 
-	CEPickHandler handler;
+	protected CEPickHandler handler = null;
+
 	boolean isInitVertex = false;
 
 	private void initQuad() {
 		int width = texture.getData().getWidth();
 		int height = texture.getData().getHeight();
 		boundbox = new CEBoundBox2D(width, height,
-				(CECamera2D) CometEngine.getInstance().getSceneManager().nowRender2DCamera);
+				(CECamera2D) CometEngine.getInstance().getSceneManager().NowRender2DCamera);
 		quad = CEQuad.Create(texture, width, height);
 		quad.setColor(color);
+
+		ContentSize.x = width;
+		ContentSize.y = height;
+
+		CEObject scene = getRoot();
+		if (scene instanceof CEScene) {
+			if (handler == null)
+				handler = new CEPickHandler((CEScene) scene, this);
+		}
+
 	}
 
 	private CEMatrix4f modelviewmatrix = new CEMatrix4f();
@@ -73,7 +81,7 @@ public class CEImageButton extends CEButton {
 
 		shader.Start();
 
-		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().nowRender2DCamera.getPorjection());
+		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().NowRender2DCamera.getPorjection());
 
 		// Identity * translate * rotate * scale
 		///
@@ -114,7 +122,7 @@ public class CEImageButton extends CEButton {
 	@Override
 	public CEBoundBox2D getBoundingBox() {
 
-		boundbox.updateBoundingBox(modelviewmatrix);
+		boundbox.updateBoundingBoxTranslate(modelviewmatrix);
 		return boundbox;
 	}
 
@@ -122,6 +130,15 @@ public class CEImageButton extends CEButton {
 	public void UnPick() {
 
 		handler.unPick();
+	}
+
+	private final CEFloat2D ContentSizeProtocal = new CEFloat2D();
+
+	@Override
+	public CEFloat2D getSize() {
+		ContentSizeProtocal.x = ContentSizeProtocal.x;
+		ContentSizeProtocal.y = ContentSizeProtocal.y;
+		return ContentSizeProtocal;
 	}
 
 }

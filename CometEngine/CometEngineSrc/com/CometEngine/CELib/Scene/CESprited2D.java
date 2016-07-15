@@ -15,6 +15,7 @@ import com.CometEngine.CELib.Object.CEColor4f;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Object.CERenderableObject;
 import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
@@ -26,6 +27,7 @@ import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Renderer.VBO.CEIndexBufferObject;
 import com.CometEngine.Renderer.VBO.CEVertexBufferObject;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
+import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class CESprited2D extends CERenderableObject implements CEBound2D {
@@ -49,11 +51,18 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 	private void initQuad() {
 		int width = texture.getData().getWidth();
 		int height = texture.getData().getHeight();
+		ContentSize.x = width;
+		ContentSize.y = height;
 		boundbox = new CEBoundBox2D(width, height,
-				(CECamera2D) CometEngine.getInstance().getSceneManager().nowRender2DCamera);
+				(CECamera2D) CometEngine.getInstance().getSceneManager().NowRender2DCamera);
+
 		quad = CEQuad.Create(texture, width, height);
 		quad.setColor(color);
 	}
+
+	CEMatrix4f parent = new CEMatrix4f();
+
+	CEMatrix4f test = new CEMatrix4f();
 
 	@Override
 	public void onDraw() {
@@ -69,14 +78,16 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 
 		shader.Start();
 
-		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().nowRender2DCamera.getPorjection());
-
+		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().NowRender2DCamera.getPorjection());
+	
 		// Identity * translate * rotate * scale
-		///
-		modelviewmatrix.resetIDENTITY();
-		modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y, scale.z);
 
-		shader.setModelViewMatrix(modelviewmatrix);
+		parent.resetIDENTITY();
+		ModelViewMatrix.resetIDENTITY();
+		CEMatrixStack.getInstance().GetTopOfStackMatrix(parent);
+		ModelViewMatrix.setMatrix(parent);
+		ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y, scale.z);
+		shader.setModelViewMatrix(ModelViewMatrix);
 
 		color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);
@@ -109,12 +120,19 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 
 	@Override
 	public CEBoundBox2D getBoundingBox() {
-
 		PxT.resetIDENTITY();
-		PxT.multiply(modelviewmatrix);
-
-		boundbox.updateBoundingBox(PxT);
+		PxT.setMatrix((ModelViewMatrix));
+		boundbox.updateBoundingBoxTranslate(PxT);
 		return boundbox;
+	}
+
+	private final CEFloat2D Protocal = new CEFloat2D();
+
+	@Override
+	public CEFloat2D getSize() {
+		Protocal.x = ContentSize.x;
+		Protocal.y = ContentSize.y;
+		return Protocal;
 	}
 
 }

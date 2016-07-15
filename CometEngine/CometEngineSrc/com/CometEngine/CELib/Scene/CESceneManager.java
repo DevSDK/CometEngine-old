@@ -33,7 +33,7 @@ public class CESceneManager {
 		return nowScene;
 	}
 
-	public CECamera nowRender2DCamera = null;
+	public CECamera NowRender2DCamera;
 
 	private CEScene nowScene = null;
 

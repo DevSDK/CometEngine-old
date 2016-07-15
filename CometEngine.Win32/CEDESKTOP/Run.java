@@ -31,7 +31,6 @@ public class Run {
 		CEScene scene;
 		CEDeskTop.INIT(600, 600, 1000, 1000);
 		CometEngine.getInstance().getSceneManager().setScene(scene = new TESTSCENE2());
-
 		CEDeskTop.RUN();
 	}
 

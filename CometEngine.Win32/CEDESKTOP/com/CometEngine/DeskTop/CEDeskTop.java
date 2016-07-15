@@ -28,8 +28,6 @@ public class CEDeskTop {
 	private static CEDeskTopMouseClick MouseClickEvent = new CEDeskTopMouseClick();
 	private static CEDeskTopMouseMove MouseMoveEvent = new CEDeskTopMouseMove();
 	private static GLFWScrollCallback MouseScrollEvent = new CEDeskTopMouseScroll();
-	
-
 
 	public static int getFrameWidth() {
 		return WINDOW_WIDTH;
@@ -92,8 +90,6 @@ public class CEDeskTop {
 		CometEngine.getInstance().Initalize(CometEngine.PLATFORM.CE_WIN32, init);
 
 		CometEngine.getInstance().getRenderer().setViewSize(COORD_WIDTH, COORD_HEIGHT);
-		
-	
 
 		GLFW.glfwGetJoystickName(0);
 		GLFW.glfwSwapInterval(1);
@@ -101,20 +97,19 @@ public class CEDeskTop {
 
 	}
 
-public static void RUN()
-{
-	CEDesktopEventThread thread = new CEDesktopEventThread();
-	thread.start();
-	while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE) {
-		CometEngine.getInstance().getRenderer().RenderingCommands();
+	public static void RUN() {
+		CEDesktopEventThread thread = new CEDesktopEventThread();
+		thread.start();
+		while (GLFW.glfwWindowShouldClose(WINDOW) == GLFW.GLFW_FALSE) {
+			CometEngine.getInstance().getRenderer().RenderingCommands();
 
-		GLFW.glfwSwapBuffers(WINDOW);
+			GLFW.glfwSwapBuffers(WINDOW);
 
-		CometEngine.getInstance().setPauseEvent(true);
-		GLFW.glfwPollEvents();
-		CometEngine.getInstance().setPauseEvent(false);
+			CometEngine.getInstance().setPauseEvent(true);
+			GLFW.glfwPollEvents();
+			CometEngine.getInstance().setPauseEvent(false);
 
+		}
+		CometEngine.getInstance().ExitCometEngine();
 	}
-	CometEngine.getInstance().ExitCometEngine();
-}
 }

@@ -15,8 +15,19 @@ public class CEBoundBox2D extends CEBoundBox {
 
 	private CECamera2D Camera;
 
-	public void updateBoundingBox(CEMatrix4f trnalation) {
+	public void setCamera(CECamera2D camera) {
+		this.Camera = camera;
+		AABB.setCamera(Camera);
+	}
+	
+	public void updateBoundingBoxTranslate(CEMatrix4f trnalation) {
 		AABB.update(trnalation);
+	}
+
+	public void updateBoundingBoxSize(float XSize, float YSzie) {
+		this.width = XSize;
+		this.height = YSzie;
+		AABB.updateBox(width, height);
 	}
 
 	public CEAABB2D getAABB() {

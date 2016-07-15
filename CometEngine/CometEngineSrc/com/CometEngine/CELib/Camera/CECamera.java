@@ -13,6 +13,6 @@ public abstract class CECamera {
 	private CECameraType TYPE = CECameraType.CE_NULL;
 	
 	public abstract CEMatrix4f getPorjection();
-	
-	
+
+	public abstract CEMatrix4f getMovementMatrix();
 }

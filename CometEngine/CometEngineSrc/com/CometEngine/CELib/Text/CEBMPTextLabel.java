@@ -4,12 +4,14 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.BoundBox.CEBoundBox2D;
 import com.CometEngine.CELib.Object.CEColor4f;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Font.CEFont;
 import com.CometEngine.Font.BMPFont.character;
 import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
@@ -17,6 +19,7 @@ import com.CometEngine.Renderer.Texture.Textures.CETexture;
 import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
 import com.CometEngine.Renderer.VAO.CEVAO;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
+import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 import com.CometEngine.Util.Meth.CESize;
 
@@ -94,15 +97,12 @@ public class CEBMPTextLabel extends CETextLabel {
 			if (c_info.getId() == 32) {
 				charTrlateMatrix.translate(c_info.getxAdvance(), 0, 0);
 				shader.setCharMatrix(charTrlateMatrix);
-
 				continue;
 			}
 
 			loadYoffset.setMatrix(charTrlateMatrix);
 			charTrlateMatrix.translate((c_info.getxOffset()) * scale.x, (-c_info.getyOffset()), 0);
-
 			shader.setCharMatrix(charTrlateMatrix);
-
 			CEGL.EnableVertexAttribArray(0);
 			CEGL.EnableVertexAttribArray(1);
 
@@ -112,13 +112,10 @@ public class CEBMPTextLabel extends CETextLabel {
 			charTrlateMatrix.translate((c_info.getxAdvance()), 0, 0);
 			CEGL.DisableVertexAttribArray(0);
 			CEGL.DisableVertexAttribArray(1);
-
 		}
 		CEGL.BindVertexArray(0);
 
 	}
-
-
 
 	@Override
 	public void onInit() {
@@ -149,8 +146,6 @@ public class CEBMPTextLabel extends CETextLabel {
 
 	}
 
-	private CEMatrix4f translatematrix = new CEMatrix4f();
-
 	private void ResetBox() {
 		LabelHeight = 0;
 	}
@@ -159,18 +154,18 @@ public class CEBMPTextLabel extends CETextLabel {
 	public void onDraw() {
 
 		shader.Start();
-		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().nowRender2DCamera.getPorjection());
+		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().NowRender2DCamera.getPorjection());
 
 		color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);
-		translatematrix.resetIDENTITY();
-
-		translatematrix.translate(-(LabelWidth * scale.x) * control_point.x,
+		ModelViewMatrix.resetIDENTITY();
+		CEMatrixStack.getInstance().GetTopOfStackMatrix(ModelViewMatrix);
+		ModelViewMatrix.translate(-(LabelWidth * scale.x) * control_point.x,
 				(LabelHeight * scale.y) * (1 - control_point.y), 0);
 
-		translatematrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1);
-		translatematrix.scale(scale.x, scale.x, 0);
-		shader.setModelViewMatrix(translatematrix);
+		ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1);
+		ModelViewMatrix.scale(scale.x, scale.x, 0);
+		shader.setModelViewMatrix(ModelViewMatrix);
 
 		PrepareTextRendering();
 
@@ -188,12 +183,12 @@ public class CEBMPTextLabel extends CETextLabel {
 			int linewidth = getLineWidth(line);
 
 			if (isCentered)
-				charTrlateMatrix.translate((LabelWidth / 2 - linewidth / 2), 0, 0);
-
+				ModelViewMatrix.translate((LabelWidth / 2 - linewidth / 2), 0, 0);
 			LabelHeight += Font.getLineHeight() * scale.y;
-
 			shader.setLineMatrix(lineTranslateMatrix);
-			drawtLine(line);
+
+			drawtLine(line); // Line Drawing
+
 			lineTranslateMatrix.translate(0, -Font.getLineHeight(), 0);
 
 			if (LabelWidth < linewidth) {
@@ -202,11 +197,31 @@ public class CEBMPTextLabel extends CETextLabel {
 		}
 
 		shader.Stop();
+
+		ContentSize.x = LabelWidth;
+		ContentSize.y = LabelHeight;
+
 	}
 
 	@Override
 	public void CleanUp() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public CEBoundBox2D getBoundingBox() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private final CEFloat2D SizeProtocal = new CEFloat2D();
+
+	@Override
+	public CEFloat2D getSize() {
+		SizeProtocal.x = ContentSize.x;
+		SizeProtocal.y = ContentSize.y;
+
+		return SizeProtocal;
 	}
 }

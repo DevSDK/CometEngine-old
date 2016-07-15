@@ -4,6 +4,7 @@ import java.util.TimerTask;
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.BoundBox.CEBound2D;
 import com.CometEngine.CELib.BoundBox.CEBoundBox;
+import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESprited2D;
@@ -46,23 +47,24 @@ public class TestScene extends CEScene {
 		timer++;
 		CEPosition2D pos = sprite.Position();
 
-		sprite.setAngle(sprite.getAngle() + 0.1f);
-		sprite.Position().x += 0.1f;
-		sprite.Position().y += 0.1f;
+		// sprite.setAngle(sprite.getAngle() + 0.1f);
+		// sprite.Position().x += 0.1f;
+		// sprite.Position().y += 0.1f;
 
 		label.setString("Tick :  " + timer);
 		FPSCounter.setString("FPS : " + CometEngine.getInstance().getRenderer().getFPS());
-		CEPosition2D pos2 = sprite2.Position();
-		sprite2.setAngle(sprite2.getAngle() + 0.0f);
 
-		pos2.x += 0.02f;
-		pos2.y += 0.02f;
+		// sprite2.setAngle(sprite2.getAngle() + 0.0f);
 
-		CEPosition2D pos3 = sprite3.Position();
-		sprite3.setAngle(sprite3.getAngle() - 0.02f);
+		if (sprite3.getAngle() >= 360) {
+			sprite3.setAngle(0);
+		}
+		sprite3.setAngle(sprite3.getAngle() + 0.02f);
 		sprite3.Position().x += 0.5f;
 		sprite3.Position().y += 0.5f;
 	}
+
+	boolean paused = false;
 
 	public TestScene() {
 
@@ -97,7 +99,17 @@ public class TestScene extends CEScene {
 					System.out.println("This event Test 2");
 					CometEngine.getInstance().getSceneManager().setScene(BeforeScene);
 				}
-
+				if (event.isKeyPush(CEKeyBoard.CE_KEY_P, CEKeyBoard.CE_KEY_STATUS_PRESS)) {
+					paused = !paused;
+					if (paused) {
+						PauseSchedule(mainLoop);
+					} else {
+						ResumeAllSchedule();
+					}
+				}
+				if (event.isKeyPush(CEKeyBoard.CE_KEY_SPACE, CEKeyBoard.CE_KEY_STATUS_REPEAT)) {
+					((CE2DDefaultCamera) getCamera()).setRotation(((CE2DDefaultCamera) getCamera()).getRotation() + 5);
+				}
 			}
 		};
 
@@ -130,8 +142,7 @@ public class TestScene extends CEScene {
 		};
 
 		FPSCounter = CETextLabel.CreateBMPText(CEBMPFont.create("font.png", "font.fnt"), 1f, false, "FPS : ");
-		CESchedule mainLoop = CESchedule.CreateScheduleRepeat(new CESchedule.CHEDULERFUNC() {
-
+		mainLoop = CESchedule.CreateScheduleRepeat(new CESchedule.CHEDULERFUNC() {
 			@Override
 			public void invoke(float delta) {
 				tick();
@@ -150,14 +161,16 @@ public class TestScene extends CEScene {
 		label.Position().y = 500;
 		this.add(label, 4);
 
-	//	this.add(sprite2, 2);
+		// this.add(sprite2, 2);
 		this.add(sprite3);
 		FPSCounter.getControlPoint().y = 0;
 		FPSCounter.getControlPoint().x = 0;
 		this.add(FPSCounter);
-		sprite.add(sprite2);
+		sprite3.add(sprite2);
+
 		sprite2.Position().x = 50;
-		
+
 	}
 
+	CESchedule mainLoop;
 }

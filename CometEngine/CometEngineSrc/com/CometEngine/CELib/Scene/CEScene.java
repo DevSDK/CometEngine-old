@@ -20,6 +20,7 @@ import com.CometEngine.Event.CEEventKeyboard;
 import com.CometEngine.Event.CEEventListenerKeyboard;
 import com.CometEngine.Event.CEEventListenerMouse;
 import com.CometEngine.Font.CEBMPFont;
+import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
@@ -30,15 +31,23 @@ import com.CometEngine.Util.Meth.CEPosition2D;
 
 public class CEScene extends CERenderableObject {
 	private final CEScheduler SCHEDULER = new CEScheduler();
-	private CECamera DefaultCamera = new CE2DDefaultCamera();
+	private CECamera camera = new CE2DDefaultCamera();
 	// Maybe move to Node
 	int count = 0;
 	int objectcounter = 0;
 	boolean isExited = true;
 	final CEScene scene = this;
 
-	public CEScene() {
+	public void SetCamera(CECamera camera) {
+		this.camera = camera;
+	}
 
+	public CECamera getCamera() {
+		return camera;
+	}
+
+	public CEScene() {
+		CESceneManager.getInstance().NowRender2DCamera = camera;
 	}
 
 	public boolean isExit() {
@@ -74,7 +83,7 @@ public class CEScene extends CERenderableObject {
 	}
 
 	private void UpdateRenderList() {
-		CometEngine.getInstance().getSceneManager().nowRender2DCamera = DefaultCamera;
+		CometEngine.getInstance().getSceneManager().NowRender2DCamera = camera;
 		RenderingList.clear();
 		VisitAndGenChildCommands();
 	}
@@ -85,17 +94,15 @@ public class CEScene extends CERenderableObject {
 
 			if (isChildUpdated == true) {
 				UpdateRenderList();
+
 				isChildUpdated = false;
 			}
-
 			Drawing();
 
 			for (int i = 0; i < RenderingList.size(); i++) {
 				CERenderCommand command = RenderingList.get(i).genRenderCommand();
 				if (command != null) {
-
 					command.execute();
-
 				}
 			}
 

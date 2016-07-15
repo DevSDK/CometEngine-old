@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
@@ -12,7 +13,7 @@ import com.CometEngine.Util.Meth.CEPosition2D;
 
 public abstract class CERenderableObject extends CEObject {
 
-	protected CEMatrix4f modelviewmatrix = new CEMatrix4f();
+	protected CEMatrix4f ModelViewMatrix = new CEMatrix4f();
 
 	private void VisitAndGenChildCommands() {
 		for (CEObject child : ChildList) {
@@ -36,12 +37,14 @@ public abstract class CERenderableObject extends CEObject {
 				isChildUpdated = false;
 			}
 			Drawing();
+			CEMatrixStack.getInstance().Push(ModelViewMatrix);
 			for (int i = 0; i < RenderingList.size(); i++) {
 				CERenderCommand command = RenderingList.get(i).genRenderCommand();
 				if (command != null) {
 					command.execute();
 				}
 			}
+			CEMatrixStack.getInstance().Pop();
 		}
 	});
 

@@ -8,15 +8,13 @@ import com.CometEngine.CELib.Object.CERenderableObject;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 
 public abstract class CEButton extends CERenderableObject implements CEBound2D, CEPickableObject {
-	
+
 	CEPickCallBack PickCallBack = new CEPickCallBack() {
 		@Override
 		public void invoke(int status) {
 			CallBack.invoke(status);
 		}
 	};
-
-
 
 	@Override
 	public CEPickCallBack getCallBack() {

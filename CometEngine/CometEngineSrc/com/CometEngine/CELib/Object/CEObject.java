@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.Event.CEEventListener;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
@@ -22,6 +23,7 @@ public abstract class CEObject {
 	protected boolean isChildUpdated = false;
 	protected CEObject mParent = null;
 	protected boolean isActive = true;
+	protected CEObject Root = null;
 
 	public boolean isActive() {
 		return isActive;
@@ -52,6 +54,7 @@ public abstract class CEObject {
 			ChildList.add(node);
 			Collections.sort(ChildList, CompareMethod);
 			node.setParent(this);
+			Root = getRoot();
 		}
 	}
 
@@ -85,7 +88,6 @@ public abstract class CEObject {
 	protected float angle = 0;
 	protected final CEFloat3D scale = new CEFloat3D(1, 1, 1);
 	protected final CEFloat3D control_point = new CEFloat3D(0.5f, 0.5f, 0.5f);
-
 
 	public CEFloat3D getControlPoint() {
 		return control_point;
@@ -124,8 +126,5 @@ public abstract class CEObject {
 	public void RemoveCallBack() {
 
 	}
-
-	
-
 
 }

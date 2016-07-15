@@ -1,6 +1,8 @@
 package com.CometEngine.CELib.BoundBox;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
+import com.CometEngine.CELib.Camera.CECamera;
 import com.CometEngine.CELib.Camera.CECamera2D;
 import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEFloat3D;
@@ -38,11 +40,26 @@ public class CEAABB2D {
 	public CEFloat4f calculateBuffer = new CEFloat4f();
 	public CEFloat4f calculateBuffer2 = new CEFloat4f();
 
-	public void multiplyMatrix(CEFloat2D operand, CEFloat2D result) {
+	public void setCamera(CECamera2D camera) {
+		this.Camera = camera;
+	}
+
+	public void updateBox(float width, float height) {
+		BottomLeft.x = -width / 2.0f;
+		BottomLeft.y = -height / 2.0f;
+		TopLeft.x = -width / 2.0f;
+		TopLeft.y = height / 2.0f;
+		TopRight.x = width / 2.0f;
+		TopRight.y = height / 2.0f;
+		BottomRight.x = width / 2.0f;
+		BottomRight.y = -height / 2.0f;
+	}
+
+	public void multiplyMatrix(CEMatrix4f SoruceMatrix, CEFloat2D operand, CEFloat2D result) {
 		calculateBuffer.x = operand.x;
 		calculateBuffer.y = operand.y;
 
-		translationMatrix.multiply(calculateBuffer, calculateBuffer2);
+		SoruceMatrix.multiply(calculateBuffer, calculateBuffer2);
 		result.x = calculateBuffer2.x;
 		result.y = calculateBuffer2.y;
 	}
@@ -64,12 +81,20 @@ public class CEAABB2D {
 	}
 
 	public void update(CEMatrix4f translationMatrix) {
-		this.translationMatrix = translationMatrix;
-		multiplyMatrix(BottomLeft, Updated_BottomLeft);
-		multiplyMatrix(TopLeft, Updated_TopLeft);
-		multiplyMatrix(TopRight, Updated_TopRight);
-		multiplyMatrix(BottomRight, Updated_BottomRight);
 
+		this.translationMatrix = translationMatrix;
+		CECamera2D test = (CECamera2D) Camera;
+		multiplyMatrix(translationMatrix, BottomLeft, Updated_BottomLeft);
+		multiplyMatrix(test.getMovementMatrix(), Updated_BottomLeft, Updated_BottomLeft);
+
+		multiplyMatrix(translationMatrix, TopLeft, Updated_TopLeft);
+		multiplyMatrix(test.getMovementMatrix(), Updated_TopLeft, Updated_TopLeft);
+
+		multiplyMatrix(translationMatrix, TopRight, Updated_TopRight);
+		multiplyMatrix(test.getMovementMatrix(), Updated_TopRight, Updated_TopRight);
+
+		multiplyMatrix(translationMatrix, BottomRight, Updated_BottomRight);
+		multiplyMatrix(test.getMovementMatrix(), Updated_BottomRight, Updated_BottomRight);
 	}
 
 	private final CEFloat2D coordpos = new CEFloat2D();

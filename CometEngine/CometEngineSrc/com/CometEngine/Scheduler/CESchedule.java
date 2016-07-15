@@ -15,7 +15,7 @@ public class CESchedule {
 	private SCHEDULETYPE type = SCHEDULETYPE.NULL;
 	private int Delay = 0;
 	private int Repeat = 0;
-	
+
 	private CESchedule() {
 
 	}
@@ -50,7 +50,7 @@ public class CESchedule {
 		sch.type = SCHEDULETYPE.REPEAT;
 		return sch;
 	}
-	
+
 	public void ChangeScheduleExitedStatus(boolean status) {
 		isExit = status;
 	}
@@ -75,12 +75,19 @@ public class CESchedule {
 		return type;
 	}
 
-	public void Pause() {
-		isPaused = true;
+	protected void Pause() {
+		if (!isPaused) {
+			isPaused = true;
+			
+		}
+
 	}
 
-	public void Resume() {
-		isPaused = false;
+	protected void Resume() {
+		if (isPaused) {
+			isPaused = false;
+
+		}
 	}
 
 	public boolean isPaused() {
