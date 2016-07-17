@@ -16,7 +16,8 @@ public abstract class CECamera2D extends CECamera {
 
 		projectionmatrixProxy.translate(-mPosition.x, -mPosition.y, 0);
 		// projectionmatrixProxy.rotate(0.1f, 0, 0, 1);
-		System.out.println(" TranslationMatrix * RotationMatrix = " + projectionmatrixProxy);
+		// System.out.println(" TranslationMatrix * RotationMatrix = " +
+		// projectionmatrixProxy);
 		return projectionmatrixProxy;
 	}
 

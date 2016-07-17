@@ -33,14 +33,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>COMETENGINE_ROOT</name>
-			<type>2</type>
-			<locationURI>COMETENGINE_ROOT/CometEngine/res</locationURI>
-		</link>
-		<link>
 			<name>CometEngineSrc</name>
 			<type>2</type>
 			<locationURI>COMETENGINE_ROOT/CometEngine/CometEngineSrc</locationURI>
+		</link>
+		<link>
+			<name>Source</name>
+			<type>2</type>
+			<locationURI>COMETENGINE_ROOT/Source</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>

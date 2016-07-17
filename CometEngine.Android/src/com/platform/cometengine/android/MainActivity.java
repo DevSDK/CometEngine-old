@@ -43,6 +43,8 @@ import com.platform.cometengine.io.CEAndroidFilePath;
 import com.platform.cometengine.io.CEAndroidFileUtil;
 import com.platform.cometengine.io.CEAndroidSyncFileIO;
 
+import TESTSCENES.TESTSCENE2;
+
 public class MainActivity extends Activity {
 
 	private EVENT_TASK task = null;
@@ -72,6 +74,7 @@ public class MainActivity extends Activity {
 				System.out.println(" Width : " + width + " Height " + height);
 				CometEngine.getInstance().getRenderer().setViewSize(width, height);
 				GLES30.glViewport(0, 0, width, height);
+				CometEngine.getInstance().getSceneManager().setScene(new TESTSCENE2());
 			}
 
 			@Override

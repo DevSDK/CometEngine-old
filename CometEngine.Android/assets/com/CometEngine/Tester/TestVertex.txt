@@ -1,8 +1,7 @@
 
-
 uniform mat4 glProjection;
 uniform mat4 ModelViewMatrix;
-
+uniform mat4 CameraMatrix;
 
 in  vec3 Pos;
 in  vec3 Normal;

@@ -1,31 +1,37 @@
 package com.CometEngine.Event;
 
+import java.util.ArrayList;
+
+import com.CometEngine.Device.CETouchPad;
+
 public class CEEventTouch extends CEEvent {
-	protected int[] touchXPos = new int[30];
-	protected int[] touchYPos = new int[30];
+
 	protected int TouchPosSize = 0;
+	private boolean isTouched = false;
 
-	public int getXPos() {
-		return touchXPos[0];
+	protected final TouchData[] Datas = new TouchData[30];
+	protected final ArrayList<TouchData> dataList = new ArrayList<TouchData>();
+
+	public void setData(int ID, float x, float y, int status) {
+		if (Datas[ID] == null) {
+			Datas[ID] = new TouchData();
+		}
+		Datas[ID].x = x;
+		Datas[ID].y = y;
+		Datas[ID].status = status;
+		Datas[ID].ID = ID;
+		if (status == CETouchPad.CE_TOUCH_DOWN && !dataList.contains(Datas[ID])) {
+			dataList.add(Datas[ID]);
+			System.out.println("Im Add that Index: " + ID + " Status : " + status);
+		}
 	}
 
-	public int getYPos() {
-		return touchYPos[0];
+	public static class TouchData {
+		int status;
+		int ID;
+		float x;
+		float y;
+
 	}
 
-	public int geTouchSize() {
-		return TouchPosSize;
-	}
-
-	public int getXPos(int index) {
-		if (index < TouchPosSize - 1 && 0 <= index)
-			return touchXPos[index];
-		return touchXPos[0];
-	}
-
-	public int getYPos(int index) {
-		if (index < TouchPosSize - 1 && 0 <= index)
-			return touchYPos[index];
-		return touchYPos[0];
-	}
 }

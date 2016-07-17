@@ -12,7 +12,7 @@ import com.CometEngine.Renderer.CEGLInterface;
 public class CEAndroidGL implements CEGLInterface {
 
 	private static int getBufferLimit(ByteBuffer buffer) {
- 
+
 		CheckBuffer(buffer);
 		return buffer.limit();
 
@@ -131,7 +131,7 @@ public class CEAndroidGL implements CEGLInterface {
 	@Override
 	public void CullFace(int mode) {
 		GLES30.glCullFace(mode);
-	
+
 	}
 
 	@Override

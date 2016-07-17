@@ -1,5 +1,7 @@
+package TESTSCENES;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,6 +20,10 @@ import com.CometEngine.Event.CEEventDispatcher;
 import com.CometEngine.Event.CEEventKeyboard;
 import com.CometEngine.Event.CEEventListenerKeyboard;
 import com.CometEngine.Event.CEEventListenerMouse;
+import com.CometEngine.Event.CEEventListenerTouch;
+import com.CometEngine.Event.CEEventMouse;
+import com.CometEngine.Event.CEEventTouch;
+import com.CometEngine.Event.CEEventTouch.TouchData;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Font.CEFont;
 import com.CometEngine.Scheduler.CESchedule;
@@ -34,6 +40,7 @@ public class TESTSCENE2 extends CEScene {
 
 	@Override
 	protected void onEnter() {
+
 		System.out.println("onINIT SCENE");
 	}
 
@@ -77,9 +84,37 @@ public class TESTSCENE2 extends CEScene {
 					}
 				});
 
+		CEEventListenerTouch listener = new CEEventListenerTouch();
+		listener.MULTITOUCH_CALLBACK = new CEEventListenerTouch.CEMultiTouchCallBack() {
+
+			@Override
+			public void invoke(ArrayList<TouchData> touchs) {
+				System.out.println("Touch Size " + touchs.size());
+			}
+		};
+		listener.SINGLETOUCH_CALLBACK = new CEEventListenerTouch.CESingleTouchCallBack() {
+
+			@Override
+			public void invoke(int status, float x, float y, CEEventTouch event) {
+				System.err.println("Status " + status + " x " + x + " y " + y);
+			}
+		};
+		CEEventDispatcher.getInstance().addEventListener(listener, this);
+
 		button2.Position().x = 500;
 		button2.Position().y = 300;
 		this.add(button2);
+
+		CEEventListenerMouse mli = CEEventListenerMouse.Create(this);
+		mli.MouseClickCallBack = new CEEventListenerMouse.CEMouseClick() {
+
+			@Override
+			public void invoke(int Button, int Status, double XPos, double YPos, CEEventMouse event) {
+				System.out.println("Event Mouse " + Button + " C " + Status);
+
+			}
+		};
+		CEEventDispatcher.getInstance().addEventListener(mli, this);
 	}
 
 }

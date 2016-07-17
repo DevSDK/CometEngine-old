@@ -25,6 +25,8 @@ import com.CometEngine.DeskTop.CEDeskTopSyncFileIO;
 import com.CometEngine.DeskTop.CEDesktopEventThread;
 import com.CometEngine.DeskTopGL.CEDeskTopGL;
 
+import TESTSCENES.TESTSCENE2;
+
 public class Run {
 
 	public static void main(String[] argc) {
@@ -35,3 +37,4 @@ public class Run {
 	}
 
 }
+ 

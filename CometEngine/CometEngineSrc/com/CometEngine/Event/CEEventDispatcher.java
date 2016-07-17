@@ -12,6 +12,7 @@ import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Device.CEDeviceManager;
 import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEMouse;
+import com.CometEngine.Device.CETouchPad;
 import com.CometEngine.Event.CEEventMouse.EVENT_TYPE;
 
 public class CEEventDispatcher {
@@ -21,6 +22,7 @@ public class CEEventDispatcher {
 
 	private static final String KEYBOARD_LISTENER = "KeyBoard";
 	private static final String DEFAULT_MOUSE_LISTENER = "Mouse";
+	private static final String TOUCH_PAD_LISTENER = "TouchPad";
 
 	private ArrayList<CEEventListenerCustom> getCustomEventContainer(CEEventListenerCustom listener) {
 		if (CustomEnventListenerTable.containsKey(listener.getEventName())) {
@@ -121,6 +123,11 @@ public class CEEventDispatcher {
 			mouselistener.TargetScene = scene;
 			StoreEventListener(DEFAULT_MOUSE_LISTENER, mouselistener);
 		}
+		if (listener instanceof CEEventListenerTouch) {
+			CEEventListenerTouch toucheventlistener = (CEEventListenerTouch) listener;
+			toucheventlistener.TargetScene = scene;
+			StoreEventListener(TOUCH_PAD_LISTENER, toucheventlistener);
+		}
 	}
 
 	private static final CEEventKeyboard KeyBoardEvent = new CEEventKeyboard();
@@ -149,6 +156,9 @@ public class CEEventDispatcher {
 		}
 		if (event instanceof CEEventMouse) {
 			TalkMouseEvent((CEEventMouse) event);
+		}
+		if (event instanceof CEEventTouch) {
+			TalkTouchEvent((CEEventTouch) event);
 		}
 	}
 
@@ -246,6 +256,43 @@ public class CEEventDispatcher {
 		}
 		PutEvent(mouse);
 
+	}
+
+	private final CEEventTouch TouchEvent = new CEEventTouch();
+
+	public void UpdateTouchEvent(int index) {
+
+		CETouchPad device = (CETouchPad) CEDeviceManager.getInstance().getDevice(TOUCH_PAD_LISTENER);
+		TouchEvent.setData(index, device.getXpos(), device.getYpos(), device.getStatus());
+
+		PutEvent(TouchEvent);
+	}
+
+	private void TalkTouchEvent(CEEventTouch event) {
+		if (EventListenerTable.containsKey(TOUCH_PAD_LISTENER)) {
+			ArrayList<CEEventListener> listener = EventListenerTable.get(TOUCH_PAD_LISTENER);
+			for (int i = 0; i < listener.size(); i++) {
+				if (listener.get(i) instanceof CEEventListenerTouch) {
+					CEEventListenerTouch t = (CEEventListenerTouch) listener.get(i);
+					if (CESceneManager.getInstance().getCurrentScene().isExit() == false) {
+
+						if (t.TargetScene == CESceneManager.getInstance().getCurrentScene()) {
+							event.TargetObject = t.TargetObject;
+							t.ListenEvent(event);
+
+						}
+					}
+				}
+			}
+			for (int i = 0; i < event.dataList.size(); i++) {
+				if (event.dataList.get(i).status == CETouchPad.CE_TOUCH_UP) {
+					System.out.println("Im Remove that Index: " + event.dataList.get(i).ID + " Status : "
+							+ event.dataList.get(i).status);
+					event.dataList.remove(i);
+
+				}
+			}
+		}
 	}
 
 	public static CEEventDispatcher getInstance() {

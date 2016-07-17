@@ -79,7 +79,7 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 		shader.Start();
 
 		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().NowRender2DCamera.getPorjection());
-	
+
 		// Identity * translate * rotate * scale
 
 		parent.resetIDENTITY();
