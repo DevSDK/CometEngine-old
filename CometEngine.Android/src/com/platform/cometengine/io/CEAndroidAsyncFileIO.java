@@ -1,3 +1,4 @@
+
 package com.platform.cometengine.io;
 
 import java.io.BufferedInputStream;
@@ -13,6 +14,15 @@ import com.CometEngine.FileUtil.Handle.CEFileWriteHandle;
 import android.os.AsyncTask;
 
 public class CEAndroidAsyncFileIO {
+	private static CEAndroidAsyncFileIO Instance;
+
+	public CEAndroidAsyncFileIO() {
+		Instance = this;
+	}
+
+	public static CEAndroidAsyncFileIO getInstance() {
+		return Instance;
+	}
 
 	class FileLoader extends AsyncTask<Object, Void, Void> {
 
@@ -51,8 +61,6 @@ public class CEAndroidAsyncFileIO {
 	}
 
 	public void read(String file, CEFileReadHandle handle) {
-		
-
 
 		FileLoader loader = new FileLoader();
 		loader.execute(file, handle);

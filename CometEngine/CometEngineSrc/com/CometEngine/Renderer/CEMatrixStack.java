@@ -7,11 +7,16 @@ import java.util.Stack;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class CEMatrixStack {
-	private final static CEMatrixStack Instance = new CEMatrixStack();
+	private final static CEMatrixStack Instance2D = new CEMatrixStack();
+	private final static CEMatrixStack Instance3D = new CEMatrixStack();
 	private final Stack<CEMatrix4f> STACK = new Stack<CEMatrix4f>();
 
-	public static CEMatrixStack getInstance() {
-		return Instance;
+	public static CEMatrixStack getInstanceFor2D() {
+		return Instance2D;
+	}
+
+	public static CEMatrixStack getInstanceFor3D() {
+		return Instance3D;
 	}
 
 	public void GetTopOfStackMatrix(CEMatrix4f result) {

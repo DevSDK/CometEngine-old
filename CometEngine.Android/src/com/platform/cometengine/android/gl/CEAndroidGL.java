@@ -15,7 +15,6 @@ public class CEAndroidGL implements CEGLInterface {
 
 		CheckBuffer(buffer);
 		return buffer.limit();
-
 	}
 
 	private static int getBufferLimit(ShortBuffer buffer) {
@@ -71,6 +70,7 @@ public class CEAndroidGL implements CEGLInterface {
 	@Override
 	public void Enable(int target) {
 		GLES30.glEnable(target);
+		
 	}
 
 	@Override
@@ -81,6 +81,7 @@ public class CEAndroidGL implements CEGLInterface {
 	@Override
 	public void Hint(int target, int hint) {
 		GLES30.glHint(target, hint);
+
 	}
 
 	@Override

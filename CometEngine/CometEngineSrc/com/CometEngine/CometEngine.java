@@ -8,12 +8,22 @@ import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLInterface;
 import com.CometEngine.Renderer.CERenderer;
+import com.CometEngine.Util.Meth.CESize;
 
 public class CometEngine {
 
 	private boolean isPauseEvent = false;
-	private CESceneManager sceneManager = CESceneManager.getInstance();
+	private static CESceneManager sceneManager = CESceneManager.getInstance();
 	private CEEventDispatcher EventDispatcher = CEEventDispatcher.getInstance();
+	private CESize ViewPortSize = new CESize();
+
+	public void setViewPortSize(int width, int height) {
+		ViewPortSize.setSize(width, height);
+	}
+
+	public CESize getViewPortSize() {
+		return ViewPortSize;
+	}
 
 	public CESceneManager getSceneManager() {
 		return sceneManager;

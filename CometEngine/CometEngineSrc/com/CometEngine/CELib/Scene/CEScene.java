@@ -8,8 +8,11 @@ import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Button.CEPickableObject;
 import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Camera.CECamera;
+import com.CometEngine.CELib.Camera.CECamera2D;
+import com.CometEngine.CELib.Camera.CECamera3D;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Object.CERenderableObject;
+import com.CometEngine.CELib.SkyBox.CESkyBox;
 import com.CometEngine.CELib.Text.CETextLabel;
 import com.CometEngine.Device.CEDeviceManager;
 import com.CometEngine.Device.CEKeyBoard;
@@ -31,23 +34,45 @@ import com.CometEngine.Util.Meth.CEPosition2D;
 
 public class CEScene extends CERenderableObject {
 	private final CEScheduler SCHEDULER = new CEScheduler();
-	private CECamera camera = new CE2DDefaultCamera();
-	// Maybe move to Node
+	private CECamera2D camera2D = new CE2DDefaultCamera();
+	private CECamera3D camera3D = new CECamera3D();
+	private CESkyBox CurrentSkyBox = null;
 	int count = 0;
 	int objectcounter = 0;
 	boolean isExited = true;
 	final CEScene scene = this;
 
 	public void SetCamera(CECamera camera) {
-		this.camera = camera;
+		if (camera instanceof CECamera2D) {
+			this.camera2D = (CECamera2D) camera;
+		} else if (camera instanceof CECamera3D) {
+			this.camera3D = (CECamera3D) camera;
+		}
 	}
 
-	public CECamera getCamera() {
-		return camera;
+	public void setSkyBox(CESkyBox skybox) {
+		CurrentSkyBox = skybox;
+	}
+
+	public void set2DCamera(CECamera2D camera) {
+		this.camera2D = camera;
+	}
+
+	public void set3DCamera(CECamera3D camera) {
+		camera3D = camera;
+	}
+
+	public CECamera2D get2DCamera() {
+		return camera2D;
+	}
+
+	public CECamera3D get3DCamera() {
+		return camera3D;
 	}
 
 	public CEScene() {
-		CESceneManager.getInstance().NowRender2DCamera = camera;
+		CESceneManager.getInstance().NowRender2DCamera = camera2D;
+		CometEngine.getInstance().getSceneManager().NowRender3DCamera = camera3D;
 	}
 
 	public boolean isExit() {
@@ -83,7 +108,8 @@ public class CEScene extends CERenderableObject {
 	}
 
 	private void UpdateRenderList() {
-		CometEngine.getInstance().getSceneManager().NowRender2DCamera = camera;
+		CometEngine.getInstance().getSceneManager().NowRender2DCamera = camera2D;
+		CometEngine.getInstance().getSceneManager().NowRender3DCamera = camera3D;
 		RenderingList.clear();
 		VisitAndGenChildCommands();
 	}
@@ -94,8 +120,11 @@ public class CEScene extends CERenderableObject {
 
 			if (isChildUpdated == true) {
 				UpdateRenderList();
-
 				isChildUpdated = false;
+			}
+
+			if (CurrentSkyBox != null) {
+				CurrentSkyBox.Render();
 			}
 			Drawing();
 
@@ -116,7 +145,6 @@ public class CEScene extends CERenderableObject {
 
 	@Override
 	public void onDraw() {
-
 	}
 
 	@Override

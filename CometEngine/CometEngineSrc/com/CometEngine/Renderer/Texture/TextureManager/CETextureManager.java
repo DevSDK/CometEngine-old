@@ -7,7 +7,8 @@ import java.util.LinkedList;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.Texture.Textures.CETexture;
 import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
-import com.CometEngine.Resrouce.CEResrouce;
+import com.CometEngine.Renderer.Texture.Textures.CETextureCubeMap;
+import com.CometEngine.Resrouce.CEResource;
 import com.CometEngine.Resrouce.CEResourceManager;
 
 public class CETextureManager {
@@ -37,6 +38,14 @@ public class CETextureManager {
 
 	public int getSize() {
 		return instence.getSize();
+	}
+
+	public CETextureCubeMap getTextureCubeMap(String FileKey) {
+		if (TextureTable.containsKey(FileKey)) {
+			return (CETextureCubeMap) TextureTable.get(FileKey);
+		}
+		return null;
+
 	}
 
 	public CETexture2D getTexture2D(String filepath) {

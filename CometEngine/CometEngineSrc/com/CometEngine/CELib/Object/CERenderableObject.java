@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.CometEngine.CELib.Camera.CECamera;
+import com.CometEngine.CELib.Scene.CEScene;
+import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
@@ -14,6 +17,15 @@ import com.CometEngine.Util.Meth.CEPosition2D;
 public abstract class CERenderableObject extends CEObject {
 
 	protected CEMatrix4f ModelViewMatrix = new CEMatrix4f();
+	protected CECamera mCamera = CESceneManager.getInstance().NowRender2DCamera;
+
+	public CECamera get2DCamera() {
+		return mCamera;
+	}
+
+	public void setCamera(CECamera camera) {
+		this.mCamera = camera;
+	}
 
 	private void VisitAndGenChildCommands() {
 		for (CEObject child : ChildList) {
@@ -37,14 +49,14 @@ public abstract class CERenderableObject extends CEObject {
 				isChildUpdated = false;
 			}
 			Drawing();
-			CEMatrixStack.getInstance().Push(ModelViewMatrix);
+			CEMatrixStack.getInstanceFor2D().Push(ModelViewMatrix);
 			for (int i = 0; i < RenderingList.size(); i++) {
 				CERenderCommand command = RenderingList.get(i).genRenderCommand();
 				if (command != null) {
 					command.execute();
 				}
 			}
-			CEMatrixStack.getInstance().Pop();
+			CEMatrixStack.getInstanceFor2D().Pop();
 		}
 	});
 

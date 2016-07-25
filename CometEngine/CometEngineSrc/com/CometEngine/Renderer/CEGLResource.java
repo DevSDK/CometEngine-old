@@ -6,7 +6,7 @@ import com.CometEngine.Renderer.CEGLResourceManager.CEGLResourceComplite;
 public abstract class CEGLResource {
 	protected CEGLResourceComplite LoadCompliteCallBack = null;
 	protected CEGLResourceComplite DeleteCompliteCallBack = null;
-	private boolean isloaded = false;
+	protected boolean isloaded = false;
 	protected boolean isDeleted = false;
 	protected void glLoad()
 	{

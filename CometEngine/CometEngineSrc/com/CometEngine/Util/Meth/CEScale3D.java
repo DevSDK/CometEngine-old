@@ -1,9 +1,9 @@
 package com.CometEngine.Util.Meth;
 
 public class CEScale3D {
-	public float x = 0;
-	public float y = 0;
-	public float z = 0;
+	public float x = 1;
+	public float y = 1;
+	public float z = 1;
 	
 	public CEScale3D (){}
 	public CEScale3D (float x,float y , float z)

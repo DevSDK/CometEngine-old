@@ -83,18 +83,21 @@ public class CEAABB2D {
 	public void update(CEMatrix4f translationMatrix) {
 
 		this.translationMatrix = translationMatrix;
-		CECamera2D test = (CECamera2D) Camera;
-		multiplyMatrix(translationMatrix, BottomLeft, Updated_BottomLeft);
-		multiplyMatrix(test.getMovementMatrix(), Updated_BottomLeft, Updated_BottomLeft);
 
-		multiplyMatrix(translationMatrix, TopLeft, Updated_TopLeft);
-		multiplyMatrix(test.getMovementMatrix(), Updated_TopLeft, Updated_TopLeft);
+		if (Camera != null) {
+			CECamera2D cam = (CECamera2D) Camera;
+			multiplyMatrix(translationMatrix, BottomLeft, Updated_BottomLeft);
+			multiplyMatrix(cam.getMovementMatrix(), Updated_BottomLeft, Updated_BottomLeft);
 
-		multiplyMatrix(translationMatrix, TopRight, Updated_TopRight);
-		multiplyMatrix(test.getMovementMatrix(), Updated_TopRight, Updated_TopRight);
+			multiplyMatrix(translationMatrix, TopLeft, Updated_TopLeft);
+			multiplyMatrix(cam.getMovementMatrix(), Updated_TopLeft, Updated_TopLeft);
 
-		multiplyMatrix(translationMatrix, BottomRight, Updated_BottomRight);
-		multiplyMatrix(test.getMovementMatrix(), Updated_BottomRight, Updated_BottomRight);
+			multiplyMatrix(translationMatrix, TopRight, Updated_TopRight);
+			multiplyMatrix(cam.getMovementMatrix(), Updated_TopRight, Updated_TopRight);
+
+			multiplyMatrix(translationMatrix, BottomRight, Updated_BottomRight);
+			multiplyMatrix(cam.getMovementMatrix(), Updated_BottomRight, Updated_BottomRight);
+		}
 	}
 
 	private final CEFloat2D coordpos = new CEFloat2D();
@@ -103,6 +106,11 @@ public class CEAABB2D {
 		coordpos.x = x;
 		coordpos.y = y;
 		return isContainPoint(coordpos);
+	}
+
+	public boolean isContainBoundingBox(CEAABB2D AABB) {
+		return isContainPoint(AABB.Updated_BottomLeft) || isContainPoint(AABB.Updated_BottomRight)
+				|| isContainPoint(AABB.Updated_TopLeft) || isContainPoint(AABB.Updated_TopRight);
 	}
 
 	public boolean isContainPoint(CEFloat2D point) {

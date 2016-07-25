@@ -2,6 +2,9 @@ package com.CometEngine.Util.Meth;
 
 import java.nio.FloatBuffer;
 
+import com.CometEngine.Util.Meth.jglm.Mat4;
+import com.CometEngine.Util.Meth.jglm.support.FastMath;
+
 public class CEMatrix4f {
 	private float m00, m10, m20, m30;
 	private float m01, m11, m21, m31;
@@ -259,24 +262,21 @@ public class CEMatrix4f {
 	}
 
 	public CEMatrix4f rotate(float angle, float ax, float ay, float az) {
-		double rcos = Math.cos(angle);
-		double rsin = Math.sin(angle);
+		float c = (float) Math.cos((angle));
+		float s = (float) Math.sin((angle));
+
 		float x = ax;
 		float y = ay;
 		float z = az;
-
-		m00 = (float) (rcos + x * x * (1 - rcos));
-		m01 = (float) (z * rsin + y * x * (1 - rcos));
-		m02 = (float) (-y * rsin + z * x * (1 - rcos));
-
-		m10 = (float) (-z * rsin + x * y * (1 - rcos));
-		m11 = (float) (rcos + y * y * (1 - rcos));
-		m12 = (float) (x * rsin + z * y * (1 - rcos));
-
-		m20 = (float) (y * rsin + x * z * (1 - rcos));
-		m21 = (float) (-x * rsin + y * z * (1 - rcos));
-		m22 = (float) (rcos + z * z * (1 - rcos));
-
+		m00 = x * x * (1f - c) + c;
+		m01 = y * x * (1f - c) + z * s;
+		m02 = x * z * (1f - c) - y * s;
+		m10 = x * y * (1f - c) - z * s;
+		m11 = y * y * (1f - c) + c;
+		m12 = y * z * (1f - c) + x * s;
+		m20 = x * z * (1f - c) + y * s;
+		m21 = y * z * (1f - c) - x * s;
+		m22 = z * z * (1f - c) + c;
 		return this;
 	}
 
@@ -330,4 +330,23 @@ public class CEMatrix4f {
 
 	}
 
+	public static final void perspective(CEMatrix4f matrix, final float fovy, final float aspect, final float zNear,
+			final float zFar) {
+
+		final float range = (float) Math.tan(fovy / 2.0) * zNear;
+		final float left = -range * aspect;
+		final float right = range * aspect;
+		final float bottom = -range;
+		final float top = range;
+
+		float f = (float) (1f / Math.tan(Math.toRadians(fovy) / 2f));
+
+		matrix.m00 = f / aspect;
+		matrix.m11 = f;
+		matrix.m22 = (zFar + zNear) / (zNear - zFar);
+		matrix.m23 = -1f;
+		matrix.m32 = (2f * zFar * zNear) / (zNear - zFar);
+		matrix.m33 = 0f;
+
+	}
 }

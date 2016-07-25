@@ -13,8 +13,11 @@ public class character {
 	private double sizeY;
 	private double xAdvance;
 	private int DrawOffset;
-	protected character(int id, int DrawOffset , double xTextureCoord, double yTextureCoord, double xTexSize, double yTexSize,
-			double xOffset, double yOffset, double sizeX, double sizeY, double xAdvance) {
+	private int FilePage;
+
+	protected character(int id, int FilePage, int DrawOffset, double xTextureCoord, double yTextureCoord,
+			double xTexSize, double yTexSize, double xOffset, double yOffset, double sizeX, double sizeY,
+			double xAdvance) {
 		this.id = id;
 		this.xTextureCoord = xTextureCoord;
 		this.yTextureCoord = yTextureCoord;
@@ -26,15 +29,18 @@ public class character {
 		this.yMaxTextureCoord = yTexSize + yTextureCoord;
 		this.xAdvance = xAdvance;
 		this.DrawOffset = DrawOffset;
+		this.FilePage = FilePage;
+
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	public int getDrawOffset()
-	{
+
+	public int getDrawOffset() {
 		return DrawOffset;
 	}
+
 	public double getxTextureCoord() {
 		return xTextureCoord;
 	}
@@ -52,11 +58,11 @@ public class character {
 	}
 
 	public float getxOffset() {
-		return (float)xOffset;
+		return (float) xOffset;
 	}
 
 	public float getyOffset() {
-		return  (float)yOffset;
+		return (float) yOffset;
 	}
 
 	public float getSizeX() {
@@ -64,19 +70,23 @@ public class character {
 	}
 
 	public float getSizeY() {
-		return (float)sizeY;
+		return (float) sizeY;
 	}
 
 	public float getxAdvance() {
-		return (float)xAdvance;
+		return (float) xAdvance;
 	}
+
+	public int getFilePage() {
+		return FilePage;
+	}
+
 	@Override
-	public String toString()
-	{
-		return "Size X :"+ getSizeX() +" Size Y "+ getSizeY() + 
-				" Advence "+getxAdvance()+" TexCod X " + getxTextureCoord() +" TexCod Y  "+getyTextureCoord()+ " MaxTexX " + getXMaxTextureCoord()+" MaxTexY "+getYMaxTextureCoord()
-				+" Offset X "+getxOffset()+" Offset Y " +getyOffset()  ;
-		
+	public String toString() {
+		return "Size X :" + getSizeX() + " Size Y " + getSizeY() + " Advence " + getxAdvance() + " TexCod X "
+				+ getxTextureCoord() + " TexCod Y  " + getyTextureCoord() + " MaxTexX " + getXMaxTextureCoord()
+				+ " MaxTexY " + getYMaxTextureCoord() + " Offset X " + getxOffset() + " Offset Y " + getyOffset();
+
 	}
 
 }

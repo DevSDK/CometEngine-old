@@ -25,7 +25,7 @@ public abstract class CETextLabel extends CERenderableObject implements CEBound2
 	protected float LabelWidth = 0;
 	protected float LabelHeight = 0;
 
-	ShaderProgram program = new Default2DShader();
+	ShaderProgram program = Default2DShader.getInstance();
 
 	protected CETextLabel(String[] Text, float scale, boolean centered, CEFont font) {
 		this.scale.x = scale;
@@ -41,12 +41,12 @@ public abstract class CETextLabel extends CERenderableObject implements CEBound2
 		return label;
 	}
 
-	public void setString(String line) {
+	public synchronized void setString(String line) {
 		TextCharData.clear();
 		TextCharData.add(line.toCharArray());
 	}
 
-	public void setString(String[] stringLine) {
+	public synchronized void setString(String[] stringLine) {
 		TextCharData.clear();
 		for (int i = 0; i < stringLine.length; i++) {
 			TextCharData.add(stringLine[i].toCharArray());

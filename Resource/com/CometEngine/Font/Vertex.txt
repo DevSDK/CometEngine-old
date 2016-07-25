@@ -3,7 +3,7 @@ uniform mat4 glProjection;
 uniform mat4 ModelViewMatrix;
 uniform mat4 lineMatrix;
 uniform mat4 charMatrix;
-
+uniform mat4 CameraMatrix;
 in  vec3 Pos;
 in  vec3 Normal;
 in  vec2 Tex;
@@ -18,6 +18,6 @@ void main(void)
    cood = Tex;
   vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
    colorPos = Vertex;
-    gl_Position =  glProjection * ModelViewMatrix * lineMatrix *  charMatrix * Vertex ;
+    gl_Position =  glProjection * CameraMatrix * ModelViewMatrix * lineMatrix *  charMatrix * Vertex ;
 }
     

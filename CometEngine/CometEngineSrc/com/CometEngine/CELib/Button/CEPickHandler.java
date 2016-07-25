@@ -18,8 +18,6 @@ public class CEPickHandler {
 	private CEEventListenerMouse.CEMouseClick MouseClick = new CEEventListenerMouse.CEMouseClick() {
 		@Override
 		public void invoke(int Button, int Status, double XPos, double YPos, CEEventMouse event) {
-
-			System.out.println("Disptacher Status " + event.getTargetObject());
 			if (event.getTargetObject() instanceof CEBound2D) {
 				CEBound2D bound = (CEBound2D) event.getTargetObject();
 				if (Status == 1)
@@ -43,7 +41,6 @@ public class CEPickHandler {
 
 		@Override
 		public void invoke(int status, float x, float y, CEEventTouch event) {
-			System.err.println("Invoking The method Status " + status);
 
 			if (event.getTargetObject() instanceof CEBound2D) {
 				CEBound2D bound = (CEBound2D) event.getTargetObject();
@@ -61,7 +58,6 @@ public class CEPickHandler {
 					isPicked = false;
 
 				}
-
 			}
 		}
 	};
@@ -75,12 +71,13 @@ public class CEPickHandler {
 	}
 
 	public CEPickHandler(CEScene scene, CEObject target) {
-		mouseListener = CEEventListenerMouse.Create(target);
-		mouseListener.MouseClickCallBack = MouseClick;
-		CEEventDispatcher.getInstance().addEventListener(mouseListener, scene);
+
 		touchlistener = CEEventListenerTouch.Create(target);
 		touchlistener.SINGLETOUCH_CALLBACK = TouchOnce;
 		CEEventDispatcher.getInstance().addEventListener(touchlistener, scene);
+		mouseListener = CEEventListenerMouse.Create(target);
+		mouseListener.MouseClickCallBack = MouseClick;
+		CEEventDispatcher.getInstance().addEventListener(mouseListener, scene);
 	}
 
 }

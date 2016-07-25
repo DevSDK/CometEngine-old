@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.BoundBox.CEBoundBox2D;
+import com.CometEngine.CELib.Camera.CECamera2D;
 import com.CometEngine.CELib.Object.CEColor4f;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Font.CEBMPFont;
@@ -25,9 +26,9 @@ import com.CometEngine.Util.Meth.CESize;
 
 public class CEBMPTextLabel extends CETextLabel {
 
-	private CETexture2D texture = null;
+	private CETexture2D[] texture = null;
 	private FontShader2D shader = null;
-
+	private int beforeRenderTextureId = 0;
 	private CEVAO vao = null;
 	private CEColor4f color = new CEColor4f(1, 1, 1, 1);
 	private FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
@@ -38,7 +39,7 @@ public class CEBMPTextLabel extends CETextLabel {
 
 	protected CEBMPTextLabel(CEFont font, float scale, boolean centered, String[] strings) {
 		super(strings, scale, centered, font);
-		texture = ((CEBMPFont) font).getTexture();
+		texture = ((CEBMPFont) font).getTextures();
 
 		CEVAO.CEVboObject[] InitVao = new CEVAO.CEVboObject[] { new CEVAO.CEVboObject(0, 2, Font.getVertexList()),
 				new CEVAO.CEVboObject(1, 2, Font.getTextureCoordList()) };
@@ -46,7 +47,10 @@ public class CEBMPTextLabel extends CETextLabel {
 
 		vao = CEVAO.Create(null, array, InitVao, CEGL.GL_STATIC_DRAW);
 
-		shader = new FontShader2D();
+		shader = FontShader2D.getInstance();
+
+		boundingbox.setCamera((CECamera2D) CometEngine.getInstance().getSceneManager().NowRender2DCamera);
+
 	}
 
 	private void PrepareLineRendering() {
@@ -85,7 +89,6 @@ public class CEBMPTextLabel extends CETextLabel {
 			return;
 
 		CEGL.ActiveTexture(CEGL.GL_TEXTURE0);
-		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, texture.getTextureID());
 
 		CEGL.BindVertexArray(vao.getID());
 
@@ -99,6 +102,8 @@ public class CEBMPTextLabel extends CETextLabel {
 				shader.setCharMatrix(charTrlateMatrix);
 				continue;
 			}
+
+			CEGL.BindTexture(CEGL.GL_TEXTURE_2D, texture[c_info.getFilePage()].getTextureID());
 
 			loadYoffset.setMatrix(charTrlateMatrix);
 			charTrlateMatrix.translate((c_info.getxOffset()) * scale.x, (-c_info.getyOffset()), 0);
@@ -154,12 +159,13 @@ public class CEBMPTextLabel extends CETextLabel {
 	public void onDraw() {
 
 		shader.Start();
-		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().NowRender2DCamera.getPorjection());
+		shader.setProjectionMatrix(mCamera.getPorjection());
+		shader.CameraMovementMatrix(mCamera.getMovementMatrix());
 
 		color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);
 		ModelViewMatrix.resetIDENTITY();
-		CEMatrixStack.getInstance().GetTopOfStackMatrix(ModelViewMatrix);
+		CEMatrixStack.getInstanceFor2D().GetTopOfStackMatrix(ModelViewMatrix);
 		ModelViewMatrix.translate(-(LabelWidth * scale.x) * control_point.x,
 				(LabelHeight * scale.y) * (1 - control_point.y), 0);
 
@@ -177,7 +183,6 @@ public class CEBMPTextLabel extends CETextLabel {
 			} catch (IndexOutOfBoundsException e) {
 				return;
 			}
-
 			PrepareLineRendering();
 
 			int linewidth = getLineWidth(line);
@@ -195,24 +200,22 @@ public class CEBMPTextLabel extends CETextLabel {
 				LabelWidth = linewidth;
 			}
 		}
-
 		shader.Stop();
-
 		ContentSize.x = LabelWidth;
 		ContentSize.y = LabelHeight;
-
 	}
 
 	@Override
 	public void CleanUp() {
-		// TODO Auto-generated method stub
-
 	}
+
+	CEBoundBox2D boundingbox = new CEBoundBox2D(0, 0, null);
 
 	@Override
 	public CEBoundBox2D getBoundingBox() {
-		// TODO Auto-generated method stub
-		return null;
+		boundingbox.updateBoundingBoxSize(getWidth(), getHeight());
+		boundingbox.updateBoundingBoxTranslate(ModelViewMatrix);
+		return boundingbox;
 	}
 
 	private final CEFloat2D SizeProtocal = new CEFloat2D();

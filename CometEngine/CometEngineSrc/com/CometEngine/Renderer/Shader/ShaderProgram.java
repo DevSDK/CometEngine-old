@@ -24,52 +24,48 @@ public abstract class ShaderProgram extends CEGLResource {
 	private int programID;
 	private int vertexShaderID;
 	private int FragmentShaderID;
-	
+
 	private String VertexFileName;
 	private String FragmentFileName;
-	
-	public ShaderProgram(String VertexFileName ,String FragmentFileName)
-	{
+
+	public ShaderProgram(String VertexFileName, String FragmentFileName) {
 		this.VertexFileName = VertexFileName;
 		this.FragmentFileName = FragmentFileName;
 		CEGLResourceManager.getInstence().putGLResrouce(this);
 	}
-	
-	
-	protected  abstract void LinkUnifroms();
-	
-	protected void LoadInteger(int location,int value)
-	{
-		
+
+	protected abstract void LinkUnifroms();
+
+	protected void LoadInteger(int location, int value) {
+
 		CEGL.Uniform1i(location, value);
 	}
-	
-	protected void LoadeMatrix4f(int locantion,FloatBuffer mat)
-	{
+
+	protected void LoadeMatrix4f(int locantion, FloatBuffer mat) {
 		CEGL.UniformMatrix4fv(locantion, false, mat);
 	}
-	public int getUniformLoction(String path)
-	{
+
+	public int getUniformLoction(String path) {
 		return CEGL.GetUniformLocation(programID, path);
 	}
-	public void LoadVector4f(int location, FloatBuffer vec)
-	{
+
+	public void LoadVector4f(int location, FloatBuffer vec) {
 		CEGL.Uniform4fv(location, vec);
 	}
-	
-	
-	public void Start()
-	{
-		CEGL.UseProgram(programID);
-	}
-	
-	public void Stop()
-	{
-			CEGL.UseProgram(0);	
+
+	public void LoadVector3f(int location, float x, float y, float z) {
+		CEGL.Uniform3f(location, x, y, z);
 	}
 
-	public void cleanUP()
-	{
+	public void Start() {
+		CEGL.UseProgram(programID);
+	}
+
+	public void Stop() {
+		CEGL.UseProgram(0);
+	}
+
+	public void cleanUP() {
 		Stop();
 		CEGL.DetachShader(programID, vertexShaderID);
 		CEGL.DetachShader(programID, FragmentShaderID);
@@ -77,62 +73,53 @@ public abstract class ShaderProgram extends CEGLResource {
 		CEGL.DeleteShader(FragmentShaderID);
 		CEGL.DeleteProgram(programID);
 	}
-	
-	protected void bindAttribute(int attribute , String code)
-	{
-		CEGL.BindAttribLocation(programID, attribute, code);	
+
+	protected void bindAttribute(int attribute, String code) {
+		CEGL.BindAttribLocation(programID, attribute, code);
 	}
-	
+
 	protected abstract void bindAttributes();
-	
-	
-	private static int loadeShasder(String FileName,int type)
-	{
+
+	private static int loadeShasder(String FileName, int type) {
 
 		String source = "";
-	
-		if( CometEngine.getInstance().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES)
-		{
-			
+
+		if (CometEngine.getInstance().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES) {
+
 			source = "#version 300 es\n";
-			
-			if(type == CEGL.GL_FRAGMENT_SHADER )
-				source +=  "precision mediump float;";
-		} 	
-		
-			ByteBuffer buffer =CEFileUtil.getInstence().ReadResurceDirectoryToSync(FileName);
-			String fof = new String(buffer.array(), Charset.forName("UTF-8"));
-		
-			source += fof;
-			
-			int shaderID = CEGL.CreateShader(type);
-		
-		
+
+			if (type == CEGL.GL_FRAGMENT_SHADER)
+				source += "precision mediump float;";
+		}
+
+		ByteBuffer buffer = CEFileUtil.getInstence().ReadResurceDirectoryToSync(FileName);
+		String fof = new String(buffer.array(), Charset.forName("UTF-8"));
+
+		source += fof;
+
+		int shaderID = CEGL.CreateShader(type);
+
 		CEGL.ShaderSource(shaderID, source);
 		CEGL.CompileShader(shaderID);
-		if(	CEGL.GetShaderi(shaderID , CEGL.GL_COMPILE_STATUS) ==CEGL.GL_FALSE)
-		{
-			System.out.println(CEGL.GetShaderInfoLog(shaderID,500));
-			
+		if (CEGL.GetShaderi(shaderID, CEGL.GL_COMPILE_STATUS) == CEGL.GL_FALSE) {
+			System.out.println(CEGL.GetShaderInfoLog(shaderID, 500));
+
 			System.out.println("Shader Compile Error");
-			System.exit(-1);			
+			System.exit(-1);
 		}
-		
 
 		return shaderID;
-		
-		
+
 	}
 
 	@Override
-	protected void onGLLoad()
-	{
+	protected void onGLLoad() {
 
 		vertexShaderID = loadeShasder(VertexFileName, CEGL.GL_VERTEX_SHADER);
 		FragmentShaderID = loadeShasder(FragmentFileName, CEGL.GL_FRAGMENT_SHADER);
 		programID = CEGL.CreateProgram();
-		
-		//TODO: Remove The Debug
+
+		// TODO: Remove The Debug
 		CEGL.AttachShader(programID, vertexShaderID);
 		CEGL.AttachShader(programID, FragmentShaderID);
 		bindAttributes();
@@ -141,16 +128,15 @@ public abstract class ShaderProgram extends CEGLResource {
 		LinkUnifroms();
 
 	}
+
 	@Override
-	protected void onGLDelete()
-	{
-		
+	protected void onGLDelete() {
+
 	}
+
 	@Override
-	public boolean isloaded()
-	{
+	public boolean isloaded() {
 		return true;
 	}
-	
-	
+
 }

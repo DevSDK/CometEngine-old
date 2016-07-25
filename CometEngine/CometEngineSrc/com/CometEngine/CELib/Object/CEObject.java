@@ -97,7 +97,7 @@ public abstract class CEObject {
 		return scale;
 	}
 
-	public CEPosition2D Position() {
+	public synchronized CEPosition2D Position() {
 		return mPosition;
 	}
 
@@ -119,7 +119,7 @@ public abstract class CEObject {
 		this.mParent = p;
 	}
 
-	public float getAngle() {
+	public synchronized float getAngle() {
 		return angle;
 	}
 

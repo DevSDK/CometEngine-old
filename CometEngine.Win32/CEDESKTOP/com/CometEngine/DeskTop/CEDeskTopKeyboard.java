@@ -1,7 +1,6 @@
 package com.CometEngine.DeskTop;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
-import org.newdawn.slick.command.ControllerButtonControl;
 
 import com.CometEngine.Device.CEDeviceManager;
 import com.CometEngine.Device.CEKeyBoard;

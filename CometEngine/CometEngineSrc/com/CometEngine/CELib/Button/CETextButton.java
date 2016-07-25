@@ -50,7 +50,7 @@ public class CETextButton extends CEButton {
 		@Override
 		public void invoke() {
 			ModelViewMatrix.resetIDENTITY();
-			CEMatrixStack.getInstance().GetTopOfStackMatrix(ModelViewMatrix);
+			CEMatrixStack.getInstanceFor2D().GetTopOfStackMatrix(ModelViewMatrix);
 			ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1);
 			if (handler.isPicked()) {
 				TextLabel.getScale().x = scale.x * 1.2f;
@@ -59,10 +59,10 @@ public class CETextButton extends CEButton {
 				TextLabel.getScale().x = scale.x;
 				TextLabel.getScale().x = scale.y;
 			}
-			CEMatrixStack.getInstance().Push(ModelViewMatrix);
+			CEMatrixStack.getInstanceFor2D().Push(ModelViewMatrix);
 			TextLabel.Drawing();
 			BoundingBoxMatrix.setMatrix(ModelViewMatrix);
-			CEMatrixStack.getInstance().Pop();
+			CEMatrixStack.getInstanceFor2D().Pop();
 		}
 	});
 

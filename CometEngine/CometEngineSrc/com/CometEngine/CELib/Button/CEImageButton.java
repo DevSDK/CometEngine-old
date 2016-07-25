@@ -7,7 +7,7 @@ import com.CometEngine.CELib.BoundBox.CEBoundBox2D;
 import com.CometEngine.CELib.Camera.CECamera2D;
 import com.CometEngine.CELib.Object.CEColor4f;
 import com.CometEngine.CELib.Object.CEObject;
-import com.CometEngine.CELib.Scene.CEQuad;
+import com.CometEngine.CELib.Object.CEQuad;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.Event.CEEventDispatcher;
 import com.CometEngine.Renderer.CEGL;
@@ -32,7 +32,7 @@ public class CEImageButton extends CEButton {
 
 	public CEImageButton(String filename, CEButton.CEButtonCallBack ceButtonCallBack) {
 		texture = CETexture2D.CreateTexture2D(filename);
-		shader = new Default2DShader();
+		shader = Default2DShader.getInstance();
 		this.CallBack = ceButtonCallBack;
 
 	}
@@ -50,7 +50,7 @@ public class CEImageButton extends CEButton {
 		int width = texture.getData().getWidth();
 		int height = texture.getData().getHeight();
 		boundbox = new CEBoundBox2D(width, height,
-				(CECamera2D) CometEngine.getInstance().getSceneManager().NowRender2DCamera);
+				(CECamera2D) CometEngine.getInstance().getSceneManager().getCurrentScene().get2DCamera());
 		quad = CEQuad.Create(texture, width, height);
 		quad.setColor(color);
 
@@ -81,8 +81,8 @@ public class CEImageButton extends CEButton {
 
 		shader.Start();
 
-		shader.setProjectionMatrix(CometEngine.getInstance().getSceneManager().NowRender2DCamera.getPorjection());
-
+		shader.setProjectionMatrix(mCamera.getPorjection());
+		shader.CameraMovementMatrix(mCamera.getMovementMatrix());
 		// Identity * translate * rotate * scale
 		///
 		if (handler.isPicked()) {
@@ -113,7 +113,7 @@ public class CEImageButton extends CEButton {
 
 	@Override
 	public void CleanUp() {
-	}
+	} 
 
 	private CEBoundBox2D boundbox = new CEBoundBox2D(0, 0, null);
 

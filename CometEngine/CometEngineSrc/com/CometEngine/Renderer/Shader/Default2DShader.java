@@ -9,14 +9,20 @@ import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class Default2DShader extends ShaderProgram {
 
-	private static final String VertexFileName = "com/CometEngine/Tester/TestVertex.txt";
+	private static final Default2DShader Instance = new Default2DShader();
 
-	private static final String FragmentFileName = "com/CometEngine/Tester/TesterFragment.txt";
+	public static Default2DShader getInstance() {
+		return Instance;
+	}
 
-	public Default2DShader() {
+	private Default2DShader() {
 		super(VertexFileName, FragmentFileName);
 
 	}
+
+	private static final String VertexFileName = "com/CometEngine/2D/Vertex.txt";
+
+	private static final String FragmentFileName = "com/CometEngine/2D/Fragment.txt";
 
 	FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(16);
 	int location = 0;
@@ -36,7 +42,7 @@ public class Default2DShader extends ShaderProgram {
 		super.LoadVector4f(gColor, vector);
 	}
 
-	public void CameramovementMatrix(CEMatrix4f matrix) {
+	public void CameraMovementMatrix(CEMatrix4f matrix) {
 		matrix.getBuffer(buffer);
 		super.LoadeMatrix4f(cameramatrix, buffer);
 	}

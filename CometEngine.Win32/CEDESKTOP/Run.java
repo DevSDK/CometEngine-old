@@ -10,7 +10,6 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
-import org.newdawn.slick.command.Control;
 
 import com.CometEngine.*;
 import com.CometEngine.CELib.Scene.CEScene;
@@ -26,15 +25,14 @@ import com.CometEngine.DeskTop.CEDesktopEventThread;
 import com.CometEngine.DeskTopGL.CEDeskTopGL;
 
 import TESTSCENES.TESTSCENE2;
+import cometengine.config.CELunchConfig;
 
 public class Run {
 
 	public static void main(String[] argc) {
-		CEScene scene;
-		CEDeskTop.INIT(600, 600, 1000, 1000);
-		CometEngine.getInstance().getSceneManager().setScene(scene = new TESTSCENE2());
+		CEDeskTop.INIT();
+		CometEngine.getInstance().getSceneManager().setScene(CELunchConfig.CurrentScene);
 		CEDeskTop.RUN();
 	}
 
 }
- 

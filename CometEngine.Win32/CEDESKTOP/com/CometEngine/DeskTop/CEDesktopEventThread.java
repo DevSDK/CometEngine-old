@@ -15,7 +15,6 @@ import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.Shader.Default2DShader;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Resrouce.CEResourceManager;
-import com.CometEngine.Tester.Tester;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 //TODO: Must Remove Test Code

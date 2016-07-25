@@ -138,8 +138,9 @@ public class CEEventDispatcher {
 			for (int i = 0; i < listener.size(); i++) {
 				if (listener.get(i) instanceof CEEventListenerKeyboard) {
 					CEEventListenerKeyboard t = (CEEventListenerKeyboard) listener.get(i);
+					if (CESceneManager.getInstance().getCurrentScene() == null)
+						return;
 					if (CESceneManager.getInstance().getCurrentScene().isExit() == false) {
-
 						if (t.getTargetScene() == CESceneManager.getInstance().getCurrentScene()) {
 							KeyBoardEvent.TargetObject = t.TargetObject;
 							t.ListenKeyBoardEvent(KeyBoardEvent);

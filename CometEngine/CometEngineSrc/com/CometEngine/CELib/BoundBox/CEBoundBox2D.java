@@ -19,7 +19,7 @@ public class CEBoundBox2D extends CEBoundBox {
 		this.Camera = camera;
 		AABB.setCamera(Camera);
 	}
-	
+
 	public void updateBoundingBoxTranslate(CEMatrix4f trnalation) {
 		AABB.update(trnalation);
 	}

@@ -13,7 +13,6 @@ import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Commend.Manager.CERenderCommandManager;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
-import com.CometEngine.Tester.Tester;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CESize;
 
@@ -42,7 +41,7 @@ public class CERenderer {
 		return Renderer_Height;
 	}
 
-	public int getFPS() {
+	public synchronized int getFPS() {
 		return RenderFPS;
 	}
 

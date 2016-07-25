@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="CEDESKTOP"/>
 	<classpathentry kind="src" path="Source"/>
 	<classpathentry kind="src" path="CometEngineSrc"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/LWJGL3">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/CometEngine/Lib/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="CometEngine/native"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="/CometEngine/Lib/lwjgl.jar"/>
-	<classpathentry kind="lib" path="/CometEngine/Lib/slick.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

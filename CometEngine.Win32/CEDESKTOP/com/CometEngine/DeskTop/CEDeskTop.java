@@ -17,6 +17,8 @@ import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEMouse;
 import com.CometEngine.Renderer.CEGL;
 
+import cometengine.config.CELunchConfig;
+
 public class CEDeskTop {
 	private static boolean SCENE_RESIZEABLE = false;
 	private static int WINDOW_WIDTH = 600;
@@ -35,6 +37,7 @@ public class CEDeskTop {
 
 	public static int getFrameHeight() {
 		return WINDOW_HEIGHT;
+
 	}
 
 	private static void LoadDevice() {
@@ -57,7 +60,7 @@ public class CEDeskTop {
 		else
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 
-		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "CometEngine Tester", MemoryUtil.NULL,
+		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CELunchConfig.FrameTitle, MemoryUtil.NULL,
 				MemoryUtil.NULL);
 		if (WINDOW == MemoryUtil.NULL)
 			throw new RuntimeException("Failed Create GLFW WINDWO");
@@ -69,18 +72,17 @@ public class CEDeskTop {
 		GLFW.glfwSetMouseButtonCallback(WINDOW, MouseClickEvent);
 		GLFW.glfwSetCursorPosCallback(WINDOW, MouseMoveEvent);
 
-		GLFW.glfwSetWindowPos(WINDOW, vidmode.width() / 2, vidmode.height() / 2);
 		GLFW.glfwMakeContextCurrent(WINDOW);
 		GLFW.glfwShowWindow(WINDOW);
 		GL.createCapabilities();
 	}
 
-	public static void INIT(int FrameWidth, int FrameHeight, int XcoordSize, int YCoordSize) {
+	public static void INIT() {
 
-		WINDOW_HEIGHT = FrameHeight;
-		WINDOW_WIDTH = FrameWidth;
-		COORD_HEIGHT = YCoordSize;
-		COORD_WIDTH = XcoordSize;
+		WINDOW_HEIGHT = CELunchConfig.FrameHeight;
+		WINDOW_WIDTH = CELunchConfig.FrameWidth;
+		COORD_HEIGHT = CELunchConfig.ViewPortHeight;
+		COORD_WIDTH = CELunchConfig.ViewPortWidth;
 		LoadLWJGL();
 
 		CometEngineInitObject init = new CometEngineInitObject();
@@ -93,7 +95,7 @@ public class CEDeskTop {
 
 		GLFW.glfwGetJoystickName(0);
 		GLFW.glfwSwapInterval(1);
-		CEGL.CullFace(CEGL.GL_BACK);
+		// CEGL.CullFace(CEGL.GL_BACK);
 
 	}
 

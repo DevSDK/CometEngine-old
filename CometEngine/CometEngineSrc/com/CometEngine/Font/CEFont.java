@@ -6,8 +6,6 @@ import java.util.Hashtable;
 
 import javax.xml.XMLConstants;
 
-import org.newdawn.slick.util.xml.XMLParser;
-
 import com.CometEngine.Font.BMPFont.character;
 
 

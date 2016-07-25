@@ -2,9 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="CometEngineSrc"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/External Library"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/LWJGL3"/>
-	<classpathentry kind="lib" path="Lib/slick.jar"/>
-	<classpathentry kind="lib" path="Lib/awt.jar"/>
+	<classpathentry kind="lib" path="Lib/lwjgl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

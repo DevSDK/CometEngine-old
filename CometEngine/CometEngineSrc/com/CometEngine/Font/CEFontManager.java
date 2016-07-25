@@ -2,7 +2,6 @@ package com.CometEngine.Font;
 
 import java.util.Hashtable;
 
-import org.newdawn.slick.TrueTypeFont;
 
 import com.CometEngine.Font.BMPFont.FntFile;
 

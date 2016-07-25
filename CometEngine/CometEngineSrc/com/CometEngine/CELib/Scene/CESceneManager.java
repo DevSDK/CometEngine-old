@@ -3,6 +3,8 @@ package com.CometEngine.CELib.Scene;
 import java.util.LinkedList;
 
 import com.CometEngine.CELib.Camera.CECamera;
+import com.CometEngine.CELib.Camera.CECamera2D;
+import com.CometEngine.CELib.Camera.CECamera3D;
 
 public class CESceneManager {
 
@@ -19,6 +21,8 @@ public class CESceneManager {
 	public void setScene(CEScene scene) {
 		ExitCurrentScene();
 		nowScene = scene;
+		NowRender3DCamera = scene.get3DCamera();
+		NowRender2DCamera = scene.get2DCamera();
 		nowScene.MANAGER_CALL_ENTER();
 	}
 
@@ -33,11 +37,12 @@ public class CESceneManager {
 		return nowScene;
 	}
 
+	public CECamera3D NowRender3DCamera;
+
 	public CECamera NowRender2DCamera;
 
 	private CEScene nowScene = null;
 
-	private LinkedList<CECamera> Camera_List = new LinkedList<CECamera>();
 	public CEScene testScene;
 
 }

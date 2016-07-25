@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import org.newdawn.slick.opengl.PNGDecoder;
 import com.CometEngine.FileUtil.CEFileFormat;
 import com.CometEngine.FileUtil.CEFileFormat.FILE_FORMAT;
 import com.CometEngine.Renderer.CEGL;
@@ -12,7 +11,7 @@ import com.CometEngine.Renderer.CEGLResourceManager;
 import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
 import com.CometEngine.Resrouce.CEImageResrouceLoader;
 import com.CometEngine.Resrouce.CEImageResrouce;
-import com.CometEngine.Resrouce.CEResrouce;
+import com.CometEngine.Resrouce.CEResource;
 import com.CometEngine.Resrouce.CEResourceManager;
 
 public class CETexture2D extends CETexture {
@@ -96,9 +95,10 @@ public class CETexture2D extends CETexture {
 		CEGL.TexParameteri(CEGL.GL_TEXTURE_2D, CEGL.GL_TEXTURE_MIN_FILTER, MIN_FILTER);
 		CEGL.TexParameteri(CEGL.GL_TEXTURE_2D, CEGL.GL_TEXTURE_MAG_FILTER, MAG_FILTER);
 
-		CEGL.TexImage2D(CEGL.GL_TEXTURE_2D, 0, CEGL.GL_RGBA, image.getWidth(), image.getHeight(), 0, CEGL.GL_RGBA,
-				CEGL.GL_UNSIGNED_BYTE, image.getData());
+		CEGL.TexImage2D(CEGL.GL_TEXTURE_2D, 0, image.getRGBType(), image.getWidth(), image.getHeight(), 0,
+				image.getRGBType(), CEGL.GL_UNSIGNED_BYTE, image.getData());
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, 0);
+
 	}
 
 	@Override
