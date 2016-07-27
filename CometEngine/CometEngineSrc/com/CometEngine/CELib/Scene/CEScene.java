@@ -6,12 +6,13 @@ import java.util.List;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.Button.CEPickableObject;
-import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Camera.CECamera;
 import com.CometEngine.CELib.Camera.CECamera2D;
 import com.CometEngine.CELib.Camera.CECamera3D;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Object.CERenderableObject;
+import com.CometEngine.CELib.Scheduler.CESchedule;
+import com.CometEngine.CELib.Scheduler.CEScheduler;
 import com.CometEngine.CELib.SkyBox.CESkyBox;
 import com.CometEngine.CELib.Text.CETextLabel;
 import com.CometEngine.Device.CEDeviceManager;
@@ -28,14 +29,12 @@ import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Commend.Manager.CERenderCommandManager;
-import com.CometEngine.Scheduler.CESchedule;
-import com.CometEngine.Scheduler.CEScheduler;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
 public class CEScene extends CERenderableObject {
-	private final CEScheduler SCHEDULER = new CEScheduler();
-	private CECamera2D camera2D = new CE2DDefaultCamera();
-	private CECamera3D camera3D = new CECamera3D();
+	private final CEScheduler SCHEDULER = CEScheduler.Create();
+	private CECamera2D camera2D = CECamera2D.Create();
+	private CECamera3D camera3D = CECamera3D.Create();
 	private CESkyBox CurrentSkyBox = null;
 	int count = 0;
 	int objectcounter = 0;
@@ -163,7 +162,7 @@ public class CEScene extends CERenderableObject {
 		onEnter();
 		SCHEDULER.EnterScene();
 	}
-
+ 
 	protected void MANAGER_CALL_EXIT() {
 		isExited = true;
 		LinkedList<CEObject> childs = getChilds();

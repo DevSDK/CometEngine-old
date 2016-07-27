@@ -41,6 +41,10 @@ public abstract class ShaderProgram extends CEGLResource {
 		CEGL.Uniform1i(location, value);
 	}
 
+	protected void LoadFloat(int Lcoation, float value) {
+		CEGL.Uniform1f(Lcoation, value);
+	}
+
 	protected void LoadeMatrix4f(int locantion, FloatBuffer mat) {
 		CEGL.UniformMatrix4fv(locantion, false, mat);
 	}
@@ -95,6 +99,9 @@ public abstract class ShaderProgram extends CEGLResource {
 		ByteBuffer buffer = CEFileUtil.getInstence().ReadResurceDirectoryToSync(FileName);
 		String fof = new String(buffer.array(), Charset.forName("UTF-8"));
 
+		if (CometEngine.getInstance().getRenderer().getType() == RENDERER_TYPE.CE_RENDERER_GLES) {
+			fof = fof.replace("#version 150", "");
+		}
 		source += fof;
 
 		int shaderID = CEGL.CreateShader(type);

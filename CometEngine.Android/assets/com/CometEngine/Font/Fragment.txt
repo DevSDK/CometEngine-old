@@ -1,10 +1,11 @@
-
+#version 150
 uniform vec4 gColor;
 uniform sampler2D textureSampler;
+uniform float Opacity;
 in vec2 cood;
 
 out vec4 gl_FragColor;
 void main(void)
 {    
-   gl_FragColor =  texture(textureSampler, cood) * gColor;
+   gl_FragColor = Opacity * texture(textureSampler, cood) * gColor;
 }

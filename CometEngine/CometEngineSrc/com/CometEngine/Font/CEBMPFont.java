@@ -8,7 +8,7 @@ import java.util.Hashtable;
 import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.Font.BMPFont.FntFile;
 import com.CometEngine.Font.BMPFont.character;
-import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
+import com.CometEngine.Renderer.Texture.CETexture2D;
 
 public class CEBMPFont extends CEFont {
 

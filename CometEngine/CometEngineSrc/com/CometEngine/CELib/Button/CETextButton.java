@@ -3,6 +3,7 @@ package com.CometEngine.CELib.Button;
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.BoundBox.CEBoundBox2D;
 import com.CometEngine.CELib.Camera.CECamera2D;
+import com.CometEngine.CELib.Object.CEColor4f;
 import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Text.CETextLabel;
@@ -31,6 +32,17 @@ public class CETextButton extends CEButton {
 	}
 
 	private CEBoundBox2D BoundingBox = new CEBoundBox2D(0, 0, null);
+
+	@Override
+	public float getOpacity() {
+		return TextLabel.getOpacity();
+	}
+
+	@Override
+	public void setOpacity(float opacity) {
+
+		TextLabel.setOpacity(opacity);
+	}
 
 	@Override
 	public CEBoundBox2D getBoundingBox() {
@@ -79,6 +91,21 @@ public class CETextButton extends CEButton {
 	}
 
 	@Override
+	public void setColor(CEColor4f color) {
+		TextLabel.setColor(color);
+	}
+
+	@Override
+	public void setColor(float r, float g, float b) {
+		TextLabel.setColor(r, g, b);
+	}
+
+	@Override
+	public CEColor4f getColor() {
+		return TextLabel.getColor();
+	}
+
+	@Override
 	public void onInit() {
 	}
 
@@ -90,6 +117,8 @@ public class CETextButton extends CEButton {
 	public void CleanUp() {
 
 	}
+
+	CEColor4f Color = new CEColor4f(1, 1, 1, 1);
 
 	private final CEFloat2D SizeProxy = new CEFloat2D();
 

@@ -29,6 +29,7 @@ public class Default2DShader extends ShaderProgram {
 	int location2 = 0;
 	int gColor = 0;
 	int cameramatrix = 0;
+	int Opacity = 0;
 
 	@Override
 	protected void LinkUnifroms() {
@@ -36,6 +37,11 @@ public class Default2DShader extends ShaderProgram {
 		location = super.getUniformLoction("glProjection");
 		gColor = super.getUniformLoction("gColor");
 		cameramatrix = super.getUniformLoction("CameraMatrix");
+		Opacity = super.getUniformLoction("Opacity");
+	}
+
+	public void setOpacity(float opacity) {
+		super.LoadFloat(Opacity, opacity);
 	}
 
 	public void setColor4f(FloatBuffer vector) {

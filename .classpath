@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="CometEngine.Android/CometAndroid"/>
+	<classpathentry kind="src" path="CometEngine.Android/gen"/>
+	<classpathentry kind="src" path="CometEngine.Android/src"/>
+	<classpathentry kind="src" path="CometEngine.Win32/CEDESKTOP"/>
+	<classpathentry kind="src" path="CometEngine/CometEngineSrc"/>
+	<classpathentry kind="src" path="Source"/>
+	<classpathentry kind="lib" path="CometEngine.Android/bin/dexedLibs/android-support-v4-5108e5e7078c6e3740158e114f0cd8c3.jar"/>
+	<classpathentry kind="lib" path="CometEngine.Android/bin/dexedLibs/slick-364661b741da9a0a52e8f6e842f0a5a6.jar"/>
+	<classpathentry kind="lib" path="CometEngine.Android/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="CometEngine.Win32/libs/lwjgl.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="CometEngine/bin"/>
+</classpath>

@@ -23,6 +23,8 @@ import com.CometEngine.CELib.Button.CEImageButton;
 import com.CometEngine.CELib.Button.CEPickableObject;
 import com.CometEngine.CELib.Button.CETextButton;
 import com.CometEngine.CELib.Scene.CEScene;
+import com.CometEngine.CELib.Scheduler.CESchedule;
+import com.CometEngine.CELib.Scheduler.CEScheduler;
 import com.CometEngine.CELib.Text.CETextLabel;
 import com.CometEngine.CELib.model3d.CEModel;
 import com.CometEngine.Device.CEKeyBoard;
@@ -40,16 +42,14 @@ import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Font.CEFont;
 import com.CometEngine.Resrouce.CEModelLoader;
 import com.CometEngine.Resrouce.CEModelResource;
-import com.CometEngine.Scheduler.CESchedule;
-import com.CometEngine.Scheduler.CEScheduler;
- 
+
 public class TESTSCENE2 extends CEScene {
 	CEScene SCENE = this;
 
 	public void tick() {
 
 	}
- 
+
 	CESchedule scheduless;
 
 	@Override
@@ -69,14 +69,12 @@ public class TESTSCENE2 extends CEScene {
 	CETextButton button2;
 
 	public TESTSCENE2() {
-		button = new CEImageButton("button.png", new CEButton.CEButtonCallBack() {
+		button = CEImageButton.Create("button.png", new CEButton.CEButtonCallBack() {
 			@Override
 			public void invoke(int status) {
-				System.out.println("STATUS = " + status);
 				if (status == 0) {
 					TestScene scene;
-					CometEngine.getInstance().getSceneManager().setScene(scene = new TestScene());
-					scene.BeforeScene = SCENE;
+					CometEngine.getInstance().getSceneManager().PushScene(new TestScene());
 				}
 			}
 		});
@@ -93,9 +91,11 @@ public class TESTSCENE2 extends CEScene {
 					@Override
 					public void invoke(int status) {
 						if (status == 0) {
-							CEModelLoader.getInstance().LoadModel("ObjTest/origin/untitled.obj", new CEModelResource(""));
-				}}}
-				);
+							CEModelLoader.getInstance().LoadModel("ObjTest/origin/untitled.obj",
+									new CEModelResource(""));
+						}
+					}
+				});
 
 		CEEventListenerTouch listener = new CEEventListenerTouch();
 		listener.MULTITOUCH_CALLBACK = new CEEventListenerTouch.CEMultiTouchCallBack() {
@@ -113,6 +113,8 @@ public class TESTSCENE2 extends CEScene {
 		};
 		CEEventDispatcher.getInstance().addEventListener(listener, this);
 
+		button2.setColor(1, 1, 0);
+		button2.setOpacity(0.5f);
 		button2.Position().x = 500;
 		button2.Position().y = 300;
 		this.add(button2);

@@ -1,7 +1,6 @@
 package com.CometEngine.CELib.BoundBox;
 
 import com.CometEngine.CometEngine;
-import com.CometEngine.CELib.Camera.CE2DDefaultCamera;
 import com.CometEngine.CELib.Camera.CECamera;
 import com.CometEngine.CELib.Camera.CECamera2D;
 import com.CometEngine.Util.Meth.CEFloat2D;

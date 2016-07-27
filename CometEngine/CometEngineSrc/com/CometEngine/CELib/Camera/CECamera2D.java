@@ -43,7 +43,11 @@ public class CECamera2D extends CECamera {
 		return Rotation;
 	}
 
-	public CECamera2D() {
+	public static CECamera2D Create() {
+		return new CECamera2D();
+	}
+
+	private CECamera2D() {
 		super(CECamera.CECameraType.CE_CAM2D);
 		UpdateCameraMatrix();
 	}

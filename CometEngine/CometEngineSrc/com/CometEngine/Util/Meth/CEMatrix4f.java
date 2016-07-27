@@ -2,9 +2,8 @@ package com.CometEngine.Util.Meth;
 
 import java.nio.FloatBuffer;
 
-import com.CometEngine.Util.Meth.jglm.Mat4;
-import com.CometEngine.Util.Meth.jglm.support.FastMath;
 
+ 
 public class CEMatrix4f {
 	private float m00, m10, m20, m30;
 	private float m01, m11, m21, m31;

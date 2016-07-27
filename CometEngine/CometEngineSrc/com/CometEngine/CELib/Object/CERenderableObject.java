@@ -18,6 +18,8 @@ public abstract class CERenderableObject extends CEObject {
 
 	protected CEMatrix4f ModelViewMatrix = new CEMatrix4f();
 	protected CECamera mCamera = CESceneManager.getInstance().NowRender2DCamera;
+	protected float Opacity = 1.0f;
+	protected CEColor4f Color = new CEColor4f(1, 1, 1, 1);
 
 	public CECamera get2DCamera() {
 		return mCamera;
@@ -27,12 +29,43 @@ public abstract class CERenderableObject extends CEObject {
 		this.mCamera = camera;
 	}
 
+	public void setOpacity(float opacity) {
+		this.Opacity = opacity;
+	}
+
+	public float getOpacity() {
+		return Opacity;
+	}
+
 	private void VisitAndGenChildCommands() {
 		for (CEObject child : ChildList) {
 			if (child instanceof CERenderableObject) {
 				RenderingList.add((CERenderableObject) child);
 			}
 		}
+	}
+
+	private CEColor4f colorproxy = new CEColor4f(1, 1, 1, 1);
+
+	public CEColor4f getColor() {
+		colorproxy.Alpha = Color.Alpha;
+		colorproxy.Green = Color.Green;
+		colorproxy.Blue = Color.Blue;
+		colorproxy.Red = Color.Red;
+
+		return colorproxy;
+	}
+
+	public void setColor(float r, float g, float b) {
+		Color.Red = r;
+		Color.Blue = b;
+		Color.Green = g;
+	}
+
+	public void setColor(CEColor4f color) {
+		Color.Red = color.Red;
+		Color.Green = color.Green;
+		Color.Blue = color.Blue;
 	}
 
 	private void UpdateRenderList() {

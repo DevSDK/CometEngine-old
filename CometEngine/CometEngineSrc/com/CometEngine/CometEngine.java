@@ -17,6 +17,7 @@ public class CometEngine {
 	private CEEventDispatcher EventDispatcher = CEEventDispatcher.getInstance();
 	private CESize ViewPortSize = new CESize();
 
+
 	public void setViewPortSize(int width, int height) {
 		ViewPortSize.setSize(width, height);
 	}

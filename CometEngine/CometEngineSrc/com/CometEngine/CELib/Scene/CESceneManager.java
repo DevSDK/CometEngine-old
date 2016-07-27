@@ -1,6 +1,7 @@
 package com.CometEngine.CELib.Scene;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 import com.CometEngine.CELib.Camera.CECamera;
 import com.CometEngine.CELib.Camera.CECamera2D;
@@ -13,9 +14,20 @@ public class CESceneManager {
 	}
 
 	private static final CESceneManager Instance = new CESceneManager();
+	private final Stack<CEScene> SceneStack = new Stack<CEScene>();
 
 	public static CESceneManager getInstance() {
 		return Instance;
+	}
+
+	public void PushScene(CEScene scene) {
+		SceneStack.push(getCurrentScene());
+		this.setScene(scene);
+	}
+
+	public void PopScene() {
+		CEScene scene = SceneStack.pop();
+		setScene(scene);
 	}
 
 	public void setScene(CEScene scene) {

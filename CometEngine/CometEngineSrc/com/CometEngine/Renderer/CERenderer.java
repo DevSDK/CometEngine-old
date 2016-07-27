@@ -12,7 +12,7 @@ import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Commend.Manager.CERenderCommandManager;
-import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
+import com.CometEngine.Renderer.Texture.CETextureManager;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CESize;
 
@@ -23,6 +23,26 @@ public class CERenderer {
 
 	private double Timer = 0;
 	private int RenderFPS = 0;
+
+	private float ViewFar = 0;
+	private float FOV = 70;
+
+	public void setFOV(float fov) {
+		this.FOV = fov;
+
+	}
+
+	public float getFOV() {
+		return FOV;
+	}
+
+	public void setFar(float dis) {
+		ViewFar = dis;
+	}
+
+	public float getFar() {
+		return ViewFar;
+	}
 
 	public CERenderer(RENDERER_TYPE target, CEGLInterface gl) {
 
@@ -94,7 +114,7 @@ public class CERenderer {
 
 	private long EndTime = 0;
 	private long startTime = 0;
-
+ 
 	public void RenderingCommands() {
 
 		if (CEGLResourceManager.getInstence().isLoadeingListEmpty() == false)

@@ -18,8 +18,8 @@ import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Shader.Default2DShader;
-import com.CometEngine.Renderer.Texture.TextureManager.CETextureManager;
-import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
+import com.CometEngine.Renderer.Texture.CETexture2D;
+import com.CometEngine.Renderer.Texture.CETextureManager;
 import com.CometEngine.Renderer.VAO.CEVAO;
 import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Renderer.VBO.CEIndexBufferObject;
@@ -32,18 +32,32 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 
 	protected CETexture2D texture = null;
 	protected Default2DShader shader = null;
+	protected boolean isChangetexture = false;
 	protected CEQuad quad = null;
-	protected CEColor4f color = new CEColor4f(1, 1, 1, 1);
 
 	FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
 	FloatBuffer ModelViewMatrixBuffer = CEBufferUtils.CreateFloatBuffer(16);
 
-	public CESprited2D(String filename) {
+	public static CESprited2D Create(String filename) {
+		CESprited2D sprite = new CESprited2D(filename);
+		return sprite;
+	}
+
+	private CESprited2D(String filename) {
 		texture = CETexture2D.CreateTexture2D(filename);
 		shader = Default2DShader.getInstance();
 	}
 
 	boolean isInitVertex = false;
+
+	public void setTexture(CETexture2D texture) {
+		this.texture = texture;
+		isInitVertex = false;
+	}
+
+	public void ChangeImage(String filepath) {
+		setTexture(CETexture2D.CreateTexture2D(filepath));
+	}
 
 	private void initQuad() {
 		int width = texture.getData().getWidth();
@@ -54,7 +68,7 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 				(CECamera2D) CometEngine.getInstance().getSceneManager().NowRender2DCamera);
 
 		quad = CEQuad.Create(texture, width, height);
-		quad.setColor(color);
+		quad.setColor(Color);
 	}
 
 	CEMatrix4f parent = new CEMatrix4f();
@@ -76,7 +90,7 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 
 		shader.setProjectionMatrix(mCamera.getPorjection());
 		shader.CameraMovementMatrix(mCamera.getMovementMatrix());
-
+		shader.setOpacity(Opacity);
 		// Identity * translate * rotate * scale
 		parent.resetIDENTITY();
 		ModelViewMatrix.resetIDENTITY();
@@ -85,7 +99,7 @@ public class CESprited2D extends CERenderableObject implements CEBound2D {
 		ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y, scale.z);
 		shader.setModelViewMatrix(ModelViewMatrix);
 
-		color.getBuffer(colorbuffer);
+		Color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);
 
 		CEGL.ActiveTexture(CEGL.GL_TEXTURE0);

@@ -16,8 +16,8 @@ import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
-import com.CometEngine.Renderer.Texture.Textures.CETexture;
-import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
+import com.CometEngine.Renderer.Texture.CETexture;
+import com.CometEngine.Renderer.Texture.CETexture2D;
 import com.CometEngine.Renderer.VAO.CEVAO;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEFloat2D;
@@ -30,7 +30,6 @@ public class CEBMPTextLabel extends CETextLabel {
 	private FontShader2D shader = null;
 	private int beforeRenderTextureId = 0;
 	private CEVAO vao = null;
-	private CEColor4f color = new CEColor4f(1, 1, 1, 1);
 	private FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
 
 	private CEMatrix4f lineTranslateMatrix = new CEMatrix4f();
@@ -161,8 +160,9 @@ public class CEBMPTextLabel extends CETextLabel {
 		shader.Start();
 		shader.setProjectionMatrix(mCamera.getPorjection());
 		shader.CameraMovementMatrix(mCamera.getMovementMatrix());
+		shader.setOpacity(Opacity);
 
-		color.getBuffer(colorbuffer);
+		Color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);
 		ModelViewMatrix.resetIDENTITY();
 		CEMatrixStack.getInstanceFor2D().GetTopOfStackMatrix(ModelViewMatrix);

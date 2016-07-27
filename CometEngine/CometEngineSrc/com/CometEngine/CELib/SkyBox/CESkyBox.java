@@ -5,7 +5,7 @@ import com.CometEngine.CELib.Camera.CECamera3D;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEMatrixStack;
-import com.CometEngine.Renderer.Texture.Textures.CETextureCubeMap;
+import com.CometEngine.Renderer.Texture.CETextureCubeMap;
 import com.CometEngine.Renderer.VAO.CEVAO;
 import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Util.Meth.CEAngle;
@@ -33,9 +33,17 @@ public class CESkyBox {
 			// right
 			3, 2, 6, 6, 7, 3 };
 
-	public CESkyBox(int SkyBoxSize, String[] cube) {
-		this(SkyBoxSize, cube[0], cube[1], cube[2], cube[3], cube[4], cube[5]);
+	public static CESkyBox Create(int SkyBoxSize, String[] cube) {
+		CESkyBox skybox = CESkyBox.Create(SkyBoxSize, cube[0], cube[1], cube[2], cube[3], cube[4], cube[5]);
+		return skybox;
 	}
+
+	public static CESkyBox Create(int SkyBoxSize, String top, String bottom, String front, String back, String right,
+			String left) {
+		CESkyBox skybox = new CESkyBox(SkyBoxSize, top, bottom, front, back, right, left);
+		return skybox;
+	}
+
 
 	private void setVertexs() {
 		this.VERTICES = new float[] {
@@ -47,17 +55,15 @@ public class CESkyBox {
 				-SKYBOXSIZE, -SKYBOXSIZE, SKYBOXSIZE, -SKYBOXSIZE
 
 		};
-	}
+	} 
 
-	public CESkyBox(int SkyBoxSize, String top, String bottom, String front, String back, String right, String left) {
+	private CESkyBox(int SkyBoxSize, String top, String bottom, String front, String back, String right, String left) {
 		TextureMap = CETextureCubeMap.Create(top, bottom, front, back, right, left);
 		this.SKYBOXSIZE = SkyBoxSize;
 		setVertexs();
 		CEVboObject[] initarray = new CEVboObject[] { new CEVboObject(0, 3, this.VERTICES) };
 		VAO = CEVAO.Create(null, indexs, initarray);
 	}
-
-
 
 	public void Render() {
 		if (TextureMap.isloaded() == false) {
@@ -73,7 +79,7 @@ public class CESkyBox {
 		shader.setProjectionMatrix(currentCamera.getPorjection());
 		CEAngle angle = currentCamera.getAngle();
 		shader.setRotations(angle.x, angle.y, angle.z);
-		
+
 		CEGL.BindVertexArray(VAO.getID());
 
 		CEGL.EnableVertexAttribArray(0);

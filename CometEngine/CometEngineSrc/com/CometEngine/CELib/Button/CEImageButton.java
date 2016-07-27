@@ -15,7 +15,7 @@ import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
 import com.CometEngine.Renderer.Shader.Default2DShader;
-import com.CometEngine.Renderer.Texture.Textures.CETexture2D;
+import com.CometEngine.Renderer.Texture.CETexture2D;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEMatrix4f;
@@ -25,12 +25,16 @@ public class CEImageButton extends CEButton {
 	protected CETexture2D texture = null;
 	protected Default2DShader shader = null;
 	protected CEQuad quad = null;
-	protected CEColor4f color = new CEColor4f(1, 1, 1, 1);
 	protected CEEventDispatcher eventdispatcher;
 	FloatBuffer colorbuffer = CEBufferUtils.CreateFloatBuffer(4);
 	FloatBuffer ModelViewMatrixBuffer = CEBufferUtils.CreateFloatBuffer(16);
 
-	public CEImageButton(String filename, CEButton.CEButtonCallBack ceButtonCallBack) {
+	public static CEImageButton Create(String filename, CEButton.CEButtonCallBack ceButtonCallBack) {
+		CEImageButton button = new CEImageButton(filename, ceButtonCallBack);
+		return button;
+	}
+
+	private CEImageButton(String filename, CEButton.CEButtonCallBack ceButtonCallBack) {
 		texture = CETexture2D.CreateTexture2D(filename);
 		shader = Default2DShader.getInstance();
 		this.CallBack = ceButtonCallBack;
@@ -52,7 +56,7 @@ public class CEImageButton extends CEButton {
 		boundbox = new CEBoundBox2D(width, height,
 				(CECamera2D) CometEngine.getInstance().getSceneManager().getCurrentScene().get2DCamera());
 		quad = CEQuad.Create(texture, width, height);
-		quad.setColor(color);
+		quad.setColor(Color);
 
 		ContentSize.x = width;
 		ContentSize.y = height;
@@ -83,6 +87,7 @@ public class CEImageButton extends CEButton {
 
 		shader.setProjectionMatrix(mCamera.getPorjection());
 		shader.CameraMovementMatrix(mCamera.getMovementMatrix());
+		shader.setOpacity(Opacity);
 		// Identity * translate * rotate * scale
 		///
 		if (handler.isPicked()) {
@@ -96,7 +101,7 @@ public class CEImageButton extends CEButton {
 		}
 		shader.setModelViewMatrix(modelviewmatrix);
 
-		color.getBuffer(colorbuffer);
+		Color.getBuffer(colorbuffer);
 		shader.setColor4f(colorbuffer);
 		CEGL.ActiveTexture(CEGL.GL_TEXTURE0);
 		CEGL.BindTexture(CEGL.GL_TEXTURE_2D, texture.getTextureID());
@@ -113,7 +118,7 @@ public class CEImageButton extends CEButton {
 
 	@Override
 	public void CleanUp() {
-	} 
+	}
 
 	private CEBoundBox2D boundbox = new CEBoundBox2D(0, 0, null);
 

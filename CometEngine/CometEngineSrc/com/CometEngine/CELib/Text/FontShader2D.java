@@ -29,6 +29,7 @@ public class FontShader2D extends ShaderProgram {
 	int charmatrix = 0;
 	int linematrix = 0;
 	int Movement = 0;
+	int Opacity = 0;
 
 	@Override
 	protected void LinkUnifroms() {
@@ -38,6 +39,11 @@ public class FontShader2D extends ShaderProgram {
 		charmatrix = super.getUniformLoction("charMatrix");
 		linematrix = super.getUniformLoction("lineMatrix");
 		Movement = super.getUniformLoction("CameraMatrix");
+		Opacity = super.getUniformLoction("Opacity");
+	}
+
+	public void setOpacity(float opacity) {
+		super.LoadFloat(Opacity, opacity);
 	}
 
 	public void CameraMovementMatrix(CEMatrix4f matrix) {
