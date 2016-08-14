@@ -9,8 +9,8 @@ import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class CESkyBoxShader extends ShaderProgram {
 
-	private static final String VertexFileName = "com/CometEngine/SkyBox/Vertex.txt";
-	private static final String FragmentFileName = "com/CometEngine/SkyBox/Fragment.txt";
+	private static final String VertexFileName = "Shaders/CometEngine/SkyBox/Vertex.txt";
+	private static final String FragmentFileName = "Shaders/CometEngine/SkyBox/Fragment.txt";
 
 	public CESkyBoxShader() {
 		super(VertexFileName, FragmentFileName);

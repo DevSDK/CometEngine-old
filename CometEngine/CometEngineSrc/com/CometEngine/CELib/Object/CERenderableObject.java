@@ -11,6 +11,8 @@ import com.CometEngine.Renderer.CEMatrixStack;
 import com.CometEngine.Renderer.Commend.CERenderCommand;
 import com.CometEngine.Renderer.Commend.CERenderCommandCustom;
 import com.CometEngine.Renderer.Commend.CERenderCustomCommandInvoker;
+import com.CometEngine.Util.Meth.CEFloat2D;
+import com.CometEngine.Util.Meth.CEFloat3D;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
@@ -18,6 +20,9 @@ public abstract class CERenderableObject extends CEObject {
 
 	protected CEMatrix4f ModelViewMatrix = new CEMatrix4f();
 	protected CECamera mCamera = CESceneManager.getInstance().NowRender2DCamera;
+
+	protected CEFloat3D ContentSize = new CEFloat3D();
+
 	protected float Opacity = 1.0f;
 	protected CEColor4f Color = new CEColor4f(1, 1, 1, 1);
 

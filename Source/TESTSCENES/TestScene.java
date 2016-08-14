@@ -12,7 +12,7 @@ import com.CometEngine.CELib.Object.CEObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scheduler.CESchedule;
 import com.CometEngine.CELib.SkyBox.CESkyBox;
-import com.CometEngine.CELib.Sprite.CESprited2D;
+import com.CometEngine.CELib.Sprite.CESprite2D;
 import com.CometEngine.CELib.Text.CETextLabel;
 import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEMouse;
@@ -25,14 +25,15 @@ import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Renderer.Texture.CETexture2D;
 import com.CometEngine.Renderer.Texture.CETextureCubeMap;
 import com.CometEngine.Util.Meth.CEFloat2D;
+import com.CometEngine.Util.Meth.CEFloat3D;
 import com.CometEngine.Util.Meth.CEPosition2D;
 
 public class TestScene extends CEScene {
 	CETextLabel label;
 	CETextLabel label2;
 	CEObject sprite;
-	CESprited2D sprite2;
-	CESprited2D sprite3;
+	CESprite2D sprite2;
+	CESprite2D sprite3;
 	CETextLabel FPSCounter;
 	int timer = 0;
 	int timercounter = 0;
@@ -51,11 +52,11 @@ public class TestScene extends CEScene {
 	}
 
 	public void tick() {
-		CEPosition2D pos = sprite.Position();
+		CEFloat3D pos = sprite.getPosition();
 
 		sprite.setAngle(sprite.getAngle() + 0.1f);
-		sprite.Position().x += 0.1f;
-		sprite.Position().y += 0.1f;
+		sprite.getPosition().x += 0.1f;
+		sprite.getPosition().y += 0.1f;
 		label.setString("Tick :  " + timer++);
 		FPSCounter.setString("FPS : " + CometEngine.getInstance().getRenderer().getFPS());
 
@@ -69,20 +70,20 @@ public class TestScene extends CEScene {
 
 		sprite3.setAngle(sprite3.getAngle() + 0.02f);
 
-		sprite3.Position().x += 0.05f;
-		sprite3.Position().y += 0.05f;
+		sprite3.getPosition().x += 0.05f;
+		sprite3.getPosition().y += 0.05f;
 	}
 
 	boolean paused = false;
-	CESprited2D spritecg = CESprited2D.Create("Wood_Roughness.jpg");
+	CESprite2D spritecg = CESprite2D.Create("Wood_Roughness.jpg");
 
 	public TestScene() {
 		this.add(spritecg);
-		sprite = CESprited2D.Create("0.png");
+		sprite = CESprite2D.Create("0.png");
 
-		sprite2 = CESprited2D.Create("1.png");
+		sprite2 = CESprite2D.Create("1.png");
 
-		sprite3 = CESprited2D.Create("2.png");
+		sprite3 = CESprite2D.Create("2.png");
 		label = CETextLabel.CreateBMPText(CEBMPFont.create("font.fnt"), 0.4f, false, "Timer");
 		label2 = CETextLabel.CreateBMPText(CEBMPFont.create("font.fnt"), 0.4f, true, "Comet Engine Tester", "DSM !",
 				"CometEngineTester", "CometEngineTester", "CometEngineTester");
@@ -148,14 +149,14 @@ public class TestScene extends CEScene {
 
 		this.StartSchedule(mainLoop);
 
-		label2.Position().y = 1000;
+		label2.getPosition().y = 1000;
 		label2.getControlPoint().x = 0;
 		label2.getControlPoint().y = 1f;
 		this.add(label2, 0);
 		label.getControlPoint().x = 0;
 		label.getControlPoint().y = 1;
-		label.Position().x = 300;
-		label.Position().y = 500;
+		label.getPosition().x = 300;
+		label.getPosition().y = 500;
 		this.add(label, 4);
 		label.setCamera(Cam);
 		// this.add(sprite2, 2);
@@ -166,7 +167,7 @@ public class TestScene extends CEScene {
 		this.add(FPSCounter);
 		sprite3.add(sprite2);
 
-		sprite2.Position().x = 50;
+		sprite2.getPosition().x = 50;
 		sprite2.setCamera(Cam);
 
 	}

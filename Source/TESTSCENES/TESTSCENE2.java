@@ -1,19 +1,9 @@
 package TESTSCENES;
 
-import java.io.ByteArrayInputStream;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.sql.Time;
+
+
+
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.BoundBox.CEBoundBox;
@@ -26,7 +16,6 @@ import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scheduler.CESchedule;
 import com.CometEngine.CELib.Scheduler.CEScheduler;
 import com.CometEngine.CELib.Text.CETextLabel;
-import com.CometEngine.CELib.model3d.CEModel;
 import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEMouse;
 import com.CometEngine.Event.CEEventDispatcher;
@@ -81,8 +70,8 @@ public class TESTSCENE2 extends CEScene {
 		button.getScale().x = 0.3f;
 		button.getScale().y = 0.3f;
 
-		button.Position().x = 500;
-		button.Position().y = 500;
+		button.getPosition().x = 500;
+		button.getPosition().y = 500;
 		this.add(button);
 
 		button2 = CETextButton.Create(CETextLabel.CreateBMPText(CEBMPFont.create("font.fnt"), 1, true, "TEST"),
@@ -91,8 +80,6 @@ public class TESTSCENE2 extends CEScene {
 					@Override
 					public void invoke(int status) {
 						if (status == 0) {
-							CEModelLoader.getInstance().LoadModel("ObjTest/origin/untitled.obj",
-									new CEModelResource(""));
 						}
 					}
 				});
@@ -115,8 +102,8 @@ public class TESTSCENE2 extends CEScene {
 
 		button2.setColor(1, 1, 0);
 		button2.setOpacity(0.5f);
-		button2.Position().x = 500;
-		button2.Position().y = 300;
+		button2.getPosition().x = 500;
+		button2.getPosition().y = 300;
 		this.add(button2);
 
 		CEEventListenerMouse mli = CEEventListenerMouse.Create(this);

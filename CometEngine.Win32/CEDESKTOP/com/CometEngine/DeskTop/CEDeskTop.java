@@ -10,7 +10,8 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
 import com.CometEngine.CometEngine;
-import com.CometEngine.CometEngineInitObject;
+import com.CometEngine.CometEngineConfig;
+import com.CometEngine.CometEngineInit;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.DeskTopGL.CEDeskTopGL;
 import com.CometEngine.Device.CEDeviceManager;
@@ -61,7 +62,7 @@ public class CEDeskTop {
 		else
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 
-		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CELaunchConfig.FrameTitle, MemoryUtil.NULL,
+		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CometEngineConfig.getInstance().getTitle(), MemoryUtil.NULL,
 				MemoryUtil.NULL);
 		if (WINDOW == MemoryUtil.NULL)
 			throw new RuntimeException("Failed Create GLFW WINDWO");
@@ -79,19 +80,20 @@ public class CEDeskTop {
 	}
 
 	public static void INIT() {
-
-		WINDOW_HEIGHT = CELaunchConfig.FrameHeight;
-		WINDOW_WIDTH = CELaunchConfig.FrameWidth;
-
-		COORD_HEIGHT = CELaunchConfig.CoordHeight;
-		COORD_WIDTH = CELaunchConfig.CoordWidth;
-		LoadLWJGL();
-
-		CometEngineInitObject init = new CometEngineInitObject();
-		init.GL = new CEDeskTopGL();
+		CometEngineInit init = new CometEngineInit();
 		init.platformFileUtil = new CEDeskTopFileUtil();
+		init.GL = new CEDeskTopGL();
 
 		CometEngine.getInstance().Initalize(CometEngine.PLATFORM.CE_WIN32, init);
+
+		CometEngineConfig.getInstance().Load("CometEngineLaunchConfig.cecfg");
+		WINDOW_HEIGHT = CometEngineConfig.getInstance().getFrameHeight();
+		WINDOW_WIDTH = CometEngineConfig.getInstance().getFrameWidth();
+
+		COORD_HEIGHT = CometEngineConfig.getInstance().getCoordHeight();
+		COORD_WIDTH = CometEngineConfig.getInstance().getCoordWidth();
+		LoadLWJGL();
+
 
 		CometEngine.getInstance().getRenderer().setViewSize(COORD_WIDTH, COORD_HEIGHT);
 		GLFW.glfwGetJoystickName(0);

@@ -66,7 +66,7 @@ public class CometEngine {
 		return renderer;
 	}
 
-	public void Initalize(final PLATFORM TargetPlatForm, CometEngineInitObject initdata) {
+	public void Initalize(final PLATFORM TargetPlatForm, CometEngineInit initdata) {
 		if (initdata == null || initdata.GL == null || initdata.platformFileUtil == null) {
 			System.out.println("Init Object data have null");
 			return;
@@ -94,7 +94,7 @@ public class CometEngine {
 		return IsRun;
 	}
 
-	private void initEngine(CometEngineInitObject object) {
+	private void initEngine(CometEngineInit object) {
 		if (CEFileUtil.FileSystemInit(m_PlatForm, object.platformFileUtil) == false) {
 			System.err.println("INIT FILESYSTEM ERROR : FileSystemInit return false");
 			CometEngine.getInstance().EXIT(-1);

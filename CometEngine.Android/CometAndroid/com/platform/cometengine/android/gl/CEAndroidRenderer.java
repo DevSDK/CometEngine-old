@@ -3,8 +3,9 @@ package com.platform.cometengine.android.gl;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.CometEngine.CometEngine;
-import com.CometEngine.CometEngineInitObject;
 import com.CometEngine.CometEngine.PLATFORM;
+import com.CometEngine.CometEngineConfig;
+import com.CometEngine.CometEngineInit;
 import com.platform.cometengine.io.CEAndroidEvnetTask;
 import com.platform.cometengine.io.CEAndroidFileUtil;
 
@@ -19,7 +20,7 @@ public class CEAndroidRenderer implements GLSurfaceView.Renderer {
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 
-		CometEngine.getInstance().getRenderer().setViewSize(CELaunchConfig.CoordWidth, CELaunchConfig.CoordHeight);
+		CometEngine.getInstance().getRenderer().setViewSize(CometEngineConfig.getInstance().getCoordWidth(), CometEngineConfig.getInstance().getCoordHeight());
 		GLES30.glViewport(0, 0, width, height);
 		this.width = width;
 		this.height = height;
@@ -35,7 +36,7 @@ public class CEAndroidRenderer implements GLSurfaceView.Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
 		System.out.println(Thread.currentThread());
-		CometEngineInitObject init = new CometEngineInitObject();
+		CometEngineInit init = new CometEngineInit();
 		init.GL = new CEAndroidGL();
 		init.platformFileUtil = new CEAndroidFileUtil();
 		CometEngine.getInstance().Initalize(PLATFORM.CE_ANDROID, init);

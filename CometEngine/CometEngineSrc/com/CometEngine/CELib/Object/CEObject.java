@@ -84,7 +84,7 @@ public abstract class CEObject {
 
 	// Node
 
-	protected final CEPosition2D mPosition = new CEPosition2D();;
+	protected final CEFloat3D mPosition = new CEFloat3D();;
 	protected float angle = 0;
 	protected final CEFloat3D scale = new CEFloat3D(1, 1, 1);
 	protected final CEFloat3D control_point = new CEFloat3D(0.5f, 0.5f, 0.5f);
@@ -97,7 +97,7 @@ public abstract class CEObject {
 		return scale;
 	}
 
-	public synchronized CEPosition2D Position() {
+	public CEFloat3D getPosition() {
 		return mPosition;
 	}
 
@@ -119,7 +119,7 @@ public abstract class CEObject {
 		this.mParent = p;
 	}
 
-	public synchronized float getAngle() {
+	public float getAngle() {
 		return angle;
 	}
 

@@ -10,6 +10,7 @@ public class CEMatrixStack {
 	private final static CEMatrixStack Instance2D = new CEMatrixStack();
 	private final static CEMatrixStack Instance3D = new CEMatrixStack();
 	private final Stack<CEMatrix4f> STACK = new Stack<CEMatrix4f>();
+	private final CEMatrix4f ResultProxy = new CEMatrix4f();
 
 	public static CEMatrixStack getInstanceFor2D() {
 		return Instance2D;
@@ -32,6 +33,7 @@ public class CEMatrixStack {
 	}
 
 	public void Pop() {
-		STACK.pop();
+		if (!STACK.isEmpty())
+			STACK.pop();
 	}
 }

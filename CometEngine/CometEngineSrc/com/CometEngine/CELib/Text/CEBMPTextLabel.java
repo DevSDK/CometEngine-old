@@ -166,16 +166,18 @@ public class CEBMPTextLabel extends CETextLabel {
 		shader.setColor4f(colorbuffer);
 		ModelViewMatrix.resetIDENTITY();
 		CEMatrixStack.getInstanceFor2D().GetTopOfStackMatrix(ModelViewMatrix);
-		ModelViewMatrix.translate(-(LabelWidth * scale.x) * control_point.x,
-				(LabelHeight * scale.y) * (1 - control_point.y), 0);
 
-		ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1);
-		ModelViewMatrix.scale(scale.x, scale.x, 0);
-		shader.setModelViewMatrix(ModelViewMatrix);
+		ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate((float) Math.toRadians(angle), 0, 0, 1)
+				.scale(scale.x, scale.x, 0);
 
 		PrepareTextRendering();
 
 		ResetBox();
+		
+		LabelHeight = Font.getLineHeight() * TextCharData.size();
+		ModelViewMatrix.translate(-(LabelWidth) * control_point.x, LabelHeight * (1f - control_point.y), 0);
+
+		shader.setModelViewMatrix(ModelViewMatrix);
 		for (int i = 0; i < TextCharData.size(); i++) {
 			char[] line = null;
 			try {
@@ -188,21 +190,26 @@ public class CEBMPTextLabel extends CETextLabel {
 			int linewidth = getLineWidth(line);
 
 			if (isCentered)
-				ModelViewMatrix.translate((LabelWidth / 2 - linewidth / 2), 0, 0);
-			LabelHeight += Font.getLineHeight() * scale.y;
+				ModelViewMatrix.translate((ContentSize.x / 2 - linewidth / 2), 0, 0);
+
+
+			LabelHeight += Font.getLineHeight();
 			shader.setLineMatrix(lineTranslateMatrix);
 
+			
 			drawtLine(line); // Line Drawing
 
 			lineTranslateMatrix.translate(0, -Font.getLineHeight(), 0);
-
 			if (LabelWidth < linewidth) {
 				LabelWidth = linewidth;
 			}
 		}
-		shader.Stop();
+
 		ContentSize.x = LabelWidth;
 		ContentSize.y = LabelHeight;
+
+		shader.Stop();
+
 	}
 
 	@Override
@@ -210,11 +217,13 @@ public class CEBMPTextLabel extends CETextLabel {
 	}
 
 	CEBoundBox2D boundingbox = new CEBoundBox2D(0, 0, null);
+	CEMatrix4f BoundingBoxProxy = new CEMatrix4f();
 
 	@Override
 	public CEBoundBox2D getBoundingBox() {
 		boundingbox.updateBoundingBoxSize(getWidth(), getHeight());
-		boundingbox.updateBoundingBoxTranslate(ModelViewMatrix);
+		BoundingBoxProxy.setMatrix(ModelViewMatrix);
+		boundingbox.updateBoundingBoxTranslate(BoundingBoxProxy);
 		return boundingbox;
 	}
 

@@ -63,7 +63,7 @@ public class CETextButton extends CEButton {
 		public void invoke() {
 			ModelViewMatrix.resetIDENTITY();
 			CEMatrixStack.getInstanceFor2D().GetTopOfStackMatrix(ModelViewMatrix);
-			ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1);
+			ModelViewMatrix.translate(mPosition.x, mPosition.y, 0).rotate((float)Math.toRadians(angle), 0, 0, 1);
 			if (handler.isPicked()) {
 				TextLabel.getScale().x = scale.x * 1.2f;
 				TextLabel.getScale().x = scale.y * 1.2f;

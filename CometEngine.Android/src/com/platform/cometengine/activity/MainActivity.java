@@ -28,7 +28,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.CometEngine.CometEngine;
-import com.CometEngine.CometEngineInitObject;
 import com.CometEngine.CELib.Scene.CEScene;
 import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.CometEngine.PLATFORM;

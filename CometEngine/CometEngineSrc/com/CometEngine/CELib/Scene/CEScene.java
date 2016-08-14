@@ -99,9 +99,9 @@ public class CEScene extends CERenderableObject {
 	}
 
 	private void VisitAndGenChildCommands() {
-		for (CEObject child : ChildList) {
-			if (child instanceof CERenderableObject) {
-				RenderingList.add((CERenderableObject) child);
+		for (int i = 0 ; i < ChildList.size(); i++) {
+			if (ChildList.get(i) instanceof CERenderableObject) {
+				RenderingList.add((CERenderableObject) ChildList.get(i));
 			}
 		}
 	}
@@ -125,8 +125,6 @@ public class CEScene extends CERenderableObject {
 			if (CurrentSkyBox != null) {
 				CurrentSkyBox.Render();
 			}
-			Drawing();
-
 			for (int i = 0; i < RenderingList.size(); i++) {
 				CERenderCommand command = RenderingList.get(i).genRenderCommand();
 				if (command != null) {

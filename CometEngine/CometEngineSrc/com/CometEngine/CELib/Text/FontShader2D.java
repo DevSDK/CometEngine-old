@@ -8,9 +8,9 @@ import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class FontShader2D extends ShaderProgram {
 
-	private static final String VertexFileName = "com/CometEngine/Font/Vertex.txt";
+	private static final String VertexFileName = "Shaders/CometEngine/Font/Vertex.txt";
 
-	private static final String FragmentFileName = "com/CometEngine/Font/Fragment.txt";
+	private static final String FragmentFileName = "Shaders/CometEngine/Font/Fragment.txt";
 
 	private FontShader2D() {
 		super(VertexFileName, FragmentFileName);

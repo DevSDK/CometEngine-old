@@ -10,8 +10,8 @@ import com.CometEngine.Renderer.VAO.CEVAO;
 import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Util.Meth.CEAngle;
 import com.CometEngine.Util.Meth.CEMatrix4f;
-
 public class CESkyBox {
+
 	private CESkyBoxShader shader = new CESkyBoxShader();
 	private CECamera3D currentCamera = CESceneManager.getInstance().NowRender3DCamera;
 	private int SKYBOXSIZE = 100;
@@ -78,7 +78,7 @@ public class CESkyBox {
 		shader.Start();
 		shader.setProjectionMatrix(currentCamera.getPorjection());
 		CEAngle angle = currentCamera.getAngle();
-		shader.setRotations(angle.x, angle.y, angle.z);
+		shader.setRotations((float)Math.toRadians(angle.x), (float)Math.toRadians(angle.y), (float)Math.toRadians(angle.z));
 
 		CEGL.BindVertexArray(VAO.getID());
 

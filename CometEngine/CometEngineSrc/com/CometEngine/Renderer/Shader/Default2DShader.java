@@ -20,9 +20,9 @@ public class Default2DShader extends ShaderProgram {
 
 	}
 
-	private static final String VertexFileName = "com/CometEngine/2D/Vertex.txt";
+	private static final String VertexFileName = "Shaders/CometEngine/2D/Vertex.txt";
 
-	private static final String FragmentFileName = "com/CometEngine/2D/Fragment.txt";
+	private static final String FragmentFileName = "Shaders/CometEngine/2D/Fragment.txt";
 
 	FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(16);
 	int location = 0;

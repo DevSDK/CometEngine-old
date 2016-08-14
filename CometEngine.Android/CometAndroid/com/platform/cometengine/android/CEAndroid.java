@@ -1,6 +1,7 @@
 package com.platform.cometengine.android;
 
 import com.CometEngine.CometEngine;
+import com.CometEngine.CometEngineConfig;
 import com.platform.cometengine.android.gl.CEAndroidGLSurface;
 import com.platform.cometengine.io.CEAndroidFilePath;
 
@@ -27,7 +28,7 @@ public class CEAndroid {
 		activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		CEAndroidFilePath.InitFileSysten(activity.getResources(), activity);
-
+		CometEngineConfig.getInstance().Load("CometEngineLaunchConfig.cecfg");
 		surfaceView = new CEAndroidGLSurface(activity);
 		activity.setContentView(surfaceView);
 

@@ -92,13 +92,16 @@ public class CEImageButton extends CEButton {
 		///
 		if (handler.isPicked()) {
 			modelviewmatrix.resetIDENTITY();
-			modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x * 1.2f,
-					scale.y * 1.2f, scale.z);
+			modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate((float) Math.toRadians(angle), 0, 0, 1)
+					.scale(scale.x * 1.2f, scale.y * 1.2f, scale.z);
 		} else {
 			modelviewmatrix.resetIDENTITY();
-			modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate(angle, 0, 0, 1).scale(scale.x, scale.y,
-					scale.z);
+			modelviewmatrix.translate(mPosition.x, mPosition.y, 0).rotate((float) Math.toRadians(angle), 0, 0, 1)
+					.scale(scale.x, scale.y, scale.z);
 		}
+
+		ModelViewMatrix.translate(getSize().x  * (0.5f - control_point.x),
+				getSize().y  * (0.5f - control_point.y), 0);
 		shader.setModelViewMatrix(modelviewmatrix);
 
 		Color.getBuffer(colorbuffer);
