@@ -21,6 +21,10 @@ import com.CometEngine.Renderer.CEGLResourceManager;
 import com.CometEngine.Renderer.CERenderer.RENDERER_TYPE;
 
 public abstract class ShaderProgram extends CEGLResource {
+
+	
+	
+	
 	private int programID;
 	private int vertexShaderID;
 	private int FragmentShaderID;

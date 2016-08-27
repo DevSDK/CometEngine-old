@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 public class CEResource {
 
 	private String FilePath = "" ;
-	private boolean isLoaded = false;
+	protected boolean isLoaded = false;
 	//Resource POLL »ý°¢Áß...
 	private ByteBuffer Data = null;
 	

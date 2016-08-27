@@ -41,7 +41,6 @@ public class CEAndroidFileUtil extends CEFileUtil {
 
 			stream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

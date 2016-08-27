@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="CEDESKTOP"/>
+	<classpathentry kind="src" path="Resources"/>
 	<classpathentry kind="src" path="Source"/>
 	<classpathentry kind="src" path="CometEngineSrc"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

@@ -14,6 +14,8 @@ import com.CometEngine.CELib.Scheduler.CESchedule;
 import com.CometEngine.CELib.SkyBox.CESkyBox;
 import com.CometEngine.CELib.Sprite.CESprite2D;
 import com.CometEngine.CELib.Text.CETextLabel;
+import com.CometEngine.CELib.model3d.CEModel;
+import com.CometEngine.CELib.model3d.CEObject3D;
 import com.CometEngine.Device.CEKeyBoard;
 import com.CometEngine.Device.CEMouse;
 import com.CometEngine.Event.CEEventDispatcher;
@@ -24,6 +26,8 @@ import com.CometEngine.Event.CEEventMouse;
 import com.CometEngine.Font.CEBMPFont;
 import com.CometEngine.Renderer.Texture.CETexture2D;
 import com.CometEngine.Renderer.Texture.CETextureCubeMap;
+import com.CometEngine.Resrouce.CEModelLoader;
+import com.CometEngine.Resrouce.CEModelResource;
 import com.CometEngine.Util.Meth.CEFloat2D;
 import com.CometEngine.Util.Meth.CEFloat3D;
 import com.CometEngine.Util.Meth.CEPosition2D;
@@ -65,10 +69,10 @@ public class TestScene extends CEScene {
 		if (sprite3.getAngle() >= 360) {
 			sprite3.setAngle(0);
 		}
-		this.get3DCamera().getAngle().x += 0.0001f;
-		this.get3DCamera().getAngle().y += 0.0001f;
+		this.get3DCamera().getAngle().x += 0.01f;
+		this.get3DCamera().getAngle().y += 0.01f;
 
-		sprite3.setAngle(sprite3.getAngle() + 0.02f);
+		sprite3.setAngle(sprite3.getAngle() + 1f);
 
 		sprite3.getPosition().x += 0.05f;
 		sprite3.getPosition().y += 0.05f;
@@ -170,6 +174,8 @@ public class TestScene extends CEScene {
 		sprite2.getPosition().x = 50;
 		sprite2.setCamera(Cam);
 
+		CEModel model = CEModel.CreateWithObjFile("3dTest/AWP_Dragon_Lore.obj");
+		this.add(model);
 	}
 
 	CESchedule mainLoop;

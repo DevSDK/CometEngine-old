@@ -22,6 +22,11 @@
 			<locationURI>COMETENGINE_ROOT/CometEngine/CometEngineSrc</locationURI>
 		</link>
 		<link>
+			<name>Resources</name>
+			<type>2</type>
+			<locationURI>COMETENGINE_ROOT/Resource</locationURI>
+		</link>
+		<link>
 			<name>Source</name>
 			<type>2</type>
 			<locationURI>COMETENGINE_ROOT/Source</locationURI>

@@ -167,7 +167,6 @@ public class CEScene extends CERenderableObject {
 		for (CEObject obj : childs) {
 			if (obj instanceof CEPickableObject) {
 				((CEPickableObject) obj).UnPick();
-				System.out.println("UnPick");
 			}
 		}
 		onExit();

@@ -36,6 +36,7 @@ public class CometEngineConfig {
 		String num = res[1].replace(" " , "");
 		return Integer.parseInt(num);
 	}
+
 	public void Load(String Config)
 	{
 		try {

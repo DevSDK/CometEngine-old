@@ -15,41 +15,25 @@ import java.nio.file.Files;
 import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
 import com.CometEngine.FileUtil.Handle.CEFileWriteHandle;
 
-public class CEDeskTopSyncFileIO 
-{
+public class CEDeskTopSyncFileIO {
 
 	public void cleanUP() {
-		
+
 	}
-
-
-
-	
 
 	public void write(File file, byte[] buf) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public ByteBuffer read(String file) {
 
-
-
-
-	public ByteBuffer read(File file) {
-	
-		
-			try {
-				byte [] buf= Files.readAllBytes((file).toPath());
-				
-				ByteBuffer buffer = ByteBuffer.wrap(buf);
-				return buffer;
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-			
-		return null;
-
-		
+		try {
+			return CEDeskTopFileUtil.inputStreamToByteArray(this.getClass().getClassLoader().getResourceAsStream(file));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
 		}
+
 	}
+}

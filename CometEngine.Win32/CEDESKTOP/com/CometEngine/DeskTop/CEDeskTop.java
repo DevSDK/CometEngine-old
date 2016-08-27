@@ -62,8 +62,8 @@ public class CEDeskTop {
 		else
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 
-		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CometEngineConfig.getInstance().getTitle(), MemoryUtil.NULL,
-				MemoryUtil.NULL);
+		WINDOW = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CometEngineConfig.getInstance().getTitle(),
+				MemoryUtil.NULL, MemoryUtil.NULL);
 		if (WINDOW == MemoryUtil.NULL)
 			throw new RuntimeException("Failed Create GLFW WINDWO");
 
@@ -94,7 +94,6 @@ public class CEDeskTop {
 		COORD_WIDTH = CometEngineConfig.getInstance().getCoordWidth();
 		LoadLWJGL();
 
-
 		CometEngine.getInstance().getRenderer().setViewSize(COORD_WIDTH, COORD_HEIGHT);
 		GLFW.glfwGetJoystickName(0);
 		GLFW.glfwSwapInterval(1);
@@ -116,5 +115,6 @@ public class CEDeskTop {
 
 		}
 		CometEngine.getInstance().ExitCometEngine();
+		System.exit(0);
 	}
 }

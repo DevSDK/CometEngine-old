@@ -44,7 +44,7 @@ public class CEBMPTextLabel extends CETextLabel {
 				new CEVAO.CEVboObject(1, 2, Font.getTextureCoordList()) };
 		int[] array = genIndeces(Font.getCharacterSize());
 
-		vao = CEVAO.Create(null, array, InitVao, CEGL.GL_STATIC_DRAW);
+		vao = CEVAO.CreateWithIndicesStatment(null, array, InitVao, CEGL.GL_STATIC_DRAW);
 
 		shader = FontShader2D.getInstance();
 

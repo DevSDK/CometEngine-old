@@ -19,8 +19,7 @@ public class CEModelLoader {
 	}
 
 	public void LoadModel(final String FilePath, final CEModelResource Model) {
-		CEFileReadHandle handel;
-		CEFileUtil.getInstence().ReadResoruceToAsync(FilePath, handel = new CEFileReadHandle() {
+		CEFileUtil.getInstence().ReadResoruceToAsync(FilePath, new CEFileReadHandle() {
 
 			@Override
 			public void failure(Throwable e) {
@@ -35,7 +34,8 @@ public class CEModelLoader {
 					ObjecBuilder bulder = new ObjecBuilder(FilePath);
 					try {
 						Parse parser = new Parse(bulder, data, FilePath);
-						System.out.println("");
+						Model.SetBuilder(bulder);
+						Model.setIsLoaded(true);
 					} catch (IOException e) {
 
 						e.printStackTrace();

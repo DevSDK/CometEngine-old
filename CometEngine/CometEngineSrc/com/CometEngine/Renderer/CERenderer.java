@@ -144,6 +144,11 @@ public class CERenderer {
 		return new CESize(Renderer_Weidth, Renderer_Height);
 	}
 
+	
+	
+	
+	
+	
 	private int Renderer_Height = 0;
 	private int Renderer_Weidth = 0;
 	private RENDERER_TYPE m_RendererType = RENDERER_TYPE.CE_RENDERER_NULL;

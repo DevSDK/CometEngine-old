@@ -21,8 +21,13 @@ public class ObjecBuilder extends CEModelResource implements BuilderInterface {
 
 	public ObjecBuilder(String filepath) {
 		super(filepath);
-		groups.put(CurrentObj, new HashMap<String,ArrayList<Face>>());
+
+		GroupList.add(" ");
+		ObjectList.add(" ");
+		groups.put(CurrentObj, new HashMap<String, ArrayList<Face>>());
+		groups.get(CurrentObj).put(CurrentGroup, new ArrayList<Face>());
 		currentGroupFaceLists.add(new ArrayList<Face>());
+
 	}
 
 	private Logger log = Logger.getLogger(ObjecBuilder.class.getName());
@@ -48,14 +53,16 @@ public class ObjecBuilder extends CEModelResource implements BuilderInterface {
 	public ArrayList<FaceVertex> faceVerticeList = new ArrayList<FaceVertex>();
 	public ArrayList<Face> faces = new ArrayList<Face>();
 
-	public String CurrentGroup =  " ";
+	public String CurrentGroup = " ";
 	public String CurrentObj = " ";
 
 	public HashMap<String, HashMap<String, ArrayList<Face>>> groups = new HashMap<String, HashMap<String, ArrayList<Face>>>();
 	public HashMap<Integer, ArrayList<Face>> smoothingGroups = new HashMap<Integer, ArrayList<Face>>();
 	private int currentSmoothingGroupNumber = NO_SMOOTHING_GROUP;
 	private ArrayList<Face> currentSmoothingGroup = null;
+
 	public final ArrayList<String> ObjectList = new ArrayList<String>();
+	public final ArrayList<String> GroupList = new ArrayList<String>();
 
 	private ArrayList<String> currentGroups = new ArrayList<String>();
 
@@ -218,7 +225,7 @@ public class ObjecBuilder extends CEModelResource implements BuilderInterface {
 		}
 
 		faces.add(face);
-
+		groups.get(CurrentObj).get(CurrentGroup).add(face);
 		// collect some stats for laughs
 		if (face.vertices.size() == 3) {
 			faceTriCount++;
@@ -317,7 +324,9 @@ public class ObjecBuilder extends CEModelResource implements BuilderInterface {
 			String group = names[loopi].trim();
 			currentGroups.add(group);
 
-			if (null ==groups.get(CurrentObj).get(group)) {
+			GroupList.add(names[loopi]);
+
+			if (null == groups.get(CurrentObj).get(group)) {
 				if (groups.get(CurrentObj).containsKey(group) == false) {
 					groups.get(CurrentObj).put(group, new ArrayList<Face>());
 				}
@@ -331,7 +340,7 @@ public class ObjecBuilder extends CEModelResource implements BuilderInterface {
 		this.CurrentObj = name;
 		this.ObjectList.add(name);
 		if (groups.containsKey(CurrentObj) == false) {
-			groups.put(CurrentObj, new HashMap<String,ArrayList<Face>>());
+			groups.put(CurrentObj, new HashMap<String, ArrayList<Face>>());
 		}
 	}
 

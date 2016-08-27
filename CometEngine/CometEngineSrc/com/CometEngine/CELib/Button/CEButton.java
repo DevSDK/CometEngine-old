@@ -9,6 +9,9 @@ import com.CometEngine.Renderer.Commend.CERenderCommand;
 
 public abstract class CEButton extends CERenderableObject implements CEBound2D, CEPickableObject {
 
+	public final static int BEGIN = 1;
+	public final static int END = 0;
+
 	CEPickCallBack PickCallBack = new CEPickCallBack() {
 		@Override
 		public void invoke(int status) {

@@ -28,7 +28,6 @@ public class CEAndroid {
 		activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		CEAndroidFilePath.InitFileSysten(activity.getResources(), activity);
-		CometEngineConfig.getInstance().Load("CometEngineLaunchConfig.cecfg");
 		surfaceView = new CEAndroidGLSurface(activity);
 		activity.setContentView(surfaceView);
 

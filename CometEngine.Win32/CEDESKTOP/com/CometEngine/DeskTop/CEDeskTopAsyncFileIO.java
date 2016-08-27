@@ -30,39 +30,13 @@ public class CEDeskTopAsyncFileIO {
 
 	}
 
-	public void read(File file, final CEFileReadHandle handle) {
 
-		try {
-			AsynchronousFileChannel filechannel = AsynchronousFileChannel.open(file.toPath(), StandardOpenOption.READ);
+	public void read(String File, final CEFileReadHandle handle) {
 
-			ByteBuffer buffer = ByteBuffer.allocate((int) filechannel.size());
-			AttachMent attacment = new AttachMent(file.toPath(), buffer, filechannel);
-			CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent> handler = new CompletionHandler<Integer, CEDeskTopAsyncFileIO.AttachMent>() {
-
-				@Override
-				public void failed(Throwable arg0, AttachMent arg1) {
-					handle.failure(arg0);
-				}
-
-				@Override
-				public void completed(Integer arg0, AttachMent arg1) {
-
-					handle.complite(arg1.buffer);
-
-					try {
-						arg1.channel.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-				}
-			};
-
-			filechannel.read(buffer, 0, attacment, handler);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		 CEAsyncLoader LoaderThread = new CEAsyncLoader();
+		 LoaderThread.setFILE(File);
+		 LoaderThread.setHandle(handle);
+		 LoaderThread.start();
 
 	}
 

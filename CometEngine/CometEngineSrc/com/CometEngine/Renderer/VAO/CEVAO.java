@@ -65,7 +65,34 @@ public class CEVAO extends CEGLResource {
 
 	}
 
-	public static CEVAO Create(Object ManagementKey, int[] ibo, CEVboObject[] VboData, int glStatment) {
+	public static CEVAO Create(Object ManagementKey, CEVboObject[] VboDatas) {
+
+		if (ManagementKey == null) {
+			CEVAO vao = new CEVAO();
+
+			vao.IboData = null;
+			vao.VboData = VboDatas;
+			ManagementKey = null;
+
+			CEGLResourceManager.getInstence().putGLResrouce(vao);
+
+			return vao;
+		} else if (VAOTABLE.containsKey(ManagementKey)) {
+			return (VAOTABLE.get(ManagementKey));
+		}
+		CEVAO vao = new CEVAO();
+		vao.IboData = null;
+		vao.VboData = VboDatas;
+
+		vao.ManagementKey = ManagementKey;
+		CEGLResourceManager.getInstence().putGLResrouce(vao);
+		VAOTABLE.put(ManagementKey, vao);
+		return vao;
+
+	}
+
+	public static CEVAO CreateWithIndicesStatment(Object ManagementKey, int[] ibo, CEVboObject[] VboData,
+			int glStatment) {
 		if (ManagementKey == null) {
 			CEVAO vao = new CEVAO();
 			IntBuffer buffer = CEBufferUtils.ArrayToBuffer(ibo);
@@ -93,7 +120,7 @@ public class CEVAO extends CEGLResource {
 	private CEVAO() {
 	};
 
-	public static CEVAO Create(Object ManagementKey, int[] ibo, CEVboObject[] VboData) {
+	public static CEVAO CreateWithIndics(Object ManagementKey, int[] ibo, CEVboObject[] VboData) {
 		if (ManagementKey == null) {
 			CEVAO vao = new CEVAO();
 			IntBuffer buffer = CEBufferUtils.ArrayToBuffer(ibo);
@@ -121,7 +148,9 @@ public class CEVAO extends CEGLResource {
 
 		CEGL.BindVertexArray(ID);
 
-		StoreIndexBuffer(IboData);
+		if (IboData != null) {
+			StoreIndexBuffer(IboData);
+		}
 
 		for (CEVboObject vbo : VboData) {
 			if (vbo.isBufferObject == true) {

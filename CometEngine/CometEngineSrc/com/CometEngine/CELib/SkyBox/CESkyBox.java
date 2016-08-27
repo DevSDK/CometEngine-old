@@ -62,7 +62,7 @@ public class CESkyBox {
 		this.SKYBOXSIZE = SkyBoxSize;
 		setVertexs();
 		CEVboObject[] initarray = new CEVboObject[] { new CEVboObject(0, 3, this.VERTICES) };
-		VAO = CEVAO.Create(null, indexs, initarray);
+		VAO = CEVAO.CreateWithIndics(null, indexs, initarray);
 	}
 
 	public void Render() {

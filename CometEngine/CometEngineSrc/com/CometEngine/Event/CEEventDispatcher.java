@@ -287,8 +287,6 @@ public class CEEventDispatcher {
 			}
 			for (int i = 0; i < event.dataList.size(); i++) {
 				if (event.dataList.get(i).status == CETouchPad.CE_TOUCH_UP) {
-					System.out.println("Im Remove that Index: " + event.dataList.get(i).ID + " Status : "
-							+ event.dataList.get(i).status);
 					event.dataList.remove(i);
 
 				}

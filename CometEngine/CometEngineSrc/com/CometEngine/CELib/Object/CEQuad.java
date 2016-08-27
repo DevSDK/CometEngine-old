@@ -57,7 +57,7 @@ public class CEQuad {
 		CEVboObject[] obj = new CEVboObject[] { new CEVAO.CEVboObject(0, 2, vertices),
 				new CEVAO.CEVboObject(1, 2, texs) };
 
-		quad.vao = CEVAO.Create(VAOKey, quad.indexs, obj);
+		quad.vao = CEVAO.CreateWithIndics(VAOKey, quad.indexs, obj);
 		return quad;
 	}
 

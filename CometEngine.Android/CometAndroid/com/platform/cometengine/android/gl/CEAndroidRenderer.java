@@ -12,6 +12,7 @@ import com.platform.cometengine.io.CEAndroidFileUtil;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import cometengine.config.CELaunchConfig;
+
 public class CEAndroidRenderer implements GLSurfaceView.Renderer {
 	int width = 0;
 	int height = 0;
@@ -20,7 +21,9 @@ public class CEAndroidRenderer implements GLSurfaceView.Renderer {
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 
-		CometEngine.getInstance().getRenderer().setViewSize(CometEngineConfig.getInstance().getCoordWidth(), CometEngineConfig.getInstance().getCoordHeight());
+		CometEngine.getInstance().getRenderer().setViewSize(CometEngineConfig.getInstance().getCoordWidth(),
+				CometEngineConfig.getInstance().getCoordHeight());
+
 		GLES30.glViewport(0, 0, width, height);
 		this.width = width;
 		this.height = height;
@@ -35,12 +38,14 @@ public class CEAndroidRenderer implements GLSurfaceView.Renderer {
 
 	@Override
 	public void onSurfaceCreated(GL10 arg0, javax.microedition.khronos.egl.EGLConfig arg1) {
-		System.out.println(Thread.currentThread());
+
 		CometEngineInit init = new CometEngineInit();
 		init.GL = new CEAndroidGL();
 		init.platformFileUtil = new CEAndroidFileUtil();
+
 		CometEngine.getInstance().Initalize(PLATFORM.CE_ANDROID, init);
 
+		CometEngineConfig.getInstance().Load("CometEngineLaunchConfig.cecfg");
 		task = new CEAndroidEvnetTask();
 		task.execute();
 	}

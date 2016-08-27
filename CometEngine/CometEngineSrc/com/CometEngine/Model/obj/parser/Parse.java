@@ -131,11 +131,12 @@ public class Parse {
 				processVertex(line);
 			} else if (line.startsWith(OBJ_FACE)) {
 				processFace(line);
-			} else if (line.startsWith(OBJ_GROUP_NAME)){
-				processObjectName(line);
-			}else if( line.startsWith(OBJ_OBJECT_NAME)
-					|| line.startsWith(OBJ_OBOJECT_NAME_H)) {
+			} else if (line.startsWith(OBJ_GROUP_NAME)) {
+
 				processGroupName(line);
+			} else if (line.startsWith(OBJ_OBJECT_NAME) || line.startsWith(OBJ_OBOJECT_NAME_H)) {
+
+				processObjectName(line);
 			} else if (line.startsWith(OBJ_SMOOTHING_GROUP)) {
 				processSmoothingGroup(line);
 			} else if (line.startsWith(OBJ_POINT)) {
@@ -619,17 +620,15 @@ public class Parse {
 	// > materials. There is no default.
 	private void processMaterialLib(String line) throws FileNotFoundException, IOException {
 		String[] matlibnames = StringUtils.parseWhitespaceList(line.substring(OBJ_MTLLIB.length()).trim());
-		
 
-			for (int loopi = 0; loopi < matlibnames.length; loopi++) {
-				try {
-					parseMtlFile(matlibnames[loopi]);
-				} catch (FileNotFoundException e) {
-					log.log(SEVERE, "Can't find material file name='" + matlibnames[loopi]+ "', e=" + e);
-				}
+		for (int loopi = 0; loopi < matlibnames.length; loopi++) {
+			try {
+				parseMtlFile(matlibnames[loopi]);
+			} catch (FileNotFoundException e) {
+				log.log(SEVERE, "Can't find material file name='" + matlibnames[loopi] + "', e=" + e);
 			}
 		}
-	
+	}
 
 	private void processUseMaterial(String line) {
 		builder.setCurrentUseMaterial(line.substring(OBJ_USEMTL.length()).trim());
