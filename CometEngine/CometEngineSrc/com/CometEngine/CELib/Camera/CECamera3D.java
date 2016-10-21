@@ -45,8 +45,10 @@ public class CECamera3D extends CECamera {
 
 	private void setDefault() {
 		ProjectionMatrix.resetIDENTITY();
+		CameraMovemenetMatrix.resetIDENTITY();
 		CERenderer rnederer = CometEngine.getInstance().getRenderer();
 		CEMatrix4f.perspective(ProjectionMatrix, FOV, rnederer.getRenderWidth() / rnederer.getRenderHeight(), 1, FAR);
+		
 	}
 
 	@Override

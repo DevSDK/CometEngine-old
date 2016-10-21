@@ -1,10 +1,6 @@
 package TESTSCENES;
 
-
-
-
 import java.util.ArrayList;
-
 import com.CometEngine.CometEngine;
 import com.CometEngine.CELib.BoundBox.CEBoundBox;
 import com.CometEngine.CELib.Button.CEButton;
@@ -34,7 +30,7 @@ import com.CometEngine.Resrouce.CEModelResource;
 
 public class TESTSCENE2 extends CEScene {
 	CEScene SCENE = this;
-
+ 
 	public void tick() {
 
 	}

@@ -2,8 +2,6 @@ package com.CometEngine.Util.Meth;
 
 import java.nio.FloatBuffer;
 
-
- 
 public class CEMatrix4f {
 	private float m00, m10, m20, m30;
 	private float m01, m11, m21, m31;
@@ -267,15 +265,15 @@ public class CEMatrix4f {
 		float x = ax;
 		float y = ay;
 		float z = az;
-		m00 = x * x * (1f - c) + c;
-		m01 = y * x * (1f - c) + z * s;
-		m02 = x * z * (1f - c) - y * s;
-		m10 = x * y * (1f - c) - z * s;
-		m11 = y * y * (1f - c) + c;
-		m12 = y * z * (1f - c) + x * s;
-		m20 = x * z * (1f - c) + y * s;
-		m21 = y * z * (1f - c) - x * s;
-		m22 = z * z * (1f - c) + c;
+		m00 =  x * x * (1f - c) + c;
+		m01 =  y * x * (1f - c) + z * s;
+		m02 =  x * z * (1f - c) - y * s;
+		m10 =  x * y * (1f - c) - z * s;
+		m11 =  y * y * (1f - c) + c;
+		m12 =  y * z * (1f - c) + x * s;
+		m20 =  x * z * (1f - c) + y * s;
+		m21 =  y * z * (1f - c) - x * s;
+		m22 =  z * z * (1f - c) + c;
 		return this;
 	}
 

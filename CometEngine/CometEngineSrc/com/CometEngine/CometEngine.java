@@ -107,7 +107,6 @@ public class CometEngine {
 
 		if (renderer != null)
 			renderer.init();
-
 	}
 
 	private void initResource() {

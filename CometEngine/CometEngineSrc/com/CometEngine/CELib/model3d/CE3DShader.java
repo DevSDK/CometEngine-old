@@ -3,6 +3,7 @@ package com.CometEngine.CELib.model3d;
 import java.nio.FloatBuffer;
 
 import com.CometEngine.Renderer.Shader.ShaderProgram;
+import com.CometEngine.Util.Buffer.CEBufferUtils;
 import com.CometEngine.Util.Meth.CEMatrix4f;
 
 public class CE3DShader extends ShaderProgram {
@@ -20,8 +21,8 @@ public class CE3DShader extends ShaderProgram {
 	private int CameraMatrix = 0;
 	private int ProjectionMatrix = 0;
 
-	private final FloatBuffer buffer = FloatBuffer.allocate(16);
-
+	private final FloatBuffer buffer = CEBufferUtils.CreateFloatBuffer(16);
+ 
 	private CE3DShader() {
 		super(VertexShader_FileName, FragmenetShder_FileName);
 	}
@@ -45,7 +46,7 @@ public class CE3DShader extends ShaderProgram {
 	@Override
 	protected void LinkUnifroms() {
 		ModelViewMatrix = super.getUniformLoction("ModelViewMatrix");
-		CameraMatrix = super.getUniformLoction("CmaeraMatrix");
+		CameraMatrix = super.getUniformLoction("CameraMatrix");
 		ProjectionMatrix = super.getUniformLoction("glProjection");
 	}
 
@@ -54,7 +55,7 @@ public class CE3DShader extends ShaderProgram {
 
 		super.bindAttribute(0, "Pos");
 
-		super.bindAttribute(0, "Normal");
+		super.bindAttribute(1, "Normal");
 		super.bindAttribute(2, "Tex");
 	}
 

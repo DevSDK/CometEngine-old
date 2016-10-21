@@ -10,6 +10,8 @@ import com.CometEngine.FileUtil.CEFileUtil;
 import com.CometEngine.FileUtil.Handle.CEFileReadHandle;
 import com.CometEngine.Model.obj.builder.ObjecBuilder;
 import com.CometEngine.Model.obj.parser.Parse;
+import com.jumi.JUMILoader;
+import com.jumi.scene.JUMIScene;
 
 public class CEModelLoader {
 	private static CEModelLoader Instance = new CEModelLoader();
@@ -17,10 +19,13 @@ public class CEModelLoader {
 	public static CEModelLoader getInstance() {
 		return Instance;
 	}
-
+	
 	public void LoadModel(final String FilePath, final CEModelResource Model) {
+		
+		
 		CEFileUtil.getInstence().ReadResoruceToAsync(FilePath, new CEFileReadHandle() {
-
+		
+			
 			@Override
 			public void failure(Throwable e) {
 				System.err.println("FALLURE FILE LOAD");
@@ -30,16 +35,11 @@ public class CEModelLoader {
 
 			@Override
 			public void complite(ByteBuffer data) {
-				if (FilePath.endsWith("obj")) {
-					ObjecBuilder bulder = new ObjecBuilder(FilePath);
-					try {
-						Parse parser = new Parse(bulder, data, FilePath);
-						Model.SetBuilder(bulder);
+				if (FilePath.endsWith("obj") || FilePath.endsWith("fbx")) {
+						JUMIScene  modelSpace = JUMILoader.loadModel(data, FilePath);
+						
+						Model.setModelSpace(modelSpace);
 						Model.setIsLoaded(true);
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
 
 					return;
 				}
@@ -48,3 +48,4 @@ public class CEModelLoader {
 		});
 	}
 }
+//TODO: 하나의 통합 인터페이스 제공 But MetaFile 안에 Matrerial Data를 가지지 않을경우 추가적인 작업이 가능하도록 구현.

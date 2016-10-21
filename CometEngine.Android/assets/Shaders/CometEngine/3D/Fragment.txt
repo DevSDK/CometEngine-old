@@ -1,0 +1,27 @@
+#version 150
+uniform vec4 gColor;
+uniform sampler2D textureSampler;
+in vec2 cood;
+in vec3 normalse;
+in vec3 light;
+in vec3 Eye;
+in vec4 Pos_V;
+out vec4 gl_FragColor;
+void main(void)
+{ 
+    vec3  fvLightDirection = normalize( Pos_V.xyz - light );
+   vec3  fvNormal         = normalize( normalse );
+   float fNDotL           = dot( fvNormal, fvLightDirection ); 
+   
+   vec3  fvReflection     = normalize( fvNormal - fvLightDirection ); 
+   vec3  fvViewDirection  = normalize( Eye );
+   float fRDotV           = max( 0.0, dot( fvNormal, fvViewDirection));
+   
+   vec4  fvTotalAmbient   = vec4(0.4f,0.4f,0.4f,1); 
+   vec4  fvTotalDiffuse   = vec4(vec3(0.6f,0.6f,0.6f) * fNDotL,1); 
+
+   vec4  fvTotalSpecular  = vec4(0.8f,0.8f,0.8f,1) * ( pow( fRDotV, 64 ) );
+   
+   gl_FragColor = vec4(0.4f,0.4f,0.4f ,1 ) +  fvTotalDiffuse ;  
+   
+}

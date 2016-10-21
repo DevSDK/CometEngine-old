@@ -1,0 +1,32 @@
+#version 150
+uniform mat4 glProjection;
+uniform mat4 ModelViewMatrix;
+uniform mat4 CameraMatrix;
+
+
+in  vec3 Pos;
+in  vec3 Normal;
+in  vec2 Tex;
+
+out vec2 cood;
+out vec3 normalse;
+out vec4 colorPos;
+out vec3 Eye;
+out vec3 light;
+out vec4 Pos_V;
+
+void main(void)
+{
+	
+  vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
+  
+	 vec4 fvObjectPosition =  CameraMatrix * ModelViewMatrix * Vertex;
+   Eye  = vec3(0,0,1);
+   light = ( ModelViewMatrix * vec4(1000,1000,1000,1)  ).xyz;
+   normalse =   Normal;
+   cood = Tex;
+   colorPos = Vertex;
+   Pos_V =Vertex;
+    gl_Position =  glProjection*  CameraMatrix * ModelViewMatrix * Vertex ;
+}
+    

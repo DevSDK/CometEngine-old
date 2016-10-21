@@ -9,10 +9,6 @@ package com.CometEngine.Model.obj.builder;
 // In addition this code may also be used under the "unlicense" described
 // at http://unlicense.org/ .  See the file UNLICENSE in the repo.
 
-import java.util.*;
-import java.text.*;
-import java.io.*;
-import java.io.IOException;
 
 public class VertexGeometric {
 
@@ -27,10 +23,7 @@ public class VertexGeometric {
     }
 
     public String toString() {
-        if (null == this) {
-            return "null";
-        } else {
             return x + "," + y + "," + z;
-        }
+        
     }
 }

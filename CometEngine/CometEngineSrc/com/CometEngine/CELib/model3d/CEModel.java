@@ -1,24 +1,31 @@
 package com.CometEngine.CELib.model3d;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.CometEngine.CELib.Object.CERenderableObject;
+import com.CometEngine.CELib.Scene.CESceneManager;
 import com.CometEngine.Model.obj.builder.Face;
 import com.CometEngine.Model.obj.builder.FaceVertex;
+import com.CometEngine.Renderer.CEGL;
+import com.CometEngine.Renderer.CEMatrixStack;
+import com.CometEngine.Renderer.Texture.CETexture2D;
+import com.CometEngine.Renderer.Texture.CETextureManager;
 import com.CometEngine.Renderer.VAO.CEVAO;
 import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Resrouce.CEModelLoader;
 import com.CometEngine.Resrouce.CEModelResource;
+import com.jumi.scene.objects.JUMIMesh;
 
 public class CEModel extends CEObject3D {
 
-	CEModelResource Model;
-
-	CEVAO RenderVAO;
-
-	private ArrayList<String> GroupList = null;
-	private ArrayList<String> ObjectList = null;
-
+	private CEModelResource Model;
+	private final HashMap<CEVAO, JUMIMesh> MashTable = new HashMap<CEVAO,JUMIMesh>();
+	private CEVAO[] VaoArray;
+	private int[] IndexSizes;
+	
+	
+	private int indeces = 0;
 	private boolean isLoadedResorce = false;
 
 	private CE3DShader shader = CE3DShader.getInstance();
@@ -30,87 +37,37 @@ public class CEModel extends CEObject3D {
 		return obj;
 	}
 
-	private void initVertex() {
+	private void setTexture(JUMIMesh mesh) {
 
-		GroupList = Model.getGroups();
-		ObjectList = Model.getObjects();
-
-		// 사각형을 삼각형으로 바꿧을때의 VertexCounter 도 고려하도록 설계하던, ArrayList를 이용해 최종본을 뽑든
-		// 해야지.
-
-		/////// FOR TESTING//////
-		int indeces = 0;
-		ArrayList<Integer> Indeces = new ArrayList<Integer>();
-		ArrayList<Float> Vertexs = new ArrayList<Float>();
-		ArrayList<Float> Normals = new ArrayList<Float>();
-		ArrayList<Float> Texcoods = new ArrayList<Float>();
-		//// TEST!!!////
-
-		int itor_for_array = 0;
-
-		for (int i = 0; i < ObjectList.size(); i++) {
-
-			for (ArrayList<Face> f : Model.getFaceTree().get(ObjectList.get(i)).values()) {
-
-				for (int j = 0; j < f.size(); j++) {
-
-					ArrayList<FaceVertex> VertexList = f.get(j).vertices;
-
-					for (int vertex_iter = 0; vertex_iter < f.get(j).vertices.size(); vertex_iter++) {
-
-						/* FOR TESTING */
-						if (VertexList.size() == 3) {
-
-							Vertexs.add(VertexList.get(vertex_iter).v.x);
-							Vertexs.add(VertexList.get(vertex_iter).v.y);
-							Vertexs.add(VertexList.get(vertex_iter).v.z);
-
-							Normals.add(VertexList.get(vertex_iter).n.x);
-							Normals.add(VertexList.get(vertex_iter).n.y);
-							Normals.add(VertexList.get(vertex_iter).n.z);
-
-							Texcoods.add(VertexList.get(vertex_iter).t.u);
-							Texcoods.add(VertexList.get(vertex_iter).t.v);
-
-							indeces++;
-
-							Indeces.add(indeces);
-
-						}
-
-						/* TESTING END */
-
-					}
-
-				}
-			}
-
-		}
-		float[] ARRAY_Vertex = new float[Vertexs.size()];
-		int[] indeces_array = new int[Indeces.size()];
-
-		for (int i = 0; i < ARRAY_Vertex.length; i++) {
-			ARRAY_Vertex[i] = Vertexs.get(i);
-		}
-		for (int i = 0; i < Indeces.size(); i++) {
-			indeces_array[i] = Indeces.get(i);
-		}
-		for (int i = 0; i < Texcoods.size(); i++) {
-
-		}
-		CEVboObject[] objs = new CEVAO.CEVboObject[] { new CEVAO.CEVboObject(0, 3, Vertexs),
-				new CEVAO.CEVboObject(1, 3, Normals) };
-
-		RenderVAO = CEVAO.CreateWithIndics(null, indeces_array, objs);
-		//
 	}
 
 	private void RenderInit() {
 		if (isLoadedResorce == false) {
-			initVertex();
+			JUMIMesh[] meshs = Model.getModelSpace().getAllMeshes();
+
+			VaoArray = new CEVAO[meshs.length];
+			IndexSizes = new int[meshs.length];
+
+			for (int i = 0; i < Model.getModelSpace().getAllMeshes().length; i++) {
+
+				VaoArray[i] = CEVAO.CreateWithIndics(null, meshs[i].indices,
+						new CEVboObject[] { new CEVboObject(0, 3, meshs[i].vertices)
+								,new CEVboObject(2, 2, meshs[i].uvs), new CEVboObject(1, 3, meshs[i].normals) });
+				IndexSizes[i] = meshs[i].indices.length;
+			}
+
 			isLoadedResorce = true;
 		}
 
+	}
+ 
+	private boolean Loaded() {
+		for (int i = 0; i < VaoArray.length; i++) {
+			if (VaoArray[i].isGLLoaded() == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -124,14 +81,50 @@ public class CEModel extends CEObject3D {
 		if (Model.isLoaded() == false) {
 			return;
 		}
+
 		RenderInit();
 
-		int vaoID = RenderVAO.getID();
-		shader.Start();
+		if (Loaded() == false)
+			return;
+		CEGL.Enable(CEGL.GL_DEPTH_TEST);
 		
+		
+		
+		ModelViewMatrix.resetIDENTITY();
+		ModelViewMatrix.scale(0.1f, 0.1f, 0.1f);
+		ModelViewMatrix.translate(0, 0, (float) -TESTER);
+		ModelViewMatrix.rotate((float) TESTER, 0, 1, 0);
+		shader.Start();
+		shader.setProjectionMatrix(this.mCamera.getPorjection());
+		shader.setCamreaMatrix(this.mCamera.getMovementMatrix());
+		shader.setModelViewMatrix(this.ModelViewMatrix);
+
+		for (int i = 0; i < VaoArray.length; i++) {
+			RenderVAO(VaoArray[i], IndexSizes[i]);
+		}
 		shader.Stop();
 
+		TESTER += 0.01;
+
+		CEGL.Disable(CEGL.GL_DEPTH_TEST);
 	}
+
+	private void RenderVAO(CEVAO vao, int indexSize) {
+
+		CEGL.BindVertexArray(vao.getID());
+		CEGL.EnableVertexAttribArray(0);
+		CEGL.EnableVertexAttribArray(1);
+		CEGL.EnableVertexAttribArray(2);
+		CEGL.DrawElements(CEGL.GL_TRIANGLES, indexSize, CEGL.GL_UNSIGNED_INT, 0);
+		CEGL.DisableVertexAttribArray(0);
+		CEGL.DisableVertexAttribArray(1);
+		CEGL.DisableVertexAttribArray(2);
+
+		CEGL.BindVertexArray(0);
+
+	}
+
+	double TESTER = 0;
 
 	@Override
 	public void CleanUp() {
@@ -141,6 +134,7 @@ public class CEModel extends CEObject3D {
 	private CEModel(String file) {
 
 		Model = new CEModelResource(file);
+		this.mCamera = CESceneManager.getInstance().NowRender3DCamera;
 
 		CEModelLoader.getInstance().LoadModel(file, Model);
 

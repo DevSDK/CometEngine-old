@@ -21,7 +21,7 @@ public class CEAndroidAsyncFileIO {
 	}
 
 	public static CEAndroidAsyncFileIO getInstance() {
-		return Instance;
+		return Instance; 
 	}
 
 	class FileLoader extends AsyncTask<Object, Void, Void> {

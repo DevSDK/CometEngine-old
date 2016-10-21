@@ -31,7 +31,7 @@ public class CEDeskTopFileUtil extends CEFileUtil {
 		byte[] resBytes = null;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-		byte[] buffer = new byte[1024];
+		byte[] buffer = new byte[2048];
 		int read = -1;
 		while ((read = is.read(buffer)) != -1) {
 			bos.write(buffer, 0, read);

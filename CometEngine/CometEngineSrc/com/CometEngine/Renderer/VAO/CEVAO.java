@@ -8,7 +8,6 @@ import java.util.HashMap;
 import com.CometEngine.Renderer.CEGL;
 import com.CometEngine.Renderer.CEGLResource;
 import com.CometEngine.Renderer.CEGLResourceManager;
-import com.CometEngine.Renderer.VAO.CEVAO.CEVboObject;
 import com.CometEngine.Util.Buffer.CEBufferUtils;
 
 public class CEVAO extends CEGLResource {
@@ -19,7 +18,7 @@ public class CEVAO extends CEGLResource {
 	private int glStatment = CEGL.GL_STATIC_DRAW;
 	private Object ManagementKey = null;
 	private IntBuffer IboData = null;
-	private CEVboObject[] VboData = null;
+	private CEVboObject[] VboData ;
 
 	public static class CEVboObject {
 		public CEVboObject(int index, int coordsize, float[] vertexs) {

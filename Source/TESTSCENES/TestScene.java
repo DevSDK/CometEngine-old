@@ -92,10 +92,6 @@ public class TestScene extends CEScene {
 		label2 = CETextLabel.CreateBMPText(CEBMPFont.create("font.fnt"), 0.4f, true, "Comet Engine Tester", "DSM !",
 				"CometEngineTester", "CometEngineTester", "CometEngineTester");
 
-		CESkyBox skybox = CESkyBox.Create(1000, new String[] { "skyBox/top.png", "skyBox/bottom.png",
-				"skyBox/front.png", "skyBox/back.png", "skyBox/right.png", "skyBox/left.png" });
-		this.setSkyBox(skybox);
-
 		CEEventListenerKeyboard listener = CEEventListenerKeyboard.Create(this);
 		listener.CallBack = new CEEventListenerKeyboard.KeyBoardEventCallBack() {
 			@Override
@@ -174,7 +170,11 @@ public class TestScene extends CEScene {
 		sprite2.getPosition().x = 50;
 		sprite2.setCamera(Cam);
 
-		CEModel model = CEModel.CreateWithObjFile("3dTest/AWP_Dragon_Lore.obj");
+		CESkyBox skybox = CESkyBox.Create(1000, new String[] { "skybox/top.png", "skybox/bottom.png",
+				"skybox/front.png", "skybox/back.png", "skybox/right.png", "skybox/left.png" });
+		this.setSkyBox(skybox);
+
+		CEModel model = CEModel.CreateWithObjFile("3dTest/Handgun_Obj/Handgun_obj.obj");
 		this.add(model);
 	}
 
