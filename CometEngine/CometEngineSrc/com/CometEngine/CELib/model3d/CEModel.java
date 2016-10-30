@@ -38,7 +38,7 @@ public class CEModel extends CEObject3D {
 	}
 
 	private void setTexture(JUMIMesh mesh) {
-
+		
 	}
 
 	private void RenderInit() {
@@ -86,9 +86,6 @@ public class CEModel extends CEObject3D {
 
 		if (Loaded() == false)
 			return;
-		CEGL.Enable(CEGL.GL_DEPTH_TEST);
-		
-		
 		
 		ModelViewMatrix.resetIDENTITY();
 		ModelViewMatrix.scale(0.1f, 0.1f, 0.1f);
@@ -98,7 +95,6 @@ public class CEModel extends CEObject3D {
 		shader.setProjectionMatrix(this.mCamera.getPorjection());
 		shader.setCamreaMatrix(this.mCamera.getMovementMatrix());
 		shader.setModelViewMatrix(this.ModelViewMatrix);
-
 		for (int i = 0; i < VaoArray.length; i++) {
 			RenderVAO(VaoArray[i], IndexSizes[i]);
 		}
@@ -106,7 +102,6 @@ public class CEModel extends CEObject3D {
 
 		TESTER += 0.01;
 
-		CEGL.Disable(CEGL.GL_DEPTH_TEST);
 	}
 
 	private void RenderVAO(CEVAO vao, int indexSize) {

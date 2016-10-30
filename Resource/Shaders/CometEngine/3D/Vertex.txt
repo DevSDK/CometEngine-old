@@ -19,8 +19,7 @@ void main(void)
 {
 	
   vec4 Vertex = vec4(Pos.x,Pos.y,Pos.z,1);
-  
-	 vec4 fvObjectPosition =  CameraMatrix * ModelViewMatrix * Vertex;
+  vec4 fvObjectPosition =  CameraMatrix * ModelViewMatrix * Vertex;
    Eye  = vec3(0,0,1);
    light = ( ModelViewMatrix * vec4(1000,1000,1000,1)  ).xyz;
    normalse =   Normal;

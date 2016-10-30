@@ -175,6 +175,7 @@ public class TestScene extends CEScene {
 		this.setSkyBox(skybox);
 
 		CEModel model = CEModel.CreateWithObjFile("3dTest/Handgun_Obj/Handgun_obj.obj");
+		
 		this.add(model);
 	}
 
