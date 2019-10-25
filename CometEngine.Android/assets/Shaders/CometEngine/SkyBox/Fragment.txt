@@ -1,8 +1,8 @@
 #version 150
 uniform samplerCube textureSampler;
 in vec3 cood;
-out vec4 gl_FragColor;
+out vec4 FragColor;
 void main(void)
 {    
-   gl_FragColor = texture(textureSampler, cood);
+   FragColor = texture(textureSampler, cood);
 }

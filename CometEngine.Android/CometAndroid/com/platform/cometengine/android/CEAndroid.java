@@ -25,12 +25,12 @@ public class CEAndroid {
 
 	public void INIT(Activity activity) {
 		activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		CEAndroidFilePath.InitFileSysten(activity.getResources(), activity);
 		surfaceView = new CEAndroidGLSurface(activity);
 		activity.setContentView(surfaceView);
-
 	}
 
 	public void Pause() {

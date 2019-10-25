@@ -81,7 +81,6 @@ public class CEAndroidGLSurface extends GLSurfaceView {
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_POINTER_UP:
-			System.out.println("Up TO " + id);
 			TouchDevice.TouchUpdate(ratx * event.getX(index), touchY, id, CETouchPad.CE_TOUCH_UP);
 			break;
 		case MotionEvent.ACTION_MOVE:

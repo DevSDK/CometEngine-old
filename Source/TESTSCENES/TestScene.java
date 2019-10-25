@@ -79,10 +79,8 @@ public class TestScene extends CEScene {
 	}
 
 	boolean paused = false;
-	CESprite2D spritecg = CESprite2D.Create("Wood_Roughness.jpg");
 
 	public TestScene() {
-		this.add(spritecg);
 		sprite = CESprite2D.Create("0.png");
 
 		sprite2 = CESprite2D.Create("1.png");
@@ -105,10 +103,7 @@ public class TestScene extends CEScene {
 					}
 				}
 				if (event.isKeyPush(CEKeyBoard.CE_KEY_SPACE, CEKeyBoard.CE_KEY_STATUS_PRESS)) {
-					if (CEBoundBox.getBoundingBoxAABB(spritecg)
-							.isContainBoundingBox(CEBoundBox.getBoundingBoxAABB(sprite3))) {
-						thisscene.remove(sprite3);
-					}
+
 				}
 			}
 		};
@@ -174,10 +169,8 @@ public class TestScene extends CEScene {
 				"skybox/front.png", "skybox/back.png", "skybox/right.png", "skybox/left.png" });
 		this.setSkyBox(skybox);
 
-		CEModel model = CEModel.CreateWithObjFile("3dTest/Handgun_Obj/Handgun_obj.obj");
 		
-		this.add(model);
-	}
+		}
 
 	CESchedule mainLoop;
 

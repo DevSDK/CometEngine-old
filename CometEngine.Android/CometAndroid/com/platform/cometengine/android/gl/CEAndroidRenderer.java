@@ -28,12 +28,12 @@ public class CEAndroidRenderer implements GLSurfaceView.Renderer {
 		this.width = width;
 		this.height = height;
 		CometEngine.getInstance().getSceneManager().setScene(CELaunchConfig.CurrentScene);
+
 	}
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		CometEngine.getInstance().getRenderer().RenderingCommands();
-
 	}
 
 	@Override

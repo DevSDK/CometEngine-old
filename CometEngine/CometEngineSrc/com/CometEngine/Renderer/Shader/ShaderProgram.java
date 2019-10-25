@@ -113,9 +113,10 @@ public abstract class ShaderProgram extends CEGLResource {
 		CEGL.ShaderSource(shaderID, source);
 		CEGL.CompileShader(shaderID);
 		if (CEGL.GetShaderi(shaderID, CEGL.GL_COMPILE_STATUS) == CEGL.GL_FALSE) {
-			System.out.println(CEGL.GetShaderInfoLog(shaderID, 500));
 
 			System.out.println("Shader Compile Error");
+			System.out.println("Filename : "+ FileName);
+			System.out.println(CEGL.GetShaderInfoLog(shaderID, 500));
 			System.exit(-1);
 		}
 

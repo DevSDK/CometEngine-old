@@ -46,6 +46,7 @@ public class CEAndroidGL implements CEGLInterface {
 
 	private static void CheckBuffer(Buffer buffer) {
 		if (buffer == null) {
+			System.err.println("CEGL Buffer is Nullpointer");
 			return;
 		}
 		if (buffer.limit() == 0) {
