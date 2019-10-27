@@ -98,7 +98,7 @@ public class Flappy_bird extends CEScene {
 
         }
 
-        mBird.getControlPoint().y = 1.0f;
+        mBird.getControlPoint().y = 0.5f;
         mBird.getControlPoint().x = 1.0f;
         mBird.getPosition().y = 700.0f;
         mBird.getPosition().x = 140.0f;
@@ -121,6 +121,7 @@ public class Flappy_bird extends CEScene {
                 if (key.isKeyPush(32, 1)) {
                     Jump();
                 }
+
             }
         };
         CEEventDispatcher.getInstance().addEventListener(KeyboardEvent, this);
@@ -144,9 +145,8 @@ public class Flappy_bird extends CEScene {
 
             @Override
             public void invoke(int arg0, float arg1, float arg2, CEEventTouch arg3) {
-                if (arg0 == CETouchPad.CE_TOUCH_DOWN) {
+                if (arg0 == CETouchPad.CE_TOUCH_DOWN)
                     Jump();
-                }
             }
         };
 
@@ -154,15 +154,15 @@ public class Flappy_bird extends CEScene {
     }
 
     private void Jump() {
+
         mYDirection = JUMP;
         mBird.setAngle(6.0f);
         this.StartSchedule(JumpSc);
     }
 
     private void Update() {
-        if (mBG_ImageQueue.size() <= 0) {
+        if (mBG_ImageQueue.size() <= 0)
             return;
-        }
         UpdateGrounds();
         ProcessesGamePlayer();
         mFpsCounter.setString("FPS:" + CometEngine.getInstance().getRenderer().getFPS());
@@ -173,6 +173,11 @@ public class Flappy_bird extends CEScene {
         if (mBird.getPosition().y > 100.0f || mYDirection != GRAVITY) {
             mBird.getPosition().y += mYDirection;
         }
+
+        if(mBird.getPosition().y < 200 || mBird.getPosition().y > 1080)
+            GameOver();;
+
+
     }
     private void UpdateGrounds() {
         CESprite2D image;
@@ -197,19 +202,16 @@ public class Flappy_bird extends CEScene {
     }
 
     private void UpdateTimer() {
-        if (TimerForSec >= 100) // Do not Edit
+        if (TimerForSec >= 100)
         {
             TIMER++;
             TimerDisplay.setString("SCORE(TIME) : " + TIMER);
             TimerForSec = 0;
-            if (MAXINUM_SPEED > OBSSPEED) {
+            if (MAXINUM_SPEED > OBSSPEED)
                 OBSSPEED += (1.0f / (float) MAXIMUMTIME) * (MAXINUM_SPEED - STARTSPEED);
-
-            }
 
         }
         TimerForSec++;
-
     }
 
     private boolean Collision(CESprite2D jumper, CESprite2D obs) {
@@ -222,8 +224,6 @@ public class Flappy_bird extends CEScene {
             genTimer = 0;
        //     GenTIME = getTimer();
         }
-
-
         for (int i = 0; i < mPipesActived.size(); i+=2) {
             mPipesActived.get(i).getPosition().x -= OBSSPEED;
             mPipesActived.get(i+1).getPosition().x -= OBSSPEED;
@@ -255,13 +255,25 @@ public class Flappy_bird extends CEScene {
         this.add(gameover);
 
         CEImageButton button = CEImageButton.Create("Images/Restart.png", new CEButton.CEButtonCallBack() {
-
             public void invoke(int arg0) {
                 if (arg0 == CEButton.END) {
                     Restart();
                 }
             }
         });
+
+        CEEventListenerKeyboard KeyboardEvent = CEEventListenerKeyboard.Create();
+
+        KeyboardEvent.CallBack = new CEEventListenerKeyboard.KeyBoardEventCallBack() {
+            public void KeyBoardEvent(CEEventKeyboard key) {
+                if (key.isKeyPush(32, 1)) {
+                    Restart();
+                }
+            }
+        };
+        CEEventDispatcher.getInstance().addEventListener(KeyboardEvent, this);
+
+
         button.getScale().x = 0.4f;
         button.getScale().y = 0.4f;
         button.getPosition().x = 300.0f;
@@ -289,6 +301,7 @@ public class Flappy_bird extends CEScene {
             System.out.println("[CE]{FB} Not enough pipes");
             return;
         }
+        float height = (float) (Math.random()*500f) + 300;
         CESprite2D gen = mPipeCollection.get(0);
         mPipeCollection.remove(0);
         CESprite2D gen2 = mPipeCollection.get(0);
@@ -297,14 +310,14 @@ public class Flappy_bird extends CEScene {
         gen.setActive(true);
         gen2.setActive(true);
 
-        gen.getControlPoint().y = 0f;
-        gen.getPosition().x = 2000.0f;
-        gen.getPosition().y = -500;
-        gen2.getPosition().x=2000.0f;
+        gen.getControlPoint().y = 1f;
+        gen.getPosition().x = 1400.0f;
+        gen.getPosition().y = height;
+
 
         gen2.getControlPoint().y = 1;
-        gen2.getPosition().x=2000.0f;
-        gen2.getPosition().y=800.0f;
+        gen2.getPosition().x=1400.0f;
+        gen2.getPosition().y=height+ HOLE_HEIGHT;
         gen2.setAngle(180.0f);
 
         mPipesActived.add(gen);
@@ -330,6 +343,8 @@ public class Flappy_bird extends CEScene {
     private float OBSSPEED = STARTSPEED;
     private float mYDirection = GRAVITY;
     private float HOLE_HEIGHT = 200;
+
+    private boolean toggle_debug = false;
 
     private CESprite2D mBird = CESprite2D.Create("fbres/bird.png");
     private CETextLabel mFpsCounter = null;

@@ -136,7 +136,6 @@ public class CEImageButton extends CEButton {
 
 	@Override
 	public void UnPick() {
-
 		handler.unPick();
 	}
 

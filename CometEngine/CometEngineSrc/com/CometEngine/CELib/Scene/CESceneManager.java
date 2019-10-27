@@ -30,7 +30,7 @@ public class CESceneManager {
 		setScene(scene);
 	}
 
-	public void setScene(CEScene scene) {
+	synchronized public void setScene(CEScene scene) {
 		ExitCurrentScene();
 		nowScene = scene;
 		NowRender3DCamera = scene.get3DCamera();

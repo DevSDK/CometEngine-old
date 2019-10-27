@@ -164,7 +164,11 @@ public class CEScene extends CERenderableObject {
 	protected void MANAGER_CALL_EXIT() {
 		isExited = true;
 		LinkedList<CEObject> childs = getChilds();
+		if(childs==null)
+			return;
 		for (CEObject obj : childs) {
+			if(obj == null)
+				continue;
 			if (obj instanceof CEPickableObject) {
 				((CEPickableObject) obj).UnPick();
 			}
